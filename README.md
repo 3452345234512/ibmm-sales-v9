@@ -6,12 +6,12 @@
 
 | Документ | Ссылка |
 |----------|--------|
-| **⚡ Главная (навигация)** | [Открыть →](https://htmlpreview.github.io/?https://github.com/3452345234512/ibmm-sales-v8/blob/main/output/index.html) |
-| **📊 Стратегия трансформации** | [Открыть →](https://htmlpreview.github.io/?https://github.com/3452345234512/ibmm-sales-v8/blob/main/output/sales_transformation_strategy.html) |
-| **💰 Система мотивации** | [Открыть →](https://htmlpreview.github.io/?https://github.com/3452345234512/ibmm-sales-v8/blob/main/output/motivation_system_v2.html) |
-| **💡 Рекомендации (триумвират)** | [Открыть →](https://htmlpreview.github.io/?https://github.com/3452345234512/ibmm-sales-v8/blob/main/output/recommendations.html) |
-| **🚀 Онбординг РОПа** | [Открыть →](https://htmlpreview.github.io/?https://github.com/3452345234512/ibmm-sales-v8/blob/main/output/rop_onboarding.html) |
-| **🚨 Ручное управление vs Система** | [Открыть →](https://htmlpreview.github.io/?https://github.com/3452345234512/ibmm-sales-v8/blob/main/output/manual_vs_system.html) |
+| **⚡ Главная (навигация)** | [Открыть →](https://htmlpreview.github.io/?https://github.com/3452345234512/ibmm-sales-v9/blob/main/output/index.html) |
+| **📊 Стратегия трансформации** | [Открыть →](https://htmlpreview.github.io/?https://github.com/3452345234512/ibmm-sales-v9/blob/main/output/sales_transformation_strategy.html) |
+| **💰 Система мотивации** | [Открыть →](https://htmlpreview.github.io/?https://github.com/3452345234512/ibmm-sales-v9/blob/main/output/motivation_system_v2.html) |
+| **💡 Рекомендации (триумвират)** | [Открыть →](https://htmlpreview.github.io/?https://github.com/3452345234512/ibmm-sales-v9/blob/main/output/recommendations.html) |
+| **🚀 Онбординг РОПа** | [Открыть →](https://htmlpreview.github.io/?https://github.com/3452345234512/ibmm-sales-v9/blob/main/output/rop_onboarding.html) |
+| **🚨 Ручное управление vs Система** | [Открыть →](https://htmlpreview.github.io/?https://github.com/3452345234512/ibmm-sales-v9/blob/main/output/manual_vs_system.html) |
 
 ## 📁 Структура проекта
 
