@@ -6,10 +6,10 @@
 
 | Документ | Ссылка |
 |----------|--------|
-| **📊 Стратегия трансформации** | [Открыть →](https://htmlpreview.github.io/?https://github.com/3452345234512/ibmm-sales-v7/blob/main/output/sales_transformation_strategy.html) |
-| **💰 Система мотивации** | [Открыть →](https://htmlpreview.github.io/?https://github.com/3452345234512/ibmm-sales-v7/blob/main/output/motivation_system_v2.html) |
-| **💡 Рекомендации (триумвират)** | [Открыть →](https://htmlpreview.github.io/?https://github.com/3452345234512/ibmm-sales-v7/blob/main/output/recommendations.html) |
-| **🚀 Онбординг РОПа** | [Открыть →](https://htmlpreview.github.io/?https://github.com/3452345234512/ibmm-sales-v7/blob/main/output/rop_onboarding.html) |
+| **📊 Стратегия трансформации** | [Открыть →](https://htmlpreview.github.io/?https://github.com/3452345234512/ibmm-sales-v8/blob/main/output/sales_transformation_strategy.html) |
+| **💰 Система мотивации** | [Открыть →](https://htmlpreview.github.io/?https://github.com/3452345234512/ibmm-sales-v8/blob/main/output/motivation_system_v2.html) |
+| **💡 Рекомендации (триумвират)** | [Открыть →](https://htmlpreview.github.io/?https://github.com/3452345234512/ibmm-sales-v8/blob/main/output/recommendations.html) |
+| **🚀 Онбординг РОПа** | [Открыть →](https://htmlpreview.github.io/?https://github.com/3452345234512/ibmm-sales-v8/blob/main/output/rop_onboarding.html) |
 
 ## 📁 Структура проекта
 
