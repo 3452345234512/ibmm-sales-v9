@@ -14,6 +14,7 @@
             --green: #10b981;
             --gold: #fbbf24;
             --blue: #3b82f6;
+            --purple: #a855f7;
             --text: #e2e8f0;
             --muted: #64748b;
         }
@@ -46,7 +47,7 @@
 
         body { padding-top: 60px; }
 
-        .container { max-width: 800px; margin: 0 auto; }
+        .container { max-width: 900px; margin: 0 auto; }
 
         h1 {
             font-size: 32px;
@@ -60,36 +61,6 @@
             color: var(--muted);
             margin-bottom: 30px;
             font-size: 16px;
-        }
-
-        .goal-box {
-            background: linear-gradient(135deg, rgba(239,68,68,0.15), rgba(239,68,68,0.05));
-            border: 2px solid var(--red);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 25px;
-        }
-
-        .goal-title {
-            color: var(--red);
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-        }
-
-        .goal-list {
-            list-style: none;
-        }
-
-        .goal-list li {
-            padding: 4px 0;
-            font-weight: 600;
-        }
-
-        .goal-list li::before {
-            content: "✓ ";
-            color: var(--red);
         }
 
         .section {
@@ -129,87 +100,212 @@
             color: var(--gold);
         }
 
-        .dont-list {
-            list-style: none;
+        /* Track styles */
+        .track-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border);
         }
 
-        .dont-list li {
-            padding: 6px 0;
+        .track-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .track-1 .track-icon { background: rgba(16,185,129,0.2); }
+        .track-2 .track-icon { background: rgba(59,130,246,0.2); }
+
+        .track-name {
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .track-1 .track-name { color: var(--green); }
+        .track-2 .track-name { color: var(--blue); }
+
+        .track-desc {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .subsection {
+            background: var(--bg);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 12px;
+        }
+
+        .subsection-title {
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .person-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .person-card {
+            background: rgba(255,255,255,0.03);
+            border-radius: 8px;
+            padding: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .person-name {
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .person-role {
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-bottom: 6px;
+        }
+
+        .role-star { background: var(--gold); color: black; }
+        .role-rop { background: var(--red); color: white; }
+        .role-closer { background: var(--purple); color: white; }
+        .role-ops { background: var(--blue); color: white; }
+        .role-system { background: var(--green); color: white; }
+
+        .person-task {
+            font-size: 12px;
             color: var(--muted);
         }
 
-        .dont-list li::before {
-            content: "❌ ";
-        }
-
-        .do-list {
+        .task-list {
             list-style: none;
         }
 
-        .do-list li {
-            padding: 6px 0;
+        .task-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
         }
 
-        .do-list li::before {
-            content: "✅ ";
-        }
+        .task-list li:last-child { border-bottom: none; }
 
-        .source-item {
-            background: var(--bg);
-            border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 8px;
-        }
-
-        .source-num {
-            color: var(--gold);
-            font-weight: 800;
-            margin-right: 8px;
-        }
-
-        .source-title {
-            font-weight: 600;
-        }
-
-        .kpi-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin: 15px 0;
-        }
-
-        .kpi-card {
-            background: var(--bg);
-            border-radius: 8px;
-            padding: 15px;
-            text-align: center;
-        }
-
-        .kpi-value {
-            font-size: 20px;
-            font-weight: 800;
+        .task-list li::before {
+            content: "→ ";
             color: var(--gold);
         }
 
-        .kpi-label {
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--green), var(--blue), var(--gold));
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -26px;
+            top: 4px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--green);
+            border: 2px solid var(--bg);
+        }
+
+        .timeline-item:nth-child(2)::before { background: var(--blue); }
+        .timeline-item:nth-child(3)::before { background: var(--purple); }
+        .timeline-item:nth-child(4)::before { background: var(--gold); }
+
+        .timeline-week {
             font-size: 11px;
             color: var(--muted);
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
-        .timeline-badge {
-            display: inline-block;
-            background: var(--red);
-            color: white;
-            padding: 3px 10px;
-            border-radius: 10px;
-            font-size: 11px;
+        .timeline-title {
             font-weight: 700;
-            margin-right: 8px;
+            margin: 4px 0;
         }
 
-        .final-quote {
+        .timeline-content {
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .rule-box {
+            background: rgba(251,191,36,0.1);
+            border: 1px solid var(--gold);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .rule-title {
+            color: var(--gold);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .comparison-table th, .comparison-table td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            font-size: 13px;
+        }
+
+        .comparison-table th {
+            color: var(--muted);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .tag-yes { background: var(--green); color: white; }
+        .tag-no { background: var(--red); color: white; }
+
+        .final-box {
             background: linear-gradient(135deg, rgba(251,191,36,0.1), rgba(251,191,36,0.02));
             border: 1px solid var(--gold);
             border-radius: 12px;
@@ -218,102 +314,14 @@
             margin: 20px 0;
         }
 
-        .final-quote p {
+        .final-text {
             font-size: 18px;
             font-weight: 700;
             color: var(--gold);
         }
 
-        /* Two Tracks */
-        .tracks {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin: 20px 0;
-        }
-
-        .track {
-            border-radius: 12px;
-            padding: 20px;
-        }
-
-        .track-money {
-            background: linear-gradient(135deg, rgba(16,185,129,0.1), rgba(16,185,129,0.02));
-            border: 1px solid var(--green);
-        }
-
-        .track-system {
-            background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(59,130,246,0.02));
-            border: 1px solid var(--blue);
-        }
-
-        .track-title {
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .track-money .track-title { color: var(--green); }
-        .track-system .track-title { color: var(--blue); }
-
-        .track-list {
-            list-style: none;
-            font-size: 13px;
-        }
-
-        .track-list li {
-            padding: 4px 0;
-            color: var(--muted);
-        }
-
-        .merge-section {
-            background: var(--card);
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 15px;
-            border: 1px solid var(--border);
-        }
-
-        .merge-title {
-            font-weight: 700;
-            margin-bottom: 10px;
-            color: var(--gold);
-        }
-
-        .merge-step {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            padding: 8px 0;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .merge-step:last-child { border-bottom: none; }
-
-        .merge-num {
-            background: var(--gold);
-            color: black;
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: 800;
-            flex-shrink: 0;
-        }
-
-        .merge-text {
-            font-size: 13px;
-        }
-
         @media (max-width: 600px) {
-            .tracks { grid-template-columns: 1fr; }
-            .kpi-grid { grid-template-columns: 1fr; }
+            .person-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -321,246 +329,335 @@
     <div class="banner">🔒 Секретно — Только для руководства</div>
 
     <div class="container">
-        <h1>СЕКРЕТНАЯ СТРАТЕГИЯ</h1>
-        <div class="subtitle">«Максимальный оборот за минимальный период»</div>
+        <h1>ДВА ПАРАЛЛЕЛЬНЫХ ПРОЦЕССА</h1>
+        <div class="subtitle">Деньги сейчас + Система на будущее</div>
 
-        <!-- Цель -->
-        <div class="goal-box">
-            <div class="goal-title">Цель на 30-90 дней</div>
-            <ul class="goal-list">
-                <li>Выжать максимальный оборот</li>
-                <li>Закрыть максимальные сделки</li>
-                <li>Не строить систему</li>
-                <li>Не чинить отдел</li>
-                <li>Не масштабировать</li>
-                <li>Не заниматься лидами, аналитикой, CRM "по уму"</li>
-            </ul>
-            <p style="margin-top: 12px; font-weight: 800; color: var(--red);">Только деньги. Сейчас.</p>
+        <!-- Принцип -->
+        <div class="section">
+            <div class="section-title"><span class="section-num">0</span> Главный принцип</div>
+            <div class="quote">Системы строят после денег. Деньги никогда не появляются после систем.</div>
+            <p style="color: var(--muted); font-size: 14px; margin-top: 10px;">Два трека работают параллельно. Не мешают друг другу. Потом — сливаются.</p>
         </div>
 
-        <!-- 1. Принцип -->
-        <div class="section">
-            <div class="section-title"><span class="section-num">1</span> Главный принцип</div>
-            <div class="quote">Мы не строим отдел продаж.<br>Мы эксплуатируем уже существующий денежный потенциал.</div>
-            <p style="color: var(--muted); font-size: 14px; margin-top: 10px;">Это не стратегия «навсегда». Это <strong>режим рейда / штурма / cash extraction mode</strong>.</p>
+        <!-- ТРЕК 1 -->
+        <div class="section track-1" style="border-color: var(--green);">
+            <div class="track-header">
+                <div class="track-icon">💰</div>
+                <div>
+                    <div class="track-name">ТРЕК 1: ДЕНЬГИ СЕЙЧАС</div>
+                    <div class="track-desc">Режим рейда. Cash extraction. 30-60 дней.</div>
+                </div>
+            </div>
+
+            <!-- Цель -->
+            <div class="subsection">
+                <div class="subsection-title">🎯 Цель</div>
+                <p style="font-size: 14px;">Максимальный оборот за минимальное время. Без построения системы.</p>
+            </div>
+
+            <!-- Кто участвует -->
+            <div class="subsection">
+                <div class="subsection-title">👥 Кто участвует</div>
+                <div class="person-grid">
+                    <div class="person-card">
+                        <div class="person-name">РОП (новый)</div>
+                        <span class="person-role role-rop">Руководитель</span>
+                        <div class="person-task">Координация, дожим крупных, переговоры 15М+</div>
+                    </div>
+                    <div class="person-card">
+                        <div class="person-name">Алексей Щепёткин</div>
+                        <span class="person-role role-ops">Операционный директор</span>
+                        <div class="person-task">Крупные сделки 20М+, экспертиза, закрытие</div>
+                    </div>
+                    <div class="person-card">
+                        <div class="person-name">Меркулов</div>
+                        <span class="person-role role-star">⭐ Звезда-клоузер</span>
+                        <div class="person-task">Крупные клиенты, своя база, высокий чек</div>
+                    </div>
+                    <div class="person-card">
+                        <div class="person-name">Полубатонов</div>
+                        <span class="person-role role-star">⭐ Звезда-клоузер</span>
+                        <div class="person-task">Крупные клиенты, своя база, высокий чек</div>
+                    </div>
+                    <div class="person-card">
+                        <div class="person-name">Цыпляев</div>
+                        <span class="person-role role-star">⭐ Звезда-клоузер</span>
+                        <div class="person-task">Крупные клиенты, своя база, высокий чек</div>
+                    </div>
+                    <div class="person-card">
+                        <div class="person-name">Бердников</div>
+                        <span class="person-role role-star">⭐ Звезда-клоузер</span>
+                        <div class="person-task">Крупные клиенты, своя база, высокий чек</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Что делают -->
+            <div class="subsection">
+                <div class="subsection-title">📋 Что делают</div>
+                <ul class="task-list">
+                    <li>Работа с существующей базой клиентов</li>
+                    <li>Дожим зависших сделок от 10М</li>
+                    <li>Апселл текущим клиентам</li>
+                    <li>Переманивание клиентов конкурентов</li>
+                    <li>Рефералы от текущих клиентов</li>
+                    <li>Заполнение площадки майнерами (хостинг)</li>
+                </ul>
+            </div>
+
+            <!-- Что НЕ делают -->
+            <div class="subsection">
+                <div class="subsection-title" style="color: var(--red);">🚫 Что НЕ делают</div>
+                <ul class="task-list">
+                    <li style="color: var(--red);">Не заполняют CRM "по правилам"</li>
+                    <li style="color: var(--red);">Не пишут отчёты</li>
+                    <li style="color: var(--red);">Не проходят обучение</li>
+                    <li style="color: var(--red);">Не работают с холодными лидами</li>
+                    <li style="color: var(--red);">Не тратят время на мелкие сделки</li>
+                </ul>
+            </div>
+
+            <!-- KPI -->
+            <div class="subsection">
+                <div class="subsection-title">📊 KPI Трека 1</div>
+                <table class="comparison-table">
+                    <tr>
+                        <td><strong>Оборот</strong></td>
+                        <td>Деньги на счету</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Крупные сделки</strong></td>
+                        <td>Количество закрытых от 15М</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Устройства</strong></td>
+                        <td>+N на площадке (хостинг)</td>
+                    </tr>
+                </table>
+                <p style="color: var(--muted); font-size: 12px;">Больше ничего. Никаких звонков, конверсий, отчётов.</p>
+            </div>
+
+            <div class="rule-box">
+                <div class="rule-title">⚡ Правило Трека 1</div>
+                <p style="font-size: 14px;">Люди из Трека 2 <strong>НЕ ТРОГАЮТ</strong> людей из Трека 1. Никаких "заполни CRM", "сделай отчёт". Они зарабатывают деньги.</p>
+            </div>
         </div>
 
-        <!-- 2. Что НЕ делаем -->
-        <div class="section">
-            <div class="section-title"><span class="section-num">2</span> Что мы НЕ делаем</div>
-            <ul class="dont-list">
-                <li>Не внедряем новую CRM</li>
-                <li>Не описываем воронки</li>
-                <li>Не оптимизируем маркетинг</li>
-                <li>Не увеличиваем количество лидов</li>
-                <li>Не обучаем всех менеджеров</li>
-                <li>Не лечим демотивацию</li>
-                <li>Не играем в «справедливость»</li>
-            </ul>
-            <div class="quote" style="margin-top: 15px; border-color: var(--red); color: var(--red);">«А давай сначала наладим…» — убивает оборот прямо сейчас.</div>
+        <!-- ТРЕК 2 -->
+        <div class="section track-2" style="border-color: var(--blue);">
+            <div class="track-header">
+                <div class="track-icon">🔧</div>
+                <div>
+                    <div class="track-name">ТРЕК 2: СИСТЕМА</div>
+                    <div class="track-desc">Инфраструктура. Процессы. Масштабирование.</div>
+                </div>
+            </div>
+
+            <!-- Цель -->
+            <div class="subsection">
+                <div class="subsection-title">🎯 Цель</div>
+                <p style="font-size: 14px;">Построить систему, в которую потом вольются все. CRM, воронки, роли, KPI, обучение.</p>
+            </div>
+
+            <!-- Кто участвует -->
+            <div class="subsection">
+                <div class="subsection-title">👥 Кто участвует</div>
+                <div class="person-grid">
+                    <div class="person-card">
+                        <div class="person-name">РОП (частично)</div>
+                        <span class="person-role role-rop">Руководитель</span>
+                        <div class="person-task">Контроль, утверждение процессов (10-20% времени)</div>
+                    </div>
+                    <div class="person-card">
+                        <div class="person-name">Ассистент / Аналитик</div>
+                        <span class="person-role role-system">Система</span>
+                        <div class="person-task">CRM, отчёты, воронки, дашборды</div>
+                    </div>
+                    <div class="person-card">
+                        <div class="person-name">ОКК (новый)</div>
+                        <span class="person-role role-system">Контроль качества</span>
+                        <div class="person-task">Аудит сделок, контроль CRM, отчёты</div>
+                    </div>
+                    <div class="person-card">
+                        <div class="person-name">Новые менеджеры</div>
+                        <span class="person-role role-system">Обучение</span>
+                        <div class="person-task">Хантеры/Фармеры — работают по системе с первого дня</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Что делают -->
+            <div class="subsection">
+                <div class="subsection-title">📋 Что делают</div>
+                <ul class="task-list">
+                    <li>Настройка CRM (воронки, этапы, поля)</li>
+                    <li>Создание скриптов и регламентов</li>
+                    <li>Разработка системы мотивации (Хантер/Фармер/Клоузер)</li>
+                    <li>Построение отчётности и дашбордов</li>
+                    <li>Обучение и адаптация новичков</li>
+                    <li>Работа с холодными лидами (отработка процесса)</li>
+                </ul>
+            </div>
+
+            <!-- Роли -->
+            <div class="subsection">
+                <div class="subsection-title">🎭 Роли в системе (готовим)</div>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Роль</th>
+                            <th>Функция</th>
+                            <th>Оклад</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong style="color: var(--gold);">🎯 Хантер</strong></td>
+                            <td>Холодный поиск, квалификация лидов</td>
+                            <td>60 000 ₽</td>
+                        </tr>
+                        <tr>
+                            <td><strong style="color: var(--green);">🌱 Фармер</strong></td>
+                            <td>Ведение сделок, работа с базой</td>
+                            <td>65 000 ₽</td>
+                        </tr>
+                        <tr>
+                            <td><strong style="color: var(--purple);">🏆 Клоузер</strong></td>
+                            <td>Закрытие крупных сделок</td>
+                            <td>80 000 ₽</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="color: var(--muted); font-size: 12px;">Подробнее: см. документ "Система мотивации"</p>
+            </div>
+
+            <!-- Документы -->
+            <div class="subsection">
+                <div class="subsection-title">📚 Документы Трека 2</div>
+                <ul class="task-list">
+                    <li><strong>Система мотивации</strong> — оклады, KPI, % от маржи, хостинг-бонус 500₽</li>
+                    <li><strong>Стратегия трансформации</strong> — 30/60/90 дней план</li>
+                    <li><strong>Рекомендации</strong> — структура, роли, зоны ответственности</li>
+                    <li><strong>Онбординг РОПа</strong> — кто есть кто, как работать со звёздами</li>
+                </ul>
+            </div>
+
+            <div class="rule-box" style="border-color: var(--blue); background: rgba(59,130,246,0.1);">
+                <div class="rule-title" style="color: var(--blue);">⚡ Правило Трека 2</div>
+                <p style="font-size: 14px;">Работаем тихо. Не лезем к тем, кто зарабатывает. Готовим инфраструктуру для слияния.</p>
+            </div>
         </div>
 
-        <!-- 3. Источники денег -->
+        <!-- Сравнение -->
         <div class="section">
-            <div class="section-title"><span class="section-num">3</span> Единственный источник денег</div>
+            <div class="section-title"><span class="section-num">★</span> Сравнение треков</div>
             
-            <p style="font-weight: 600; margin-bottom: 12px;">Работаем ТОЛЬКО с:</p>
-            <ul class="do-list">
-                <li>Крупными клиентами</li>
-                <li>Повторными клиентами</li>
-                <li>Тёплыми / полутёплыми контактами</li>
-                <li>Лидами с уже сформированным намерением</li>
-            </ul>
-            <p style="color: var(--red); font-size: 13px; margin-top: 10px;">Мелочь, проектники, «подумаем» — мимо.</p>
-
-            <p style="font-weight: 600; margin: 20px 0 12px;">Основные источники оборота:</p>
-            <div class="source-item"><span class="source-num">1.</span><span class="source-title">Существующая клиентская база</span></div>
-            <div class="source-item"><span class="source-num">2.</span><span class="source-title">Бывшие клиенты</span></div>
-            <div class="source-item"><span class="source-num">3.</span><span class="source-title">Зависшие сделки</span></div>
-            <div class="source-item"><span class="source-num">4.</span><span class="source-title">Апселл и расширение текущих контрактов</span></div>
-            <div class="source-item"><span class="source-num">5.</span><span class="source-title">Клиенты конкурентов с болью</span></div>
-            <p style="color: var(--gold); font-size: 13px; margin-top: 10px;">Это уже деньги. Они ближе всех.</p>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Параметр</th>
+                        <th style="color: var(--green);">Трек 1: Деньги</th>
+                        <th style="color: var(--blue);">Трек 2: Система</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Цель</td>
+                        <td>Оборот сейчас</td>
+                        <td>Инфраструктура</td>
+                    </tr>
+                    <tr>
+                        <td>Срок</td>
+                        <td>30-60 дней</td>
+                        <td>60-90 дней</td>
+                    </tr>
+                    <tr>
+                        <td>Участники</td>
+                        <td>РОП + звёзды + Алексей</td>
+                        <td>Ассистент + ОКК + новички</td>
+                    </tr>
+                    <tr>
+                        <td>CRM</td>
+                        <td><span class="tag tag-no">Минимум</span></td>
+                        <td><span class="tag tag-yes">Полностью</span></td>
+                    </tr>
+                    <tr>
+                        <td>Отчёты</td>
+                        <td><span class="tag tag-no">Нет</span></td>
+                        <td><span class="tag tag-yes">Да</span></td>
+                    </tr>
+                    <tr>
+                        <td>Обучение</td>
+                        <td><span class="tag tag-no">Нет</span></td>
+                        <td><span class="tag tag-yes">Да</span></td>
+                    </tr>
+                    <tr>
+                        <td>Холодные лиды</td>
+                        <td><span class="tag tag-no">Нет</span></td>
+                        <td><span class="tag tag-yes">Да</span></td>
+                    </tr>
+                    <tr>
+                        <td>Результат</td>
+                        <td>₽₽₽ на счету</td>
+                        <td>Готовая система</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
-        <!-- 4. Кто продаёт -->
-        <div class="section">
-            <div class="section-title"><span class="section-num">4</span> Кто продаёт</div>
-            <div class="quote">Продают не менеджеры.<br>Продают 3-5 сильных закрывальщиков + руководство.</div>
-            <p style="color: var(--muted); font-size: 14px; margin-top: 12px;">Остальные:</p>
-            <ul style="color: var(--muted); font-size: 14px; margin-left: 20px;">
-                <li>отсекаются</li>
-                <li>используются как «операторы сопровождения»</li>
-                <li>не участвуют вообще</li>
-            </ul>
-            <p style="color: var(--red); font-weight: 700; margin-top: 12px;">Никакой демократии.</p>
-        </div>
-
-        <!-- 5. Роль руководителя -->
-        <div class="section">
-            <div class="section-title"><span class="section-num">5</span> Роль руководителя</div>
-            <ul class="do-list">
-                <li>Лично участвует в переговорах</li>
-                <li>Лично дожимает сделки</li>
-                <li>Лично принимает решения по условиям</li>
-                <li>Лично заходит в сделки 30М+</li>
-            </ul>
-            <p style="color: var(--gold); font-size: 13px; margin-top: 10px;">Это ручное управление, сознательно.</p>
-        </div>
-
-        <!-- 6. Модель продаж -->
-        <div class="section">
-            <div class="section-title"><span class="section-num">6</span> Упрощённая модель продаж</div>
-            <div style="background: var(--bg); padding: 15px; border-radius: 8px; text-align: center; font-size: 16px; font-weight: 700;">
-                Лид → быстрый контакт → решение → деньги
-            </div>
-            <p style="font-weight: 600; margin: 15px 0 10px;">Ограничения:</p>
-            <ul style="color: var(--muted); font-size: 14px; margin-left: 20px;">
-                <li>1-2 созвона максимум</li>
-                <li>КП — только персональное</li>
-                <li>Срок принятия решения — жёсткий</li>
-            </ul>
-        </div>
-
-        <!-- 7. Условия -->
-        <div class="section">
-            <div class="section-title"><span class="section-num">7</span> Условия и давление</div>
-            <p style="font-weight: 600; margin-bottom: 10px;">Индивидуальные условия:</p>
-            <ul style="color: var(--muted); font-size: 14px; margin-left: 20px; margin-bottom: 15px;">
-                <li>Специальные цены</li>
-                <li>Временные условия</li>
-                <li>Лимитированные окна</li>
-                <li>«Закрываем сейчас — иначе нет»</li>
-            </ul>
-            <p style="font-weight: 600; margin-bottom: 10px;">Давление временем:</p>
-            <div class="quote">«Это окно сейчас. Потом — другие условия.»</div>
-            <p style="color: var(--red); font-weight: 700; margin-top: 10px;">Без стыда.</p>
-        </div>
-
-        <!-- 8. KPI -->
-        <div class="section">
-            <div class="section-title"><span class="section-num">8</span> KPI на этот период</div>
-            <p style="margin-bottom: 12px;">Всего <strong>3 цифры</strong>, которые имеют значение:</p>
-            <div class="kpi-grid">
-                <div class="kpi-card">
-                    <div class="kpi-value">₽</div>
-                    <div class="kpi-label">Оборот</div>
-                </div>
-                <div class="kpi-card">
-                    <div class="kpi-value">#</div>
-                    <div class="kpi-label">Крупных сделок</div>
-                </div>
-                <div class="kpi-card">
-                    <div class="kpi-value">Ø</div>
-                    <div class="kpi-label">Средний чек</div>
-                </div>
-            </div>
-            <p style="color: var(--muted); font-size: 13px;">Никаких звонков, конверсий, отчётов ради отчётов.</p>
-        </div>
-
-        <!-- 9. Контроль -->
-        <div class="section">
-            <div class="section-title"><span class="section-num">9</span> Контроль вместо системы</div>
-            <p style="font-weight: 600; margin-bottom: 10px;">Ежедневно:</p>
-            <ul class="do-list">
-                <li>Список активных сделок</li>
-                <li>Сумма потенциального закрытия</li>
-                <li>Что мешает закрыть сегодня / завтра</li>
-            </ul>
-            <p style="color: var(--muted); font-size: 13px; margin-top: 10px;">Всё. Можно в Google Sheet / Notion / Excel / даже в чате.</p>
-        </div>
-
-        <!-- 10. Жёсткость -->
-        <div class="section">
-            <div class="section-title"><span class="section-num">10</span> Деньги важнее отношений</div>
-            <p style="margin-bottom: 10px;">В этом режиме:</p>
-            <ul style="color: var(--muted); font-size: 14px; margin-left: 20px;">
-                <li>Можно быть жёстким</li>
-                <li>Можно быть неприятным</li>
-                <li>Можно быть «плохим полицейским»</li>
-            </ul>
-            <p style="margin-top: 12px;">Потом можно: извиниться, перестроить, выровнять систему.</p>
-            <p style="color: var(--red); font-weight: 700;">Сейчас — не время быть хорошими.</p>
-        </div>
-
-        <!-- 11. Срок -->
-        <div class="section">
-            <div class="section-title"><span class="section-num">11</span> Срок действия стратегии</div>
-            <p style="margin-bottom: 12px;"><span class="timeline-badge">30 дней</span> быстрый выстрел</p>
-            <p style="margin-bottom: 12px;"><span class="timeline-badge">60 дней</span> максимум выжать</p>
-            <p style="margin-bottom: 12px;"><span class="timeline-badge">90 дней</span> край</p>
-            <p style="color: var(--muted); font-size: 13px; margin-top: 10px;">После: либо деньги есть → строим систему, либо денег нет → потенциала нет.</p>
-        </div>
-
-        <!-- Ключевая мысль -->
-        <div class="final-quote">
-            <p>Системы строят после денег.<br>Деньги никогда не появляются после систем.</p>
-        </div>
-
-        <!-- ДВА ТРЕКА -->
+        <!-- Слияние -->
         <div class="section" style="border-color: var(--gold);">
-            <div class="section-title"><span class="section-num" style="background: var(--gold); color: black;">★</span> Два параллельных процесса</div>
+            <div class="section-title"><span class="section-num" style="background: var(--gold); color: black;">→</span> Слияние треков</div>
             
-            <div class="tracks">
-                <div class="track track-money">
-                    <div class="track-title">💰 ТРЕК 1: Деньги сейчас</div>
-                    <ul class="track-list">
-                        <li>РОП + 3-5 сильных</li>
-                        <li>Только крупные сделки</li>
-                        <li>Работа с базой</li>
-                        <li>Дожим зависших</li>
-                        <li>Ручное управление</li>
-                        <li>Никаких процессов</li>
-                        <li>Результат: деньги</li>
-                    </ul>
-                </div>
-                <div class="track track-system">
-                    <div class="track-title">🔧 ТРЕК 2: Система</div>
-                    <ul class="track-list">
-                        <li>1-2 человека отдельно</li>
-                        <li>CRM, воронки, отчёты</li>
-                        <li>Скрипты, регламенты</li>
-                        <li>Обучение новичков</li>
-                        <li>Аналитика</li>
-                        <li>Не мешают Треку 1</li>
-                        <li>Результат: инфраструктура</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="merge-section">
-                <div class="merge-title">📅 Как Трек 1 присоединяется к Треку 2</div>
-                
-                <div class="merge-step">
-                    <div class="merge-num">1</div>
-                    <div class="merge-text"><strong>Неделя 1-4:</strong> Треки работают параллельно. Не пересекаются. Деньги делают деньги, система строится тихо.</div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-week">Неделя 1-4</div>
+                    <div class="timeline-title">Параллельная работа</div>
+                    <div class="timeline-content">
+                        <strong>Трек 1:</strong> Звёзды работают, РОП дожимает крупных, деньги идут<br>
+                        <strong>Трек 2:</strong> CRM настраивается, воронки описываются, новички учатся
+                    </div>
                 </div>
                 
-                <div class="merge-step">
-                    <div class="merge-num">2</div>
-                    <div class="merge-text"><strong>Неделя 5-6:</strong> Трек 2 готовит базовую инфраструктуру. CRM настроен, воронка описана, отчёты работают.</div>
+                <div class="timeline-item">
+                    <div class="timeline-week">Неделя 5-6</div>
+                    <div class="timeline-title">Система готова</div>
+                    <div class="timeline-content">
+                        <strong>Трек 2:</strong> Базовая инфраструктура работает. CRM, отчёты, дашборды.<br>
+                        <strong>Трек 1:</strong> Продолжают работать как раньше. Не трогаем.
+                    </div>
                 </div>
                 
-                <div class="merge-step">
-                    <div class="merge-num">3</div>
-                    <div class="merge-text"><strong>Неделя 7-8:</strong> Первые люди из Трека 1 начинают вносить сделки в CRM. Без давления, постепенно.</div>
+                <div class="timeline-item">
+                    <div class="timeline-week">Неделя 7-8</div>
+                    <div class="timeline-title">Мягкий переход</div>
+                    <div class="timeline-content">
+                        РОП начинает вносить крупные сделки в CRM.<br>
+                        Звёзды пока работают по-старому, но видят систему.<br>
+                        Новички полностью в системе, показывают первые результаты.
+                    </div>
                 </div>
                 
-                <div class="merge-step">
-                    <div class="merge-num">4</div>
-                    <div class="merge-text"><strong>Неделя 9-12:</strong> Полное слияние. Все работают в системе. Режим рейда завершён.</div>
+                <div class="timeline-item">
+                    <div class="timeline-week">Неделя 9-12</div>
+                    <div class="timeline-title">Полное слияние</div>
+                    <div class="timeline-content">
+                        Все работают в единой системе.<br>
+                        Звёзды сохраняют особые условия, но в CRM.<br>
+                        Режим рейда завершён. Системный рост.
+                    </div>
                 </div>
-            </div>
-
-            <div style="background: var(--bg); padding: 15px; border-radius: 8px; margin-top: 15px;">
-                <p style="font-weight: 700; color: var(--gold); margin-bottom: 8px;">⚠️ Главное правило двух треков:</p>
-                <p style="font-size: 14px; color: var(--muted);">Люди из Трека 2 <strong>НЕ ТРОГАЮТ</strong> людей из Трека 1. Никаких "заполни CRM", "сделай отчёт", "пройди обучение". Они зарабатывают. Остальное — потом.</p>
             </div>
         </div>
 
-        <!-- Итого -->
-        <div class="section" style="text-align: center; border-color: var(--green);">
-            <p style="font-size: 14px; color: var(--muted); margin-bottom: 8px;">ИТОГ</p>
-            <p style="font-size: 20px; font-weight: 800;">30-60 дней режим рейда → деньги на счету → строим систему</p>
+        <!-- Итог -->
+        <div class="final-box">
+            <p style="font-size: 12px; color: var(--muted); margin-bottom: 8px;">ИТОГ</p>
+            <div class="final-text">
+                Неделя 1-6: деньги сейчас<br>
+                Неделя 7-12: слияние в систему<br>
+                Месяц 4+: системный рост
+            </div>
         </div>
 
     </div>
