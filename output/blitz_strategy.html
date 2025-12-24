@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLITZ — Максимум выручки за минимум времени</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0f;
+            --card: #14141c;
+            --border: #252530;
+            --red: #ef4444;
+            --green: #10b981;
+            --gold: #fbbf24;
+            --text: #f1f5f9;
+            --muted: #64748b;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            padding: 30px 20px;
+        }
+
+        .secret-banner {
+            background: var(--red);
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+        }
+
+        body { padding-top: 50px; }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 42px;
+            font-weight: 900;
+            color: var(--red);
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: var(--muted);
+            font-size: 16px;
+        }
+
+        .goal {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(239, 68, 68, 0.05));
+            border: 2px solid var(--red);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .goal-label {
+            font-size: 12px;
+            color: var(--red);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .goal-text {
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .section {
+            background: var(--card);
+            border-radius: 14px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .section-num {
+            background: var(--red);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 16px;
+            margin-right: 12px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .action {
+            background: var(--bg);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-left: 3px solid var(--green);
+        }
+
+        .action:last-child { margin-bottom: 0; }
+
+        .action-title {
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .action-desc {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .dont {
+            border-left-color: var(--red);
+            opacity: 0.7;
+        }
+
+        .dont .action-title {
+            color: var(--red);
+        }
+
+        .numbers {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 15px 0;
+        }
+
+        .num-card {
+            background: var(--bg);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .num-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--gold);
+        }
+
+        .num-label {
+            font-size: 11px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .week {
+            margin-bottom: 15px;
+        }
+
+        .week-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .week-title {
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .week-focus {
+            background: var(--gold);
+            color: black;
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .week-tasks {
+            color: var(--muted);
+            font-size: 13px;
+            padding-left: 15px;
+        }
+
+        .week-tasks li {
+            margin-bottom: 4px;
+        }
+
+        .rule {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .rule:last-child { border-bottom: none; }
+
+        .rule-icon {
+            font-size: 20px;
+        }
+
+        .rule-text {
+            font-size: 14px;
+        }
+
+        .highlight {
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid var(--gold);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .highlight-title {
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .highlight-text {
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .final {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.02));
+            border: 1px solid var(--green);
+            border-radius: 14px;
+            margin-top: 20px;
+        }
+
+        .final-label {
+            font-size: 12px;
+            color: var(--green);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .final-text {
+            font-size: 20px;
+            font-weight: 800;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="secret-banner">🔒 Секретно — Только для руководства</div>
+
+    <div class="container">
+        <div class="header">
+            <h1>BLITZ</h1>
+            <p>Максимум выручки за минимум времени</p>
+        </div>
+
+        <div class="goal">
+            <div class="goal-label">Цель</div>
+            <div class="goal-text">Большие деньги за 30-60 дней</div>
+        </div>
+
+        <!-- Принцип -->
+        <div class="section">
+            <div class="section-title"><span class="section-num">1</span> Принцип</div>
+            
+            <div class="action">
+                <div class="action-title">Только крупные сделки</div>
+                <div class="action-desc">Забить на мелочь. Фокус на сделках от 10-15М. Одна крупная = 50 мелких.</div>
+            </div>
+            
+            <div class="action">
+                <div class="action-title">Только горячие клиенты</div>
+                <div class="action-desc">Те, кто УЖЕ хочет купить. Не греть, не обучать — закрывать.</div>
+            </div>
+            
+            <div class="action">
+                <div class="action-title">Только быстрые решения</div>
+                <div class="action-desc">Клиент думает неделю — следующий. Нет времени ждать.</div>
+            </div>
+        </div>
+
+        <!-- Где брать -->
+        <div class="section">
+            <div class="section-title"><span class="section-num">2</span> Где брать крупных</div>
+            
+            <div class="action">
+                <div class="action-title">Старая база</div>
+                <div class="action-desc">Клиенты, которые уже покупали. Звонить: "Новая партия, спец.условия, 3 дня".</div>
+            </div>
+            
+            <div class="action">
+                <div class="action-title">Отвалившиеся сделки</div>
+                <div class="action-desc">CRM: все, кто был на финале и не купил. Причина ушла — звоним снова.</div>
+            </div>
+            
+            <div class="action">
+                <div class="action-title">Клиенты конкурентов</div>
+                <div class="action-desc">Кто недоволен. Кто ждёт поставку. Кто переплачивает. Переманивать агрессивно.</div>
+            </div>
+
+            <div class="action">
+                <div class="action-title">Рефералы от текущих</div>
+                <div class="action-desc">"Кого знаете, кто тоже хочет?" — самый тёплый лид.</div>
+            </div>
+        </div>
+
+        <!-- Не делать -->
+        <div class="section">
+            <div class="section-title"><span class="section-num">3</span> НЕ делать</div>
+            
+            <div class="action dont">
+                <div class="action-title">❌ Не строить систему</div>
+                <div class="action-desc">Никаких процессов, регламентов, автоматизаций. Это потом.</div>
+            </div>
+            
+            <div class="action dont">
+                <div class="action-title">❌ Не генерить лиды</div>
+                <div class="action-desc">Холодные звонки, реклама — долго. Работаем с тем, что есть.</div>
+            </div>
+            
+            <div class="action dont">
+                <div class="action-title">❌ Не анализировать</div>
+                <div class="action-desc">Отчёты, дашборды, метрики — потом. Сейчас продавать.</div>
+            </div>
+
+            <div class="action dont">
+                <div class="action-title">❌ Не обучать команду</div>
+                <div class="action-desc">Тренинги, скрипты — потом. Кто умеет — продаёт. Кто нет — не мешает.</div>
+            </div>
+        </div>
+
+        <!-- Формула -->
+        <div class="section">
+            <div class="section-title"><span class="section-num">4</span> Формула BLITZ</div>
+            
+            <div class="numbers">
+                <div class="num-card">
+                    <div class="num-value">10</div>
+                    <div class="num-label">Крупных в работе</div>
+                </div>
+                <div class="num-card">
+                    <div class="num-value">3</div>
+                    <div class="num-label">Закроются</div>
+                </div>
+                <div class="num-card">
+                    <div class="num-value">45М+</div>
+                    <div class="num-label">Выручка</div>
+                </div>
+            </div>
+
+            <div class="highlight">
+                <div class="highlight-title">Математика</div>
+                <div class="highlight-text">10 крупных клиентов × 30% конверсия = 3 сделки<br>3 сделки × 15М средний чек = 45М выручки</div>
+            </div>
+        </div>
+
+        <!-- План на 30 дней -->
+        <div class="section">
+            <div class="section-title"><span class="section-num">5</span> План на 30 дней</div>
+            
+            <div class="week">
+                <div class="week-header">
+                    <span class="week-title">Неделя 1</span>
+                    <span class="week-focus">СПИСОК</span>
+                </div>
+                <ul class="week-tasks">
+                    <li>Выгрузить всех крупных из базы</li>
+                    <li>Найти отвалившиеся сделки от 10М</li>
+                    <li>Составить список 30-50 целей</li>
+                </ul>
+            </div>
+
+            <div class="week">
+                <div class="week-header">
+                    <span class="week-title">Неделя 2</span>
+                    <span class="week-focus">КОНТАКТ</span>
+                </div>
+                <ul class="week-tasks">
+                    <li>Прозвонить весь список</li>
+                    <li>Выявить 10-15 горячих</li>
+                    <li>Назначить встречи/созвоны</li>
+                </ul>
+            </div>
+
+            <div class="week">
+                <div class="week-header">
+                    <span class="week-title">Неделя 3</span>
+                    <span class="week-focus">ДАВИТЬ</span>
+                </div>
+                <ul class="week-tasks">
+                    <li>Встречи, КП, переговоры</li>
+                    <li>Дожимать тёплых</li>
+                    <li>Закрыть первые 1-2 сделки</li>
+                </ul>
+            </div>
+
+            <div class="week">
+                <div class="week-header">
+                    <span class="week-title">Неделя 4</span>
+                    <span class="week-focus">ЗАКРЫТИЕ</span>
+                </div>
+                <ul class="week-tasks">
+                    <li>Дожать оставшихся</li>
+                    <li>Получить оплаты</li>
+                    <li>Попросить рефералов</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Правила -->
+        <div class="section">
+            <div class="section-title"><span class="section-num">6</span> Правила BLITZ</div>
+            
+            <div class="rule">
+                <div class="rule-icon">⚡</div>
+                <div class="rule-text"><strong>Скорость важнее качества.</strong> Лучше 10 быстрых касаний, чем 1 идеальное КП.</div>
+            </div>
+            
+            <div class="rule">
+                <div class="rule-icon">🎯</div>
+                <div class="rule-text"><strong>Крупные важнее мелких.</strong> 1 сделка на 15М > 15 сделок по 1М.</div>
+            </div>
+            
+            <div class="rule">
+                <div class="rule-icon">🔥</div>
+                <div class="rule-text"><strong>Горячие важнее холодных.</strong> Не тратить время на тех, кто "подумает".</div>
+            </div>
+            
+            <div class="rule">
+                <div class="rule-icon">💰</div>
+                <div class="rule-text"><strong>Деньги важнее договора.</strong> Договор без оплаты = ноль.</div>
+            </div>
+            
+            <div class="rule">
+                <div class="rule-icon">🚀</div>
+                <div class="rule-text"><strong>Сегодня важнее завтра.</strong> Каждый день — продажи. Не планирование.</div>
+            </div>
+        </div>
+
+        <!-- Кто делает -->
+        <div class="section">
+            <div class="section-title"><span class="section-num">7</span> Кто делает BLITZ</div>
+            
+            <div class="action">
+                <div class="action-title">РОП + 2-3 лучших</div>
+                <div class="action-desc">Не вся команда. Только те, кто умеет закрывать крупных.</div>
+            </div>
+            
+            <div class="action">
+                <div class="action-title">Подключить "звёзд"</div>
+                <div class="action-desc">Меркулов, Полубатонов, Цыпляев, Бердников — их экспертиза на крупных.</div>
+            </div>
+
+            <div class="action">
+                <div class="action-title">Алексей на крупных</div>
+                <div class="action-desc">Операционный директор подключается к сделкам от 20М+.</div>
+            </div>
+        </div>
+
+        <div class="final">
+            <div class="final-label">Результат BLITZ</div>
+            <div class="final-text">3-5 крупных сделок = 45-75М за месяц</div>
+        </div>
+
+    </div>
+</body>
+</html>
+
