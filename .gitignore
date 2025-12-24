@@ -1,0 +1,21 @@
+# Input files (private)
+input/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Temp files
+*.tmp
+*.bak
+

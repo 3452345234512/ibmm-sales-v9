@@ -6,6 +6,7 @@
 
 | Документ | Ссылка |
 |----------|--------|
+| **⚡ Главная (навигация)** | [Открыть →](https://htmlpreview.github.io/?https://github.com/3452345234512/ibmm-sales-v8/blob/main/output/index.html) |
 | **📊 Стратегия трансформации** | [Открыть →](https://htmlpreview.github.io/?https://github.com/3452345234512/ibmm-sales-v8/blob/main/output/sales_transformation_strategy.html) |
 | **💰 Система мотивации** | [Открыть →](https://htmlpreview.github.io/?https://github.com/3452345234512/ibmm-sales-v8/blob/main/output/motivation_system_v2.html) |
 | **💡 Рекомендации (триумвират)** | [Открыть →](https://htmlpreview.github.io/?https://github.com/3452345234512/ibmm-sales-v8/blob/main/output/recommendations.html) |
@@ -15,6 +16,7 @@
 
 ```
 └── output/                     # Готовые документы
+    ├── index.html                          # Главная страница (навигация)
     ├── sales_transformation_strategy.html  # Основная стратегия
     ├── motivation_system_v2.html           # Система мотивации
     ├── recommendations.html                # Рекомендации по структуре ОП
