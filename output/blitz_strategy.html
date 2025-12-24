@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BLITZ — Максимум выручки за минимум времени</title>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <title>🔒 СЕКРЕТНАЯ СТРАТЕГИЯ | IBMM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #0a0a0f;
-            --card: #14141c;
-            --border: #252530;
+            --card: #111118;
+            --border: #1f1f2a;
             --red: #ef4444;
             --green: #10b981;
             --gold: #fbbf24;
-            --text: #f1f5f9;
+            --blue: #3b82f6;
+            --text: #e2e8f0;
             --muted: #64748b;
         }
 
@@ -23,16 +24,16 @@
             font-family: 'Manrope', sans-serif;
             background: var(--bg);
             color: var(--text);
-            line-height: 1.5;
-            padding: 30px 20px;
+            line-height: 1.6;
+            padding: 20px;
         }
 
-        .secret-banner {
+        .banner {
             background: var(--red);
             color: white;
             text-align: center;
-            padding: 10px;
-            font-size: 11px;
+            padding: 12px;
+            font-size: 12px;
             font-weight: 700;
             letter-spacing: 3px;
             text-transform: uppercase;
@@ -43,452 +44,525 @@
             z-index: 100;
         }
 
-        body { padding-top: 50px; }
+        body { padding-top: 60px; }
 
-        .container {
-            max-width: 700px;
-            margin: 0 auto;
-        }
+        .container { max-width: 800px; margin: 0 auto; }
 
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .header h1 {
-            font-size: 42px;
+        h1 {
+            font-size: 32px;
             font-weight: 900;
-            color: var(--red);
-            margin-bottom: 10px;
-        }
-
-        .header p {
-            color: var(--muted);
-            font-size: 16px;
-        }
-
-        .goal {
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(239, 68, 68, 0.05));
-            border: 2px solid var(--red);
-            border-radius: 16px;
-            padding: 25px;
             text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .goal-label {
-            font-size: 12px;
-            color: var(--red);
-            text-transform: uppercase;
-            letter-spacing: 2px;
             margin-bottom: 8px;
         }
 
-        .goal-text {
-            font-size: 24px;
-            font-weight: 800;
+        .subtitle {
+            text-align: center;
+            color: var(--muted);
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .goal-box {
+            background: linear-gradient(135deg, rgba(239,68,68,0.15), rgba(239,68,68,0.05));
+            border: 2px solid var(--red);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .goal-title {
+            color: var(--red);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .goal-list {
+            list-style: none;
+        }
+
+        .goal-list li {
+            padding: 4px 0;
+            font-weight: 600;
+        }
+
+        .goal-list li::before {
+            content: "✓ ";
+            color: var(--red);
         }
 
         .section {
             background: var(--card);
-            border-radius: 14px;
-            padding: 25px;
-            margin-bottom: 20px;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
             border: 1px solid var(--border);
         }
 
         .section-num {
             background: var(--red);
             color: white;
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+            display: inline-block;
+            width: 26px;
+            height: 26px;
+            border-radius: 6px;
+            text-align: center;
+            line-height: 26px;
             font-weight: 800;
-            font-size: 16px;
-            margin-right: 12px;
+            font-size: 14px;
+            margin-right: 10px;
         }
 
         .section-title {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 700;
             margin-bottom: 15px;
-            display: flex;
-            align-items: center;
         }
 
-        .action {
+        .quote {
             background: var(--bg);
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 10px;
-            border-left: 3px solid var(--green);
+            border-left: 3px solid var(--gold);
+            padding: 12px 15px;
+            margin: 12px 0;
+            font-style: italic;
+            color: var(--gold);
         }
 
-        .action:last-child { margin-bottom: 0; }
-
-        .action-title {
-            font-weight: 700;
-            margin-bottom: 5px;
+        .dont-list {
+            list-style: none;
         }
 
-        .action-desc {
+        .dont-list li {
+            padding: 6px 0;
             color: var(--muted);
-            font-size: 14px;
         }
 
-        .dont {
-            border-left-color: var(--red);
-            opacity: 0.7;
+        .dont-list li::before {
+            content: "❌ ";
         }
 
-        .dont .action-title {
-            color: var(--red);
+        .do-list {
+            list-style: none;
         }
 
-        .numbers {
+        .do-list li {
+            padding: 6px 0;
+        }
+
+        .do-list li::before {
+            content: "✅ ";
+        }
+
+        .source-item {
+            background: var(--bg);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 8px;
+        }
+
+        .source-num {
+            color: var(--gold);
+            font-weight: 800;
+            margin-right: 8px;
+        }
+
+        .source-title {
+            font-weight: 600;
+        }
+
+        .kpi-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
+            gap: 10px;
             margin: 15px 0;
         }
 
-        .num-card {
+        .kpi-card {
             background: var(--bg);
-            border-radius: 10px;
+            border-radius: 8px;
             padding: 15px;
             text-align: center;
         }
 
-        .num-value {
-            font-size: 28px;
+        .kpi-value {
+            font-size: 20px;
             font-weight: 800;
             color: var(--gold);
         }
 
-        .num-label {
+        .kpi-label {
             font-size: 11px;
             color: var(--muted);
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
-        .week {
-            margin-bottom: 15px;
-        }
-
-        .week-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .week-title {
-            font-weight: 700;
-            font-size: 14px;
-        }
-
-        .week-focus {
-            background: var(--gold);
-            color: black;
+        .timeline-badge {
+            display: inline-block;
+            background: var(--red);
+            color: white;
             padding: 3px 10px;
             border-radius: 10px;
             font-size: 11px;
             font-weight: 700;
+            margin-right: 8px;
         }
 
-        .week-tasks {
-            color: var(--muted);
+        .final-quote {
+            background: linear-gradient(135deg, rgba(251,191,36,0.1), rgba(251,191,36,0.02));
+            border: 1px solid var(--gold);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .final-quote p {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        /* Two Tracks */
+        .tracks {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .track {
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .track-money {
+            background: linear-gradient(135deg, rgba(16,185,129,0.1), rgba(16,185,129,0.02));
+            border: 1px solid var(--green);
+        }
+
+        .track-system {
+            background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(59,130,246,0.02));
+            border: 1px solid var(--blue);
+        }
+
+        .track-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .track-money .track-title { color: var(--green); }
+        .track-system .track-title { color: var(--blue); }
+
+        .track-list {
+            list-style: none;
             font-size: 13px;
-            padding-left: 15px;
         }
 
-        .week-tasks li {
-            margin-bottom: 4px;
+        .track-list li {
+            padding: 4px 0;
+            color: var(--muted);
         }
 
-        .rule {
+        .merge-section {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 15px;
+            border: 1px solid var(--border);
+        }
+
+        .merge-title {
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--gold);
+        }
+
+        .merge-step {
             display: flex;
             align-items: flex-start;
-            gap: 12px;
-            padding: 12px 0;
+            gap: 10px;
+            padding: 8px 0;
             border-bottom: 1px solid var(--border);
         }
 
-        .rule:last-child { border-bottom: none; }
+        .merge-step:last-child { border-bottom: none; }
 
-        .rule-icon {
-            font-size: 20px;
-        }
-
-        .rule-text {
-            font-size: 14px;
-        }
-
-        .highlight {
-            background: rgba(251, 191, 36, 0.1);
-            border: 1px solid var(--gold);
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 15px;
-        }
-
-        .highlight-title {
-            color: var(--gold);
-            font-weight: 700;
-            font-size: 14px;
-            margin-bottom: 5px;
-        }
-
-        .highlight-text {
-            font-size: 13px;
-            color: var(--muted);
-        }
-
-        .final {
-            text-align: center;
-            padding: 30px;
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.02));
-            border: 1px solid var(--green);
-            border-radius: 14px;
-            margin-top: 20px;
-        }
-
-        .final-label {
+        .merge-num {
+            background: var(--gold);
+            color: black;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 12px;
-            color: var(--green);
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            font-weight: 800;
+            flex-shrink: 0;
         }
 
-        .final-text {
-            font-size: 20px;
-            font-weight: 800;
-            margin-top: 8px;
+        .merge-text {
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+            .tracks { grid-template-columns: 1fr; }
+            .kpi-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <div class="secret-banner">🔒 Секретно — Только для руководства</div>
+    <div class="banner">🔒 Секретно — Только для руководства</div>
 
     <div class="container">
-        <div class="header">
-            <h1>BLITZ</h1>
-            <p>Максимум выручки за минимум времени</p>
+        <h1>СЕКРЕТНАЯ СТРАТЕГИЯ</h1>
+        <div class="subtitle">«Максимальный оборот за минимальный период»</div>
+
+        <!-- Цель -->
+        <div class="goal-box">
+            <div class="goal-title">Цель на 30-90 дней</div>
+            <ul class="goal-list">
+                <li>Выжать максимальный оборот</li>
+                <li>Закрыть максимальные сделки</li>
+                <li>Не строить систему</li>
+                <li>Не чинить отдел</li>
+                <li>Не масштабировать</li>
+                <li>Не заниматься лидами, аналитикой, CRM "по уму"</li>
+            </ul>
+            <p style="margin-top: 12px; font-weight: 800; color: var(--red);">Только деньги. Сейчас.</p>
         </div>
 
-        <div class="goal">
-            <div class="goal-label">Цель</div>
-            <div class="goal-text">Большие деньги за 30-60 дней</div>
-        </div>
-
-        <!-- Принцип -->
+        <!-- 1. Принцип -->
         <div class="section">
-            <div class="section-title"><span class="section-num">1</span> Принцип</div>
-            
-            <div class="action">
-                <div class="action-title">Только крупные сделки</div>
-                <div class="action-desc">Забить на мелочь. Фокус на сделках от 10-15М. Одна крупная = 50 мелких.</div>
-            </div>
-            
-            <div class="action">
-                <div class="action-title">Только горячие клиенты</div>
-                <div class="action-desc">Те, кто УЖЕ хочет купить. Не греть, не обучать — закрывать.</div>
-            </div>
-            
-            <div class="action">
-                <div class="action-title">Только быстрые решения</div>
-                <div class="action-desc">Клиент думает неделю — следующий. Нет времени ждать.</div>
-            </div>
+            <div class="section-title"><span class="section-num">1</span> Главный принцип</div>
+            <div class="quote">Мы не строим отдел продаж.<br>Мы эксплуатируем уже существующий денежный потенциал.</div>
+            <p style="color: var(--muted); font-size: 14px; margin-top: 10px;">Это не стратегия «навсегда». Это <strong>режим рейда / штурма / cash extraction mode</strong>.</p>
         </div>
 
-        <!-- Где брать -->
+        <!-- 2. Что НЕ делаем -->
         <div class="section">
-            <div class="section-title"><span class="section-num">2</span> Где брать крупных</div>
-            
-            <div class="action">
-                <div class="action-title">Старая база</div>
-                <div class="action-desc">Клиенты, которые уже покупали. Звонить: "Новая партия, спец.условия, 3 дня".</div>
-            </div>
-            
-            <div class="action">
-                <div class="action-title">Отвалившиеся сделки</div>
-                <div class="action-desc">CRM: все, кто был на финале и не купил. Причина ушла — звоним снова.</div>
-            </div>
-            
-            <div class="action">
-                <div class="action-title">Клиенты конкурентов</div>
-                <div class="action-desc">Кто недоволен. Кто ждёт поставку. Кто переплачивает. Переманивать агрессивно.</div>
-            </div>
-
-            <div class="action">
-                <div class="action-title">Рефералы от текущих</div>
-                <div class="action-desc">"Кого знаете, кто тоже хочет?" — самый тёплый лид.</div>
-            </div>
+            <div class="section-title"><span class="section-num">2</span> Что мы НЕ делаем</div>
+            <ul class="dont-list">
+                <li>Не внедряем новую CRM</li>
+                <li>Не описываем воронки</li>
+                <li>Не оптимизируем маркетинг</li>
+                <li>Не увеличиваем количество лидов</li>
+                <li>Не обучаем всех менеджеров</li>
+                <li>Не лечим демотивацию</li>
+                <li>Не играем в «справедливость»</li>
+            </ul>
+            <div class="quote" style="margin-top: 15px; border-color: var(--red); color: var(--red);">«А давай сначала наладим…» — убивает оборот прямо сейчас.</div>
         </div>
 
-        <!-- Не делать -->
+        <!-- 3. Источники денег -->
         <div class="section">
-            <div class="section-title"><span class="section-num">3</span> НЕ делать</div>
+            <div class="section-title"><span class="section-num">3</span> Единственный источник денег</div>
             
-            <div class="action dont">
-                <div class="action-title">❌ Не строить систему</div>
-                <div class="action-desc">Никаких процессов, регламентов, автоматизаций. Это потом.</div>
-            </div>
-            
-            <div class="action dont">
-                <div class="action-title">❌ Не генерить лиды</div>
-                <div class="action-desc">Холодные звонки, реклама — долго. Работаем с тем, что есть.</div>
-            </div>
-            
-            <div class="action dont">
-                <div class="action-title">❌ Не анализировать</div>
-                <div class="action-desc">Отчёты, дашборды, метрики — потом. Сейчас продавать.</div>
-            </div>
+            <p style="font-weight: 600; margin-bottom: 12px;">Работаем ТОЛЬКО с:</p>
+            <ul class="do-list">
+                <li>Крупными клиентами</li>
+                <li>Повторными клиентами</li>
+                <li>Тёплыми / полутёплыми контактами</li>
+                <li>Лидами с уже сформированным намерением</li>
+            </ul>
+            <p style="color: var(--red); font-size: 13px; margin-top: 10px;">Мелочь, проектники, «подумаем» — мимо.</p>
 
-            <div class="action dont">
-                <div class="action-title">❌ Не обучать команду</div>
-                <div class="action-desc">Тренинги, скрипты — потом. Кто умеет — продаёт. Кто нет — не мешает.</div>
-            </div>
+            <p style="font-weight: 600; margin: 20px 0 12px;">Основные источники оборота:</p>
+            <div class="source-item"><span class="source-num">1.</span><span class="source-title">Существующая клиентская база</span></div>
+            <div class="source-item"><span class="source-num">2.</span><span class="source-title">Бывшие клиенты</span></div>
+            <div class="source-item"><span class="source-num">3.</span><span class="source-title">Зависшие сделки</span></div>
+            <div class="source-item"><span class="source-num">4.</span><span class="source-title">Апселл и расширение текущих контрактов</span></div>
+            <div class="source-item"><span class="source-num">5.</span><span class="source-title">Клиенты конкурентов с болью</span></div>
+            <p style="color: var(--gold); font-size: 13px; margin-top: 10px;">Это уже деньги. Они ближе всех.</p>
         </div>
 
-        <!-- Формула -->
+        <!-- 4. Кто продаёт -->
         <div class="section">
-            <div class="section-title"><span class="section-num">4</span> Формула BLITZ</div>
-            
-            <div class="numbers">
-                <div class="num-card">
-                    <div class="num-value">10</div>
-                    <div class="num-label">Крупных в работе</div>
-                </div>
-                <div class="num-card">
-                    <div class="num-value">3</div>
-                    <div class="num-label">Закроются</div>
-                </div>
-                <div class="num-card">
-                    <div class="num-value">45М+</div>
-                    <div class="num-label">Выручка</div>
-                </div>
-            </div>
-
-            <div class="highlight">
-                <div class="highlight-title">Математика</div>
-                <div class="highlight-text">10 крупных клиентов × 30% конверсия = 3 сделки<br>3 сделки × 15М средний чек = 45М выручки</div>
-            </div>
+            <div class="section-title"><span class="section-num">4</span> Кто продаёт</div>
+            <div class="quote">Продают не менеджеры.<br>Продают 3-5 сильных закрывальщиков + руководство.</div>
+            <p style="color: var(--muted); font-size: 14px; margin-top: 12px;">Остальные:</p>
+            <ul style="color: var(--muted); font-size: 14px; margin-left: 20px;">
+                <li>отсекаются</li>
+                <li>используются как «операторы сопровождения»</li>
+                <li>не участвуют вообще</li>
+            </ul>
+            <p style="color: var(--red); font-weight: 700; margin-top: 12px;">Никакой демократии.</p>
         </div>
 
-        <!-- План на 30 дней -->
+        <!-- 5. Роль руководителя -->
         <div class="section">
-            <div class="section-title"><span class="section-num">5</span> План на 30 дней</div>
-            
-            <div class="week">
-                <div class="week-header">
-                    <span class="week-title">Неделя 1</span>
-                    <span class="week-focus">СПИСОК</span>
-                </div>
-                <ul class="week-tasks">
-                    <li>Выгрузить всех крупных из базы</li>
-                    <li>Найти отвалившиеся сделки от 10М</li>
-                    <li>Составить список 30-50 целей</li>
-                </ul>
-            </div>
-
-            <div class="week">
-                <div class="week-header">
-                    <span class="week-title">Неделя 2</span>
-                    <span class="week-focus">КОНТАКТ</span>
-                </div>
-                <ul class="week-tasks">
-                    <li>Прозвонить весь список</li>
-                    <li>Выявить 10-15 горячих</li>
-                    <li>Назначить встречи/созвоны</li>
-                </ul>
-            </div>
-
-            <div class="week">
-                <div class="week-header">
-                    <span class="week-title">Неделя 3</span>
-                    <span class="week-focus">ДАВИТЬ</span>
-                </div>
-                <ul class="week-tasks">
-                    <li>Встречи, КП, переговоры</li>
-                    <li>Дожимать тёплых</li>
-                    <li>Закрыть первые 1-2 сделки</li>
-                </ul>
-            </div>
-
-            <div class="week">
-                <div class="week-header">
-                    <span class="week-title">Неделя 4</span>
-                    <span class="week-focus">ЗАКРЫТИЕ</span>
-                </div>
-                <ul class="week-tasks">
-                    <li>Дожать оставшихся</li>
-                    <li>Получить оплаты</li>
-                    <li>Попросить рефералов</li>
-                </ul>
-            </div>
+            <div class="section-title"><span class="section-num">5</span> Роль руководителя</div>
+            <ul class="do-list">
+                <li>Лично участвует в переговорах</li>
+                <li>Лично дожимает сделки</li>
+                <li>Лично принимает решения по условиям</li>
+                <li>Лично заходит в сделки 30М+</li>
+            </ul>
+            <p style="color: var(--gold); font-size: 13px; margin-top: 10px;">Это ручное управление, сознательно.</p>
         </div>
 
-        <!-- Правила -->
+        <!-- 6. Модель продаж -->
         <div class="section">
-            <div class="section-title"><span class="section-num">6</span> Правила BLITZ</div>
-            
-            <div class="rule">
-                <div class="rule-icon">⚡</div>
-                <div class="rule-text"><strong>Скорость важнее качества.</strong> Лучше 10 быстрых касаний, чем 1 идеальное КП.</div>
+            <div class="section-title"><span class="section-num">6</span> Упрощённая модель продаж</div>
+            <div style="background: var(--bg); padding: 15px; border-radius: 8px; text-align: center; font-size: 16px; font-weight: 700;">
+                Лид → быстрый контакт → решение → деньги
             </div>
-            
-            <div class="rule">
-                <div class="rule-icon">🎯</div>
-                <div class="rule-text"><strong>Крупные важнее мелких.</strong> 1 сделка на 15М > 15 сделок по 1М.</div>
-            </div>
-            
-            <div class="rule">
-                <div class="rule-icon">🔥</div>
-                <div class="rule-text"><strong>Горячие важнее холодных.</strong> Не тратить время на тех, кто "подумает".</div>
-            </div>
-            
-            <div class="rule">
-                <div class="rule-icon">💰</div>
-                <div class="rule-text"><strong>Деньги важнее договора.</strong> Договор без оплаты = ноль.</div>
-            </div>
-            
-            <div class="rule">
-                <div class="rule-icon">🚀</div>
-                <div class="rule-text"><strong>Сегодня важнее завтра.</strong> Каждый день — продажи. Не планирование.</div>
-            </div>
+            <p style="font-weight: 600; margin: 15px 0 10px;">Ограничения:</p>
+            <ul style="color: var(--muted); font-size: 14px; margin-left: 20px;">
+                <li>1-2 созвона максимум</li>
+                <li>КП — только персональное</li>
+                <li>Срок принятия решения — жёсткий</li>
+            </ul>
         </div>
 
-        <!-- Кто делает -->
+        <!-- 7. Условия -->
         <div class="section">
-            <div class="section-title"><span class="section-num">7</span> Кто делает BLITZ</div>
-            
-            <div class="action">
-                <div class="action-title">РОП + 2-3 лучших</div>
-                <div class="action-desc">Не вся команда. Только те, кто умеет закрывать крупных.</div>
+            <div class="section-title"><span class="section-num">7</span> Условия и давление</div>
+            <p style="font-weight: 600; margin-bottom: 10px;">Индивидуальные условия:</p>
+            <ul style="color: var(--muted); font-size: 14px; margin-left: 20px; margin-bottom: 15px;">
+                <li>Специальные цены</li>
+                <li>Временные условия</li>
+                <li>Лимитированные окна</li>
+                <li>«Закрываем сейчас — иначе нет»</li>
+            </ul>
+            <p style="font-weight: 600; margin-bottom: 10px;">Давление временем:</p>
+            <div class="quote">«Это окно сейчас. Потом — другие условия.»</div>
+            <p style="color: var(--red); font-weight: 700; margin-top: 10px;">Без стыда.</p>
+        </div>
+
+        <!-- 8. KPI -->
+        <div class="section">
+            <div class="section-title"><span class="section-num">8</span> KPI на этот период</div>
+            <p style="margin-bottom: 12px;">Всего <strong>3 цифры</strong>, которые имеют значение:</p>
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-value">₽</div>
+                    <div class="kpi-label">Оборот</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value">#</div>
+                    <div class="kpi-label">Крупных сделок</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value">Ø</div>
+                    <div class="kpi-label">Средний чек</div>
+                </div>
             </div>
+            <p style="color: var(--muted); font-size: 13px;">Никаких звонков, конверсий, отчётов ради отчётов.</p>
+        </div>
+
+        <!-- 9. Контроль -->
+        <div class="section">
+            <div class="section-title"><span class="section-num">9</span> Контроль вместо системы</div>
+            <p style="font-weight: 600; margin-bottom: 10px;">Ежедневно:</p>
+            <ul class="do-list">
+                <li>Список активных сделок</li>
+                <li>Сумма потенциального закрытия</li>
+                <li>Что мешает закрыть сегодня / завтра</li>
+            </ul>
+            <p style="color: var(--muted); font-size: 13px; margin-top: 10px;">Всё. Можно в Google Sheet / Notion / Excel / даже в чате.</p>
+        </div>
+
+        <!-- 10. Жёсткость -->
+        <div class="section">
+            <div class="section-title"><span class="section-num">10</span> Деньги важнее отношений</div>
+            <p style="margin-bottom: 10px;">В этом режиме:</p>
+            <ul style="color: var(--muted); font-size: 14px; margin-left: 20px;">
+                <li>Можно быть жёстким</li>
+                <li>Можно быть неприятным</li>
+                <li>Можно быть «плохим полицейским»</li>
+            </ul>
+            <p style="margin-top: 12px;">Потом можно: извиниться, перестроить, выровнять систему.</p>
+            <p style="color: var(--red); font-weight: 700;">Сейчас — не время быть хорошими.</p>
+        </div>
+
+        <!-- 11. Срок -->
+        <div class="section">
+            <div class="section-title"><span class="section-num">11</span> Срок действия стратегии</div>
+            <p style="margin-bottom: 12px;"><span class="timeline-badge">30 дней</span> быстрый выстрел</p>
+            <p style="margin-bottom: 12px;"><span class="timeline-badge">60 дней</span> максимум выжать</p>
+            <p style="margin-bottom: 12px;"><span class="timeline-badge">90 дней</span> край</p>
+            <p style="color: var(--muted); font-size: 13px; margin-top: 10px;">После: либо деньги есть → строим систему, либо денег нет → потенциала нет.</p>
+        </div>
+
+        <!-- Ключевая мысль -->
+        <div class="final-quote">
+            <p>Системы строят после денег.<br>Деньги никогда не появляются после систем.</p>
+        </div>
+
+        <!-- ДВА ТРЕКА -->
+        <div class="section" style="border-color: var(--gold);">
+            <div class="section-title"><span class="section-num" style="background: var(--gold); color: black;">★</span> Два параллельных процесса</div>
             
-            <div class="action">
-                <div class="action-title">Подключить "звёзд"</div>
-                <div class="action-desc">Меркулов, Полубатонов, Цыпляев, Бердников — их экспертиза на крупных.</div>
+            <div class="tracks">
+                <div class="track track-money">
+                    <div class="track-title">💰 ТРЕК 1: Деньги сейчас</div>
+                    <ul class="track-list">
+                        <li>РОП + 3-5 сильных</li>
+                        <li>Только крупные сделки</li>
+                        <li>Работа с базой</li>
+                        <li>Дожим зависших</li>
+                        <li>Ручное управление</li>
+                        <li>Никаких процессов</li>
+                        <li>Результат: деньги</li>
+                    </ul>
+                </div>
+                <div class="track track-system">
+                    <div class="track-title">🔧 ТРЕК 2: Система</div>
+                    <ul class="track-list">
+                        <li>1-2 человека отдельно</li>
+                        <li>CRM, воронки, отчёты</li>
+                        <li>Скрипты, регламенты</li>
+                        <li>Обучение новичков</li>
+                        <li>Аналитика</li>
+                        <li>Не мешают Треку 1</li>
+                        <li>Результат: инфраструктура</li>
+                    </ul>
+                </div>
             </div>
 
-            <div class="action">
-                <div class="action-title">Алексей на крупных</div>
-                <div class="action-desc">Операционный директор подключается к сделкам от 20М+.</div>
+            <div class="merge-section">
+                <div class="merge-title">📅 Как Трек 1 присоединяется к Треку 2</div>
+                
+                <div class="merge-step">
+                    <div class="merge-num">1</div>
+                    <div class="merge-text"><strong>Неделя 1-4:</strong> Треки работают параллельно. Не пересекаются. Деньги делают деньги, система строится тихо.</div>
+                </div>
+                
+                <div class="merge-step">
+                    <div class="merge-num">2</div>
+                    <div class="merge-text"><strong>Неделя 5-6:</strong> Трек 2 готовит базовую инфраструктуру. CRM настроен, воронка описана, отчёты работают.</div>
+                </div>
+                
+                <div class="merge-step">
+                    <div class="merge-num">3</div>
+                    <div class="merge-text"><strong>Неделя 7-8:</strong> Первые люди из Трека 1 начинают вносить сделки в CRM. Без давления, постепенно.</div>
+                </div>
+                
+                <div class="merge-step">
+                    <div class="merge-num">4</div>
+                    <div class="merge-text"><strong>Неделя 9-12:</strong> Полное слияние. Все работают в системе. Режим рейда завершён.</div>
+                </div>
+            </div>
+
+            <div style="background: var(--bg); padding: 15px; border-radius: 8px; margin-top: 15px;">
+                <p style="font-weight: 700; color: var(--gold); margin-bottom: 8px;">⚠️ Главное правило двух треков:</p>
+                <p style="font-size: 14px; color: var(--muted);">Люди из Трека 2 <strong>НЕ ТРОГАЮТ</strong> людей из Трека 1. Никаких "заполни CRM", "сделай отчёт", "пройди обучение". Они зарабатывают. Остальное — потом.</p>
             </div>
         </div>
 
-        <div class="final">
-            <div class="final-label">Результат BLITZ</div>
-            <div class="final-text">3-5 крупных сделок = 45-75М за месяц</div>
+        <!-- Итого -->
+        <div class="section" style="text-align: center; border-color: var(--green);">
+            <p style="font-size: 14px; color: var(--muted); margin-bottom: 8px;">ИТОГ</p>
+            <p style="font-size: 20px; font-weight: 800;">30-60 дней режим рейда → деньги на счету → строим систему</p>
         </div>
 
     </div>
 </body>
 </html>
-
