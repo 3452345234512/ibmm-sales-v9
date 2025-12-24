@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление двумя треками | IBMM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0f;
+            --card: #111118;
+            --border: #1f1f2a;
+            --green: #10b981;
+            --red: #ef4444;
+            --gold: #fbbf24;
+            --blue: #3b82f6;
+            --purple: #a855f7;
+            --text: #e2e8f0;
+            --muted: #64748b;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .banner {
+            background: var(--red);
+            color: white;
+            text-align: center;
+            padding: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+        }
+
+        body { padding-top: 60px; }
+
+        .container { max-width: 1000px; margin: 0 auto; }
+
+        h1 {
+            font-size: 36px;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--muted);
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .section {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-num {
+            background: var(--blue);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 16px;
+        }
+
+        .risk-box {
+            background: rgba(239,68,68,0.1);
+            border: 1px solid var(--red);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 12px;
+        }
+
+        .risk-title {
+            color: var(--red);
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .risk-solution {
+            font-size: 13px;
+            color: var(--muted);
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(239,68,68,0.2);
+        }
+
+        .positive-box {
+            background: rgba(16,185,129,0.1);
+            border: 1px solid var(--green);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 12px;
+        }
+
+        .positive-title {
+            color: var(--green);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .checklist {
+            list-style: none;
+        }
+
+        .checklist li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .checklist li:last-child { border-bottom: none; }
+
+        .checklist input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .checklist-label {
+            flex: 1;
+            font-size: 14px;
+        }
+
+        .checklist-time {
+            color: var(--muted);
+            font-size: 11px;
+            font-weight: 600;
+            margin-left: auto;
+        }
+
+        .responsibility-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .responsibility-table th,
+        .responsibility-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            font-size: 13px;
+        }
+
+        .responsibility-table th {
+            color: var(--muted);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .role-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .role-rop { background: var(--red); color: white; }
+        .role-ops { background: var(--blue); color: white; }
+        .role-system { background: var(--green); color: white; }
+        .role-owner { background: var(--gold); color: black; }
+
+        .timeline-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .timeline-card {
+            background: var(--bg);
+            border-radius: 10px;
+            padding: 15px;
+            border: 1px solid var(--border);
+        }
+
+        .timeline-card-title {
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: var(--gold);
+        }
+
+        .warning-box {
+            background: rgba(251,191,36,0.1);
+            border: 1px solid var(--gold);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .warning-title {
+            color: var(--gold);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .metric-card {
+            background: var(--bg);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-left: 3px solid var(--green);
+        }
+
+        .metric-name {
+            font-weight: 600;
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .metric-desc {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .day-schedule {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 10px;
+            margin: 10px 0;
+            padding: 10px;
+            background: var(--bg);
+            border-radius: 8px;
+        }
+
+        .schedule-time {
+            font-weight: 600;
+            color: var(--gold);
+            font-size: 13px;
+        }
+
+        .schedule-task {
+            font-size: 13px;
+        }
+
+        @media (max-width: 768px) {
+            .timeline-grid { grid-template-columns: 1fr; }
+            .day-schedule { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">🔒 Конфиденциально — Управление</div>
+
+    <div class="container">
+        <h1>УПРАВЛЕНИЕ ДВУМЯ ТРЕКАМИ</h1>
+        <div class="subtitle">Практическое руководство: риски, чек-листы, ответственность</div>
+
+        <!-- Ответственность -->
+        <div class="section">
+            <div class="section-title">
+                <div class="section-num">1</div>
+                Кто за что отвечает
+            </div>
+
+            <table class="responsibility-table">
+                <thead>
+                    <tr>
+                        <th>Роль</th>
+                        <th>Трек 1 (Деньги)</th>
+                        <th>Трек 2 (Система)</th>
+                        <th>Общее</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="role-badge role-owner">Собственник</span></td>
+                        <td>Утверждение крупных сделок 30М+</td>
+                        <td>Утверждение бюджета на систему</td>
+                        <td>Финальные решения, не мешать процессу</td>
+                    </tr>
+                    <tr>
+                        <td><span class="role-badge role-rop">РОП</span></td>
+                        <td>Координация звёзд, дожим крупных, переговоры</td>
+                        <td>Утверждение процессов (10-20% времени)</td>
+                        <td>Ежедневный контроль обоих треков</td>
+                    </tr>
+                    <tr>
+                        <td><span class="role-badge role-ops">Алексей (ОП)</span></td>
+                        <td>Крупные сделки 20М+, экспертиза, закрытие</td>
+                        <td>—</td>
+                        <td>Подключение к сложным переговорам</td>
+                    </tr>
+                    <tr>
+                        <td><span class="role-badge role-system">Ассистент/Аналитик</span></td>
+                        <td>—</td>
+                        <td>CRM, отчёты, дашборды, настройка</td>
+                        <td>Ежедневная работа в Треке 2</td>
+                    </tr>
+                    <tr>
+                        <td><span class="role-badge role-system">ОКК</span></td>
+                        <td>—</td>
+                        <td>Аудит сделок, контроль качества</td>
+                        <td>Еженедельные отчёты</td>
+                    </tr>
+                    <tr>
+                        <td><span class="role-badge">Звёзды</span></td>
+                        <td>Продажи, крупные клиенты, своя база</td>
+                        <td>—</td>
+                        <td>Не трогать, не мешать</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Риски -->
+        <div class="section">
+            <div class="section-title">
+                <div class="section-num">2</div>
+                Риски и как их избежать
+            </div>
+
+            <div class="risk-box">
+                <div class="risk-title">⚠️ Риск 1: Трек 2 начинает давить на Трек 1</div>
+                <p style="font-size: 14px;">Ассистент/ОКК требуют от звёзд заполнить CRM, написать отчёты, пройти обучение.</p>
+                <div class="risk-solution">
+                    <strong>Решение:</strong> Чёткое правило: Трек 2 НЕ общается с участниками Трека 1 напрямую. Все запросы только через РОПа. РОП сам решает, что передавать звёздам.
+                </div>
+            </div>
+
+            <div class="risk-box">
+                <div class="risk-title">⚠️ Риск 2: Звёзды саботируют систему</div>
+                <p style="font-size: 14px;">При слиянии треков звёзды отказываются работать в CRM, уходят или требуют особых условий.</p>
+                <div class="risk-solution">
+                    <strong>Решение:</strong> Заранее договориться: при слиянии звёзды сохраняют особые условия (высокий %), но минимально вносят данные в CRM. Постепенная адаптация, не принуждение.
+                </div>
+            </div>
+
+            <div class="risk-box">
+                <div class="risk-title">⚠️ Риск 3: РОП разрывается между треками</div>
+                <p style="font-size: 14px;">РОП тратит слишком много времени на систему, забывает про деньги.</p>
+                <div class="risk-solution">
+                    <strong>Решение:</strong> Жёсткое разделение времени: 80% — Трек 1 (деньги), 20% — Трек 2 (система). Ежедневный чек-лист: сначала деньги, потом система.
+                </div>
+            </div>
+
+            <div class="risk-box">
+                <div class="risk-title">⚠️ Риск 4: Дмитрий вмешивается</div>
+                <p style="font-size: 14px;">Собственник делает резкие решения, меняет условия, отменяет процессы.</p>
+                <div class="risk-solution">
+                    <strong>Решение:</strong> Правило 24 часов: любые изменения в системе/процессах согласовываются за 24 часа. Для Трека 1 — экстренные решения возможны, но фиксируются.
+                </div>
+            </div>
+
+            <div class="risk-box">
+                <div class="risk-title">⚠️ Риск 5: Новички не справляются</div>
+                <p style="font-size: 14px;">Новые менеджеры в Треке 2 не дают результата, демотивируются.</p>
+                <div class="risk-solution">
+                    <strong>Решение:</strong> Чёткие фазы KPI: первые 30 дней — только процессы, без плана по деньгам. 30-60 дней — 50% плана. 60+ дней — полный план.
+                </div>
+            </div>
+
+            <div class="risk-box">
+                <div class="risk-title">⚠️ Риск 6: Деньги не идут</div>
+                <p style="font-size: 14px;">Трек 1 не даёт результата, крупные сделки не закрываются.</p>
+                <div class="risk-solution">
+                    <strong>Решение:</strong> Еженедельный разбор: что мешает закрыть? Если 2 недели подряд нет результата — пересмотр стратегии Трека 1. Возможно, нужен другой подход к базе/клиентам.
+                </div>
+            </div>
+        </div>
+
+        <!-- Позитивы -->
+        <div class="section">
+            <div class="section-title">
+                <div class="section-num">3</div>
+                Позитивные эффекты
+            </div>
+
+            <div class="positive-box">
+                <div class="positive-title">✅ Деньги идут параллельно с системой</div>
+                <p style="font-size: 14px;">Не нужно ждать, пока построится система. Оборот начинается сразу, система готовится тихо.</p>
+            </div>
+
+            <div class="positive-box">
+                <div class="positive-title">✅ Звёзды не саботируют</div>
+                <p style="font-size: 14px;">Их не трогают, они работают как раньше. Нет сопротивления, нет конфликтов.</p>
+            </div>
+
+            <div class="positive-box">
+                <div class="positive-title">✅ Новички сразу в системе</div>
+                <p style="font-size: 14px;">Новые менеджеры с первого дня работают по правилам. Не нужно переучивать старых.</p>
+            </div>
+
+            <div class="positive-box">
+                <div class="positive-title">✅ Мягкое слияние</div>
+                <p style="font-size: 14px;">Постепенный переход снижает сопротивление. Все видят, что система работает, и присоединяются добровольно.</p>
+            </div>
+        </div>
+
+        <!-- Чек-лист: День -->
+        <div class="section">
+            <div class="section-title">
+                <div class="section-num">4</div>
+                Чек-лист: День
+            </div>
+
+            <div class="day-schedule">
+                <div class="schedule-time">09:00</div>
+                <div class="schedule-task"><strong>Утро РОПа:</strong> Проверить активные сделки Трека 1. Кто что делает, что мешает закрыть сегодня.</div>
+            </div>
+
+            <div class="day-schedule">
+                <div class="schedule-time">10:00-14:00</div>
+                <div class="schedule-task"><strong>Трек 1 (80% времени):</strong> Звонки, встречи, дожим крупных. Работа с базой. Переговоры.</div>
+            </div>
+
+            <div class="day-schedule">
+                <div class="schedule-time">14:00-15:00</div>
+                <div class="schedule-task"><strong>Трек 2 (20% времени):</strong> Утверждение процессов, проверка CRM, ответы на вопросы ассистента.</div>
+            </div>
+
+            <div class="day-schedule">
+                <div class="schedule-time">15:00-18:00</div>
+                <div class="schedule-task"><strong>Трек 1:</strong> Продолжение работы. Встречи, звонки, закрытие.</div>
+            </div>
+
+            <div class="day-schedule">
+                <div class="schedule-time">18:00</div>
+                <div class="schedule-task"><strong>Вечер:</strong> Быстрая проверка: что закрылось, что на завтра. 5 минут на Трек 2 (если нужно).</div>
+            </div>
+
+            <ul class="checklist" style="margin-top: 15px;">
+                <li>
+                    <input type="checkbox">
+                    <span class="checklist-label">Проверены активные сделки Трека 1</span>
+                    <span class="checklist-time">09:00</span>
+                </li>
+                <li>
+                    <input type="checkbox">
+                    <span class="checklist-label">Сделано минимум 3 касания по крупным сделкам</span>
+                    <span class="checklist-time">День</span>
+                </li>
+                <li>
+                    <input type="checkbox">
+                    <span class="checklist-label">Проверен Трек 2 (если есть вопросы)</span>
+                    <span class="checklist-time">14:00</span>
+                </li>
+                <li>
+                    <input type="checkbox">
+                    <span class="checklist-label">Фиксация: что закрылось, что на завтра</span>
+                    <span class="checklist-time">18:00</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Чек-лист: Неделя -->
+        <div class="section">
+            <div class="section-title">
+                <div class="section-num">5</div>
+                Чек-лист: Неделя
+            </div>
+
+            <div class="timeline-grid">
+                <div class="timeline-card">
+                    <div class="timeline-card-title">Понедельник</div>
+                    <ul class="checklist">
+                        <li><input type="checkbox"><span class="checklist-label">План недели: какие сделки, кто отвечает</span></li>
+                        <li><input type="checkbox"><span class="checklist-label">Синхронизация с Алексей: крупные 20М+</span></li>
+                    </ul>
+                </div>
+                <div class="timeline-card">
+                    <div class="timeline-card-title">Среда</div>
+                    <ul class="checklist">
+                        <li><input type="checkbox"><span class="checklist-label">Проверка Трека 2: прогресс по CRM/процессам</span></li>
+                        <li><input type="checkbox"><span class="checklist-label">Короткий разбор с ассистентом: что готово, что нужно</span></li>
+                    </ul>
+                </div>
+                <div class="timeline-card">
+                    <div class="timeline-card-title">Пятница</div>
+                    <ul class="checklist">
+                        <li><input type="checkbox"><span class="checklist-label">Итоги недели: что закрылось, что не закрылось</span></li>
+                        <li><input type="checkbox"><span class="checklist-label">План на следующую неделю</span></li>
+                        <li><input type="checkbox"><span class="checklist-label">Отчёт ОКК (если есть)</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="warning-box" style="margin-top: 15px;">
+                <div class="warning-title">⚠️ Важно</div>
+                <p style="font-size: 13px;">Если 2 недели подряд нет закрытий в Треке 1 — пересмотр стратегии. Что-то не так.</p>
+            </div>
+        </div>
+
+        <!-- Чек-лист: Месяц -->
+        <div class="section">
+            <div class="section-title">
+                <div class="section-num">6</div>
+                Чек-лист: Месяц
+            </div>
+
+            <ul class="checklist">
+                <li>
+                    <input type="checkbox">
+                    <span class="checklist-label"><strong>Трек 1:</strong> Итоговый оборот, количество крупных сделок, устройства на площадке</span>
+                </li>
+                <li>
+                    <input type="checkbox">
+                    <span class="checklist-label"><strong>Трек 2:</strong> Что готово (CRM, процессы, обучение), что осталось</span>
+                </li>
+                <li>
+                    <input type="checkbox">
+                    <span class="checklist-label"><strong>Слияние:</strong> Оценка готовности к переходу (если месяц 2-3)</span>
+                </li>
+                <li>
+                    <input type="checkbox">
+                    <span class="checklist-label"><strong>Риски:</strong> Что пошло не так, что нужно исправить</span>
+                </li>
+                <li>
+                    <input type="checkbox">
+                    <span class="checklist-label"><strong>План на следующий месяц:</strong> Фокус, цели, метрики</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Метрики контроля -->
+        <div class="section">
+            <div class="section-title">
+                <div class="section-num">7</div>
+                Метрики контроля
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-name">Трек 1: Оборот</div>
+                <div class="metric-desc">Ежедневно: сколько денег на счету. Еженедельно: динамика. Ежемесячно: план vs факт.</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-name">Трек 1: Крупные сделки</div>
+                <div class="metric-desc">Ежедневно: сколько в работе. Еженедельно: сколько закрылось. Ежемесячно: план по количеству.</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-name">Трек 1: Устройства на площадке</div>
+                <div class="metric-desc">Еженедельно: +N устройств. Ежемесячно: план по заполнению.</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-name">Трек 2: Готовность CRM</div>
+                <div class="metric-desc">Еженедельно: % готовности. Ежемесячно: что работает, что нет.</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-name">Трек 2: Новички</div>
+                <div class="metric-desc">Еженедельно: сколько новичков, как идут. Ежемесячно: первые результаты.</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-name">Общее: Конфликты</div>
+                <div class="metric-desc">Ежедневно: были ли конфликты между треками. Еженедельно: как решены.</div>
+            </div>
+        </div>
+
+        <!-- На что смотреть -->
+        <div class="section">
+            <div class="section-title">
+                <div class="section-num">8</div>
+                На что обращать внимание
+            </div>
+
+            <div class="warning-box">
+                <div class="warning-title">🔴 Красные флаги (действовать немедленно)</div>
+                <ul style="list-style: none; margin-top: 10px;">
+                    <li style="padding: 6px 0;">• 2 недели подряд нет закрытий в Треке 1</li>
+                    <li style="padding: 6px 0;">• Звёзды жалуются, что их "достают" из Трека 2</li>
+                    <li style="padding: 6px 0;">• РОП тратит больше 30% времени на Трек 2</li>
+                    <li style="padding: 6px 0;">• Дмитрий отменяет решения без согласования</li>
+                    <li style="padding: 6px 0;">• Новички уходят в первый месяц</li>
+                </ul>
+            </div>
+
+            <div class="positive-box" style="margin-top: 15px;">
+                <div class="positive-title">🟢 Зелёные флаги (всё идёт хорошо)</div>
+                <ul style="list-style: none; margin-top: 10px;">
+                    <li style="padding: 6px 0;">• Еженедельно закрывается минимум 1 крупная сделка</li>
+                    <li style="padding: 6px 0;">• Звёзды работают спокойно, не жалуются</li>
+                    <li style="padding: 6px 0;">• Трек 2 готовит систему без конфликтов</li>
+                    <li style="padding: 6px 0;">• Новички показывают первые результаты</li>
+                    <li style="padding: 6px 0;">• Оборот растёт или стабилен</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Как делать -->
+        <div class="section">
+            <div class="section-title">
+                <div class="section-num">9</div>
+                Как всё это делать (практика)
+            </div>
+
+            <div class="subsection" style="background: var(--bg); padding: 15px; border-radius: 8px; margin-bottom: 12px;">
+                <div style="font-weight: 700; margin-bottom: 8px;">📋 Инструменты</div>
+                <ul style="list-style: none; font-size: 14px;">
+                    <li style="padding: 4px 0;">• <strong>Google Sheet</strong> — список активных сделок Трека 1 (простой, быстрый)</li>
+                    <li style="padding: 4px 0;">• <strong>CRM</strong> — для Трека 2 (настраивается постепенно)</li>
+                    <li style="padding: 4px 0;">• <strong>Чат/Телеграм</strong> — ежедневная синхронизация</li>
+                    <li style="padding: 4px 0;">• <strong>Еженедельная встреча</strong> — 30 минут, очно или онлайн</li>
+                </ul>
+            </div>
+
+            <div class="subsection" style="background: var(--bg); padding: 15px; border-radius: 8px; margin-bottom: 12px;">
+                <div style="font-weight: 700; margin-bottom: 8px;">⚡ Правила работы</div>
+                <ul style="list-style: none; font-size: 14px;">
+                    <li style="padding: 4px 0;">• <strong>Трек 1 приоритетен</strong> — деньги важнее системы</li>
+                    <li style="padding: 4px 0;">• <strong>Трек 2 не мешает</strong> — все запросы через РОПа</li>
+                    <li style="padding: 4px 0;">• <strong>Звёзды неприкосновенны</strong> — не трогать, не учить</li>
+                    <li style="padding: 4px 0;">• <strong>Конфликты решаются сразу</strong> — не копить</li>
+                    <li style="padding: 4px 0;">• <strong>Документировать всё</strong> — что работает, что нет</li>
+                </ul>
+            </div>
+
+            <div class="subsection" style="background: var(--bg); padding: 15px; border-radius: 8px;">
+                <div style="font-weight: 700; margin-bottom: 8px;">🎯 Фокус по неделям</div>
+                <ul style="list-style: none; font-size: 14px;">
+                    <li style="padding: 4px 0;"><strong>Неделя 1-2:</strong> Трек 1 — максимальный фокус на деньги. Трек 2 — настройка базовой инфраструктуры.</li>
+                    <li style="padding: 4px 0;"><strong>Неделя 3-4:</strong> Трек 1 — продолжение. Трек 2 — первые процессы готовы, тестирование.</li>
+                    <li style="padding: 4px 0;"><strong>Неделя 5-6:</strong> Трек 1 — стабильность. Трек 2 — система готова, подготовка к слиянию.</li>
+                    <li style="padding: 4px 0;"><strong>Неделя 7-8:</strong> Мягкий переход. Трек 1 начинает использовать систему.</li>
+                    <li style="padding: 4px 0;"><strong>Неделя 9-12:</strong> Полное слияние. Все работают в системе.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Итог -->
+        <div class="section" style="border-color: var(--gold); text-align: center;">
+            <div style="font-size: 14px; color: var(--muted); margin-bottom: 8px;">ГЛАВНОЕ ПРАВИЛО</div>
+            <div style="font-size: 20px; font-weight: 800; color: var(--gold);">
+                Деньги сейчас → Система потом → Мягкое слияние
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
+
