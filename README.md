@@ -11,6 +11,7 @@
 | **💰 Система мотивации** | [Открыть →](https://htmlpreview.github.io/?https://github.com/3452345234512/ibmm-sales-v8/blob/main/output/motivation_system_v2.html) |
 | **💡 Рекомендации (триумвират)** | [Открыть →](https://htmlpreview.github.io/?https://github.com/3452345234512/ibmm-sales-v8/blob/main/output/recommendations.html) |
 | **🚀 Онбординг РОПа** | [Открыть →](https://htmlpreview.github.io/?https://github.com/3452345234512/ibmm-sales-v8/blob/main/output/rop_onboarding.html) |
+| **🚨 Ручное управление vs Система** | [Открыть →](https://htmlpreview.github.io/?https://github.com/3452345234512/ibmm-sales-v8/blob/main/output/manual_vs_system.html) |
 
 ## 📁 Структура проекта
 
@@ -20,7 +21,8 @@
     ├── sales_transformation_strategy.html  # Основная стратегия
     ├── motivation_system_v2.html           # Система мотивации
     ├── recommendations.html                # Рекомендации по структуре ОП
-    └── rop_onboarding.html                 # Онбординг РОПа
+    ├── rop_onboarding.html                 # Онбординг РОПа
+    └── manual_vs_system.html               # Ручное управление vs Система
 ```
 
 ## 📄 Документы
