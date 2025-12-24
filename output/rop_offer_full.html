@@ -13,11 +13,8 @@
             --accent: #6366f1;
             --success: #10b981;
             --warning: #f59e0b;
-            --danger: #ef4444;
             --text: #f1f5f9;
             --muted: #64748b;
-            --purple: #a855f7;
-            --pink: #ec4899;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -31,38 +28,37 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
         }
 
         .header h1 {
-            font-size: 36px;
+            font-size: 32px;
             font-weight: 800;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .header p {
             color: var(--muted);
-            font-size: 16px;
         }
 
         .section {
             background: var(--card);
             border-radius: 16px;
-            padding: 30px;
-            margin-bottom: 25px;
+            padding: 25px;
+            margin-bottom: 20px;
             border: 1px solid var(--border);
         }
 
         .section-title {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 700;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -70,13 +66,13 @@
 
         .section-title span {
             background: var(--accent);
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 16px;
+            font-size: 14px;
         }
 
         table {
@@ -85,14 +81,14 @@
         }
 
         th, td {
-            padding: 12px 16px;
+            padding: 12px 14px;
             text-align: left;
             border-bottom: 1px solid var(--border);
         }
 
         th {
             color: var(--muted);
-            font-size: 12px;
+            font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 1px;
             font-weight: 600;
@@ -103,145 +99,113 @@
 
         .formula {
             background: #12121a;
-            padding: 15px 20px;
-            border-radius: 10px;
+            padding: 12px 16px;
+            border-radius: 8px;
             font-family: monospace;
             font-size: 14px;
-            margin: 15px 0;
+            margin: 12px 0;
         }
 
         .scenarios {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+            gap: 12px;
         }
 
         .scenario {
             background: #12121a;
-            border-radius: 12px;
-            padding: 20px;
+            border-radius: 10px;
+            padding: 16px;
             border: 1px solid var(--border);
         }
 
         .scenario.good {
             border-color: var(--success);
-            background: rgba(16, 185, 129, 0.05);
         }
 
         .scenario-label {
-            font-size: 11px;
+            font-size: 10px;
             text-transform: uppercase;
             letter-spacing: 1px;
             color: var(--muted);
-            margin-bottom: 5px;
         }
 
         .scenario-name {
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .scenario-calc {
-            font-size: 12px;
-            color: var(--muted);
-            margin-bottom: 10px;
-            font-family: monospace;
+            font-weight: 600;
+            font-size: 14px;
+            margin: 4px 0 8px;
         }
 
         .scenario-total {
-            font-size: 26px;
+            font-size: 22px;
             font-weight: 800;
             color: var(--success);
         }
 
-        .kpi-category {
-            margin: 20px 0;
-        }
-
-        .kpi-category-header {
+        .kpi-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .kpi-category-name {
-            font-weight: 700;
-            font-size: 14px;
-        }
-
-        .kpi-category-weight {
-            background: var(--accent);
-            color: white;
-            padding: 3px 10px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .kpi-item {
-            display: flex;
-            justify-content: space-between;
             padding: 10px 0;
-            font-size: 14px;
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
-        .kpi-item:last-child { border-bottom: none; }
+        .kpi-row:last-child { border-bottom: none; }
 
-        .kpi-target {
-            color: var(--muted);
+        .kpi-num {
+            background: var(--border);
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 12px;
+            font-weight: 600;
+            margin-right: 12px;
         }
 
+        .kpi-info { flex: 1; }
+        
+        .kpi-name { font-weight: 600; font-size: 14px; }
+        
+        .kpi-target { color: var(--muted); font-size: 12px; }
+
         .kpi-weight {
-            color: var(--warning);
+            background: var(--accent);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-size: 12px;
             font-weight: 600;
         }
 
-        .timeline {
-            padding-left: 25px;
-            border-left: 2px solid var(--accent);
-        }
-
         .timeline-item {
-            padding: 15px 0 15px 20px;
-            position: relative;
+            padding: 12px 0 12px 20px;
+            border-left: 2px solid var(--accent);
+            margin-left: 10px;
         }
 
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -31px;
-            top: 20px;
-            width: 10px;
-            height: 10px;
-            background: var(--accent);
-            border-radius: 50%;
-        }
-
-        .timeline-item:last-child::before {
-            background: var(--success);
+        .timeline-item:last-child {
+            border-color: var(--success);
         }
 
         .timeline-title {
             font-weight: 700;
-            margin-bottom: 5px;
+            font-size: 14px;
         }
 
         .timeline-desc {
             color: var(--muted);
-            font-size: 14px;
+            font-size: 13px;
         }
 
         .confidential {
-            background: var(--danger);
+            background: #dc2626;
             color: white;
             text-align: center;
-            padding: 10px;
-            font-size: 12px;
+            padding: 8px;
+            font-size: 11px;
             font-weight: 600;
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -251,7 +215,12 @@
             right: 0;
         }
 
-        body { padding-top: 60px; }
+        body { padding-top: 50px; }
+
+        .total-row {
+            background: rgba(99, 102, 241, 0.1);
+            font-weight: 700;
+        }
 
         @media (max-width: 600px) {
             .scenarios { grid-template-columns: 1fr; }
@@ -267,7 +236,7 @@
             <p>Руководитель отдела продаж IBMM</p>
         </div>
 
-        <!-- Что предлагаем -->
+        <!-- 1. Что предлагаем -->
         <div class="section">
             <div class="section-title"><span>1</span> Что предлагаем</div>
             
@@ -275,173 +244,127 @@
                 <tr>
                     <td><strong>Оклад</strong></td>
                     <td class="money">250 000 ₽</td>
-                    <td>Фикс, выплачивается всегда</td>
+                    <td>Фикс</td>
                 </tr>
                 <tr>
                     <td><strong>KPI-бонус</strong></td>
                     <td class="money">до 150 000 ₽</td>
-                    <td>За выполнение 14 метрик</td>
+                    <td>За 6 метрик</td>
                 </tr>
                 <tr>
                     <td><strong>% от маржи</strong></td>
                     <td class="percent">0.6%</td>
-                    <td>От маржи всего отдела</td>
+                    <td>От маржи отдела</td>
                 </tr>
             </table>
 
             <div class="formula">
-                <strong>Формула:</strong> Доход = 250к + (150к × KPI%) + (Маржа × 0.6%)
+                Доход = 250к + (150к × KPI%) + (Маржа × 0.6%)
             </div>
         </div>
 
-        <!-- Сценарии -->
+        <!-- 2. Сценарии -->
         <div class="section">
             <div class="section-title"><span>2</span> Сценарии дохода</div>
             
             <div class="scenarios">
                 <div class="scenario">
-                    <div class="scenario-label">Слабый месяц</div>
+                    <div class="scenario-label">Слабый</div>
                     <div class="scenario-name">KPI 50%, маржа 15М</div>
-                    <div class="scenario-calc">250к + 75к + 90к</div>
                     <div class="scenario-total">415 000 ₽</div>
                 </div>
 
                 <div class="scenario">
-                    <div class="scenario-label">Средний месяц</div>
+                    <div class="scenario-label">Средний</div>
                     <div class="scenario-name">KPI 80%, маржа 25М</div>
-                    <div class="scenario-calc">250к + 120к + 150к</div>
                     <div class="scenario-total">520 000 ₽</div>
                 </div>
 
                 <div class="scenario good">
-                    <div class="scenario-label">Хороший месяц</div>
+                    <div class="scenario-label">Хороший</div>
                     <div class="scenario-name">KPI 100%, маржа 40М</div>
-                    <div class="scenario-calc">250к + 150к + 240к</div>
                     <div class="scenario-total">640 000 ₽</div>
                 </div>
 
                 <div class="scenario good">
-                    <div class="scenario-label">Отличный месяц</div>
+                    <div class="scenario-label">Отличный</div>
                     <div class="scenario-name">KPI 100%, маржа 60М</div>
-                    <div class="scenario-calc">250к + 150к + 360к</div>
                     <div class="scenario-total">760 000 ₽</div>
                 </div>
             </div>
         </div>
 
-        <!-- KPI -->
+        <!-- 3. KPI -->
         <div class="section">
-            <div class="section-title"><span>3</span> Метрики KPI (14 штук)</div>
+            <div class="section-title"><span>3</span> KPI (6 метрик на 150 000 ₽)</div>
 
-            <div class="kpi-category">
-                <div class="kpi-category-header">
-                    <span class="kpi-category-name" style="color: var(--success);">📈 Бизнес</span>
-                    <span class="kpi-category-weight">50%</span>
-                </div>
-                <div class="kpi-item">
-                    <div>Заполнение площадки майнерами <span class="kpi-target">+500 устройств/мес</span></div>
-                    <div class="kpi-weight">15%</div>
-                </div>
-                <div class="kpi-item">
-                    <div>Продажи крупным клиентам <span class="kpi-target">≥30 сделок от 15М</span></div>
-                    <div class="kpi-weight">15%</div>
-                </div>
-                <div class="kpi-item">
-                    <div>Допродажи постоянным <span class="kpi-target">≥30% выручки</span></div>
-                    <div class="kpi-weight">10%</div>
-                </div>
-                <div class="kpi-item">
-                    <div>Клиенты от конкурентов <span class="kpi-target">≥5/мес</span></div>
-                    <div class="kpi-weight">10%</div>
-                </div>
-            </div>
-
-            <div class="kpi-category">
-                <div class="kpi-category-header">
-                    <span class="kpi-category-name" style="color: #10b981;">💰 Финансы</span>
-                    <span class="kpi-category-weight">15%</span>
-                </div>
-                <div class="kpi-item">
-                    <div>Маржинальность <span class="kpi-target">≥12%</span></div>
-                    <div class="kpi-weight">5%</div>
-                </div>
-                <div class="kpi-item">
-                    <div>Контроль дебиторки <span class="kpi-target">≤5% просрочка</span></div>
-                    <div class="kpi-weight">5%</div>
-                </div>
-                <div class="kpi-item">
-                    <div>Рост среднего чека <span class="kpi-target">+15%</span></div>
-                    <div class="kpi-weight">5%</div>
-                </div>
-            </div>
-
-            <div class="kpi-category">
-                <div class="kpi-category-header">
-                    <span class="kpi-category-name" style="color: var(--warning);">👥 Команда</span>
-                    <span class="kpi-category-weight">10%</span>
-                </div>
-                <div class="kpi-item">
-                    <div>% менеджеров в плане <span class="kpi-target">≥70%</span></div>
-                    <div class="kpi-weight">5%</div>
-                </div>
-                <div class="kpi-item">
-                    <div>Адаптация новичков <span class="kpi-target">сделка за 30 дней</span></div>
-                    <div class="kpi-weight">5%</div>
-                </div>
-            </div>
-
-            <div class="kpi-category">
-                <div class="kpi-category-header">
-                    <span class="kpi-category-name" style="color: var(--purple);">⚡ Операции</span>
-                    <span class="kpi-category-weight">15%</span>
-                </div>
-                <div class="kpi-item">
-                    <div>Цикл сделки <span class="kpi-target">≤14 дней</span></div>
-                    <div class="kpi-weight">5%</div>
-                </div>
-                <div class="kpi-item">
-                    <div>Конверсия воронки <span class="kpi-target">≥12%</span></div>
-                    <div class="kpi-weight">5%</div>
-                </div>
-                <div class="kpi-item">
-                    <div>Качество CRM <span class="kpi-target">≥95%</span></div>
-                    <div class="kpi-weight">5%</div>
-                </div>
-            </div>
-
-            <div class="kpi-category">
-                <div class="kpi-category-header">
-                    <span class="kpi-category-name" style="color: var(--pink);">🌱 Развитие</span>
-                    <span class="kpi-category-weight">10%</span>
-                </div>
-                <div class="kpi-item">
-                    <div>Cross-sell (оборудование + хостинг) <span class="kpi-target">≥40% сделок</span></div>
-                    <div class="kpi-weight">5%</div>
-                </div>
-                <div class="kpi-item">
-                    <div>Реферальные сделки <span class="kpi-target">≥3/мес</span></div>
-                    <div class="kpi-weight">5%</div>
-                </div>
-            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>KPI</th>
+                        <th>Вес</th>
+                        <th>Цель</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td><strong>Выполнение плана отдела</strong></td>
+                        <td class="percent">30%</td>
+                        <td>≥100%</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td><strong>Заполнение площадки</strong></td>
+                        <td class="percent">25%</td>
+                        <td>+500 устройств/мес</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td><strong>Конверсия воронки</strong></td>
+                        <td class="percent">15%</td>
+                        <td>≥12%</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td><strong>% команды в плане</strong></td>
+                        <td class="percent">15%</td>
+                        <td>≥70% менеджеров</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td><strong>Качество CRM</strong></td>
+                        <td class="percent">10%</td>
+                        <td>≥95%</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td><strong>Адаптация новичков</strong></td>
+                        <td class="percent">5%</td>
+                        <td>Сделка за 30 дней</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td></td>
+                        <td><strong>Итого</strong></td>
+                        <td class="percent">100%</td>
+                        <td>до 150 000 ₽</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
-        <!-- План -->
+        <!-- 4. План -->
         <div class="section">
-            <div class="section-title"><span>4</span> План по этапам</div>
+            <div class="section-title"><span>4</span> Этапы</div>
             
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-title">Месяц 1-3: Испытательный</div>
-                    <div class="timeline-desc">Оклад 250к + KPI до 150к. Без % от маржи. Время на адаптацию.</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-title">Месяц 4-6: Разгон</div>
-                    <div class="timeline-desc">Полная схема: оклад + KPI + 0.6% от маржи. Ожидаем первые результаты.</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-title">Месяц 7+: Полная мощность</div>
-                    <div class="timeline-desc">Квартальный бонус +50к при 100% плана. Годовой бонус — 13-я зарплата.</div>
-                </div>
+            <div class="timeline-item">
+                <div class="timeline-title">Месяц 1-3: Испытательный</div>
+                <div class="timeline-desc">Оклад 250к + KPI. Без % от маржи.</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-title">Месяц 4+: Полная схема</div>
+                <div class="timeline-desc">Оклад + KPI + 0.6% от маржи.</div>
             </div>
         </div>
 
