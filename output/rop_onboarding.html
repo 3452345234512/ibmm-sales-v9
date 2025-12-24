@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Онбординг РОПа | IBMM</title>
+    <style>
+        :root {
+            --bg-primary: #0a0f1a;
+            --bg-secondary: #111827;
+            --bg-card: #1a2235;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent: #06b6d4;
+            --accent-light: #22d3ee;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --purple: #a855f7;
+            --border: #2d3748;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 30px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(245, 158, 11, 0.1));
+            border-radius: 16px;
+            border: 1px solid var(--border);
+        }
+
+        .header-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--danger);
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--warning), var(--danger));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-subtitle {
+            color: var(--text-secondary);
+            font-size: 16px;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section h2 {
+            font-size: 22px;
+            color: var(--accent-light);
+            margin-bottom: 25px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section h3 {
+            font-size: 17px;
+            color: var(--text-primary);
+            margin: 30px 0 18px;
+        }
+
+        /* Warning Box */
+        .warning-box {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(239, 68, 68, 0.05));
+            border: 2px solid var(--danger);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .warning-box h3 {
+            color: var(--danger);
+            margin: 0 0 15px;
+            font-size: 18px;
+        }
+
+        .warning-box p {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+
+        .warning-box ul {
+            margin-left: 20px;
+            color: var(--text-secondary);
+        }
+
+        .warning-box li {
+            margin-bottom: 8px;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 18px;
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .card-title {
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        .card-subtitle {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 3px;
+        }
+
+        /* Blocks */
+        .block {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .block.danger { border-left-color: var(--danger); }
+        .block.warning { border-left-color: var(--warning); }
+        .block.success { border-left-color: var(--success); }
+        .block.purple { border-left-color: var(--purple); }
+
+        .block h4 {
+            font-size: 15px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .block p {
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .block ul {
+            margin-left: 20px;
+            color: var(--text-secondary);
+        }
+
+        .block li {
+            margin-bottom: 10px;
+        }
+
+        /* Grid */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+        }
+
+        /* Person Card */
+        .person-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .person-card .emoji {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .person-card .name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .person-card .role {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .person-card ul {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-left: 15px;
+        }
+
+        .person-card li {
+            margin-bottom: 6px;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 35px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--accent), var(--purple), var(--success));
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: var(--bg-card);
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -29px;
+            top: 25px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 3px solid var(--bg-primary);
+        }
+
+        .timeline-item.current::before {
+            background: var(--warning);
+            box-shadow: 0 0 15px var(--warning);
+        }
+
+        .timeline-item.danger::before {
+            background: var(--danger);
+        }
+
+        .timeline-day {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .timeline-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .timeline-tasks {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .timeline-tasks ul {
+            margin-left: 15px;
+        }
+
+        .timeline-tasks li {
+            margin-bottom: 6px;
+        }
+
+        /* Risk Table */
+        .risk-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            padding: 20px;
+            background: var(--bg-card);
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            margin-bottom: 15px;
+        }
+
+        .risk-side {
+            padding-left: 15px;
+        }
+
+        .risk-side.problem {
+            border-left: 3px solid var(--danger);
+        }
+
+        .risk-side.solution {
+            border-left: 3px solid var(--success);
+        }
+
+        .risk-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+        }
+
+        .risk-side.problem .risk-label { color: var(--danger); }
+        .risk-side.solution .risk-label { color: var(--success); }
+
+        .risk-side p {
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        @media (max-width: 768px) {
+            .risk-item { grid-template-columns: 1fr; }
+        }
+
+        /* Checklist */
+        .checklist {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 25px;
+            border: 1px solid var(--border);
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+
+        .checklist-box {
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--border);
+            border-radius: 4px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .checklist-text {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .checklist-text strong {
+            color: var(--text-primary);
+        }
+
+        /* Quote */
+        .quote {
+            background: rgba(168, 85, 247, 0.1);
+            border-left: 4px solid var(--purple);
+            padding: 20px 25px;
+            border-radius: 0 10px 10px 0;
+            margin: 20px 0;
+        }
+
+        .quote p {
+            font-style: italic;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .quote .author {
+            margin-top: 10px;
+            font-style: normal;
+            font-size: 12px;
+            color: var(--purple);
+        }
+
+        /* Final */
+        .final-message {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(245, 158, 11, 0.1));
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            margin-top: 50px;
+            border: 1px solid var(--border);
+        }
+
+        .final-message h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+            border: none;
+            padding: 0;
+            justify-content: center;
+        }
+
+        .final-message p {
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container { padding: 20px 15px; }
+            h1 { font-size: 24px; }
+        }
+
+        @media print {
+            body { background: white; color: black; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-label">⚠️ Критический документ</div>
+            <h1>Онбординг РОПа в IBMM</h1>
+            <div class="header-subtitle">Полная карта: с кем говорить, что смотреть, где мины</div>
+        </div>
+
+        <!-- Critical Warning -->
+        <div class="warning-box">
+            <h3>🚨 Почему этот документ критически важен</h3>
+            <p>В IBMM уже были попытки выстроить систему продаж. Все они провалились. Не потому что люди плохие — потому что <strong>не было понимания контекста</strong>.</p>
+            <p>Ты заходишь в ситуацию, где:</p>
+            <ul>
+                <li><strong>Два собственника</strong> с разными стилями управления</li>
+                <li><strong>Операционный директор</strong> между ними, который хочет быть ЛПР</li>
+                <li><strong>3 «звезды»-клоузера</strong>, которые работают вне системы и приносят основную выручку</li>
+                <li><strong>10 менеджеров</strong>, которых нужно разбить на хантеров и фармеров</li>
+                <li><strong>История провалов</strong> — команда уже видела «новые системы», которые забрасывались через месяц</li>
+            </ul>
+            <p style="margin-top: 15px; color: var(--danger);"><strong>Твоя задача:</strong> не повторить эти ошибки. Этот документ — карта минного поля.</p>
+        </div>
+
+        <!-- Context: The Players -->
+        <div class="section">
+            <h2>👥 Ключевые игроки: кто есть кто</h2>
+            
+            <p style="color: var(--text-secondary); margin-bottom: 25px;">
+                Прежде чем начать работу — пойми, с кем ты работаешь. Это не абстрактные «руководители». У каждого своя логика, свои цели, своя история.
+            </p>
+
+            <div class="grid-3" style="margin-bottom: 30px;">
+                <div class="person-card" style="border-top: 3px solid var(--accent);">
+                    <div class="emoji">📊</div>
+                    <div class="name">Андрей</div>
+                    <div class="role">Сооснователь</div>
+                    <ul>
+                        <li><strong>Топ-эксперт по майнингу в РФ</strong></li>
+                        <li>Строит CRM и систему</li>
+                        <li>Генерирует лиды</li>
+                        <li>Системное мышление</li>
+                        <li>Не любит клиентские коммуникации</li>
+                        <li>Устал от хаоса</li>
+                    </ul>
+                </div>
+                <div class="person-card" style="border-top: 3px solid var(--purple);">
+                    <div class="emoji">🏆</div>
+                    <div class="name">Дмитрий</div>
+                    <div class="role">Сооснователь</div>
+                    <ul>
+                        <li>Эксперт: майнинг, логистика, финансы</li>
+                        <li>Закрывает крупные сделки с холдингами</li>
+                        <li>Ориентирован на результат</li>
+                        <li>Предпочитает быстрые решения</li>
+                        <li>Не работает в CRM</li>
+                        <li>Периодически вносит срочные изменения</li>
+                    </ul>
+                </div>
+                <div class="person-card" style="border-top: 3px solid var(--warning);">
+                    <div class="emoji">⚖️</div>
+                    <div class="name">Алексей</div>
+                    <div class="role">Операционный директор</div>
+                    <ul>
+                        <li>Между двух огней</li>
+                        <li>Работает с командой напрямую</li>
+                        <li>Хочет быть ЛПР</li>
+                        <li>Выстраивает процессы</li>
+                        <li>Часто получает срочные задачи</li>
+                        <li><strong>Твой непосредственный руководитель</strong></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="block warning">
+                <h4>⚡ Триумвират: 3 ЛПР с равным голосом</h4>
+                <p>Андрей, Дмитрий и Алексей — все трое лица, принимающие решения. У каждого своя зона:</p>
+                <div class="grid-3" style="margin-top: 15px;">
+                    <div style="background: rgba(6, 182, 212, 0.1); padding: 12px; border-radius: 8px; text-align: center;">
+                        <div style="font-weight: 600; color: var(--accent);">Андрей</div>
+                        <div style="font-size: 11px; color: var(--text-muted);">Система, Лидген, CRM</div>
+                    </div>
+                    <div style="background: rgba(168, 85, 247, 0.1); padding: 12px; border-radius: 8px; text-align: center;">
+                        <div style="font-weight: 600; color: var(--purple);">Дмитрий</div>
+                        <div style="font-size: 11px; color: var(--text-muted);">Крупные сделки, Экспертиза</div>
+                    </div>
+                    <div style="background: rgba(245, 158, 11, 0.1); padding: 12px; border-radius: 8px; text-align: center;">
+                        <div style="font-weight: 600; color: var(--warning);">Алексей</div>
+                        <div style="font-size: 11px; color: var(--text-muted);">Операции, Команда</div>
+                    </div>
+                </div>
+                <p style="margin-top: 15px;"><strong>Правило 24 часов:</strong> Любое решение, затрагивающее команду — согласовать с триумвиратом до объявления.</p>
+            </div>
+        </div>
+
+        <!-- The Stars -->
+        <div class="section">
+            <h2>⭐ «Звёзды»: Меркулов, Полубатонов, Цыпляев</h2>
+
+            <div class="block danger">
+                <h4>🎯 Главное, что ты должен понять</h4>
+                <p><strong>Эти трое — не твои подчинённые.</strong> Формально они в отделе продаж, но:</p>
+                <ul>
+                    <li>Они приносят <strong>основную выручку</strong> компании</li>
+                    <li>Они работают <strong>на особых условиях</strong></li>
+                    <li>Они <strong>не будут</strong> заполнять CRM, ходить на стендапы, следовать процессам</li>
+                    <li>15 новых менеджеров <strong>не заменят</strong> их экспертизу и клиентскую базу</li>
+                </ul>
+                <p style="margin-top: 15px; color: var(--danger);"><strong>Если ты попытаешься их «прижать» к системе — ты проиграешь.</strong></p>
+            </div>
+
+            <div class="block success">
+                <h4>✅ Стратегия: «Два трека»</h4>
+                <p>Не пытайся загнать всех в одну систему. Создай две параллельные:</p>
+                <div class="grid-2" style="margin-top: 15px;">
+                    <div style="background: rgba(168, 85, 247, 0.1); padding: 15px; border-radius: 8px;">
+                        <div style="font-weight: 600; color: var(--purple); margin-bottom: 10px;">🏆 Трек «Звёзды»</div>
+                        <ul style="font-size: 13px; margin-left: 15px;">
+                            <li>Сохраняют текущие условия</li>
+                            <li>Минимум административной нагрузки</li>
+                            <li>Не участвуют в стендапах</li>
+                            <li>Подчиняются триумвирату напрямую</li>
+                            <li>Ты их <strong>не трогаешь</strong></li>
+                        </ul>
+                    </div>
+                    <div style="background: rgba(6, 182, 212, 0.1); padding: 15px; border-radius: 8px;">
+                        <div style="font-weight: 600; color: var(--accent); margin-bottom: 10px;">📊 Трек «Система»</div>
+                        <ul style="font-size: 13px; margin-left: 15px;">
+                            <li>10 менеджеров + новые</li>
+                            <li>CRM обязательно, KPI строго</li>
+                            <li>Стендапы, отчёты, контроль</li>
+                            <li>Ты полностью управляешь</li>
+                            <li>Хантеры → Фармеры → Клоузеры</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quote">
+                <p>«Я прихожу не менять вас. Вы приносите деньги, вы эксперты — я это понимаю. Моя задача — выстроить систему для новых людей, чтобы снять с вас рутину. Мне нужна ваша экспертиза, но не ваше время на отчёты. Как вам комфортнее работать — так и будем.»</p>
+                <div class="author">— Что сказать «звёздам» при первой встрече</div>
+            </div>
+        </div>
+
+        <!-- Meetings Before Start -->
+        <div class="section">
+            <h2>📋 С кем встретиться до начала работы</h2>
+
+            <div class="card" style="border-left: 4px solid var(--accent);">
+                <div class="card-header">
+                    <div class="card-icon" style="background: rgba(6, 182, 212, 0.2);">📊</div>
+                    <div>
+                        <div class="card-title">Встреча с Андреем</div>
+                        <div class="card-subtitle">1.5-2 часа • Обязательно первым</div>
+                    </div>
+                </div>
+                <p style="color: var(--text-secondary); margin-bottom: 15px;">Андрей — архитектор системы. Без понимания его видения ты будешь работать вслепую.</p>
+                <h4 style="margin-bottom: 10px;">Что узнать:</h4>
+                <ul style="color: var(--text-secondary); margin-left: 20px;">
+                    <li><strong>CRM:</strong> Как устроена? Какие отчёты смотреть? Какие поля критичны?</li>
+                    <li><strong>Лидген:</strong> Откуда приходят лиды? Какой объём? Какие каналы работают?</li>
+                    <li><strong>Метрики:</strong> Какие цифры важны? Как их читать? Где смотреть?</li>
+                    <li><strong>База знаний:</strong> Где информация по продукту? Как обучать менеджеров?</li>
+                    <li><strong>История:</strong> Что пробовали? Что не сработало? Почему?</li>
+                    <li><strong>Его ожидания:</strong> Что он хочет от тебя? Какой результат через 30/60/90 дней?</li>
+                </ul>
+                <div style="margin-top: 15px; padding: 12px; background: rgba(6, 182, 212, 0.1); border-radius: 8px;">
+                    <strong style="color: var(--accent);">Важно:</strong> Андрей очень занят. Не трать его время на бытовуху. Приходи с конкретными вопросами.
+                </div>
+            </div>
+
+            <div class="card" style="border-left: 4px solid var(--purple);">
+                <div class="card-header">
+                    <div class="card-icon" style="background: rgba(168, 85, 247, 0.2);">🏆</div>
+                    <div>
+                        <div class="card-title">Встреча с Дмитрием</div>
+                        <div class="card-subtitle">1 час • Внимательно слушай</div>
+                    </div>
+                </div>
+                <p style="color: var(--text-secondary); margin-bottom: 15px;">Дмитрий — эксперт по крупным сделкам. Его экспертиза бесценна, но его время ограничено.</p>
+                <h4 style="margin-bottom: 10px;">Что узнать:</h4>
+                <ul style="color: var(--text-secondary); margin-left: 20px;">
+                    <li><strong>Крупные сделки:</strong> Как они работают? Какой цикл? Кто ЛПР?</li>
+                    <li><strong>Ключевые клиенты:</strong> Кто они? Как с ними общаться? Что важно?</li>
+                    <li><strong>Экспертиза:</strong> Основы майнинга, логистики, финансов — что должен знать менеджер?</li>
+                    <li><strong>Когда подключать:</strong> На какой стадии сделки звать Дмитрия?</li>
+                    <li><strong>Его ожидания:</strong> Что он хочет видеть от отдела продаж?</li>
+                </ul>
+                <div style="margin-top: 15px; padding: 12px; background: rgba(168, 85, 247, 0.1); border-radius: 8px;">
+                    <strong style="color: var(--purple);">Важно:</strong> Не спорь. Не пытайся «учить». Слушай и записывай. Дмитрий уважает результат, не слова.
+                </div>
+            </div>
+
+            <div class="card" style="border-left: 4px solid var(--warning);">
+                <div class="card-header">
+                    <div class="card-icon" style="background: rgba(245, 158, 11, 0.2);">⚖️</div>
+                    <div>
+                        <div class="card-title">Встреча с Алексеем</div>
+                        <div class="card-subtitle">2 часа • Твой непосредственный руководитель</div>
+                    </div>
+                </div>
+                <p style="color: var(--text-secondary); margin-bottom: 15px;">Алексей — операционный директор. Ты подчиняешься ему. Он знает команду изнутри.</p>
+                <h4 style="margin-bottom: 10px;">Что узнать:</h4>
+                <ul style="color: var(--text-secondary); margin-left: 20px;">
+                    <li><strong>Команда:</strong> Кто есть кто? Сильные/слабые стороны каждого?</li>
+                    <li><strong>Процессы:</strong> Что работает? Что нет? Где узкие места?</li>
+                    <li><strong>Операции:</strong> Как устроены закупки, логистика? Как это влияет на продажи?</li>
+                    <li><strong>Проблемы:</strong> С чем команда сталкивается каждый день?</li>
+                    <li><strong>Твоя роль:</strong> Что от тебя ждут? Как будете работать вместе?</li>
+                    <li><strong>Триумвират:</strong> Как работает правило 24 часов? Как принимаются решения?</li>
+                </ul>
+                <div style="margin-top: 15px; padding: 12px; background: rgba(245, 158, 11, 0.1); border-radius: 8px;">
+                    <strong style="color: var(--warning);">Важно:</strong> Алексей — твой союзник. Он хочет, чтобы система работала. Работай с ним в связке.
+                </div>
+            </div>
+
+            <div class="card" style="border-left: 4px solid var(--success);">
+                <div class="card-header">
+                    <div class="card-icon" style="background: rgba(16, 185, 129, 0.2);">⭐</div>
+                    <div>
+                        <div class="card-title">Встречи со «звёздами»</div>
+                        <div class="card-subtitle">30 мин каждый • Меркулов, Полубатонов, Цыпляев</div>
+                    </div>
+                </div>
+                <p style="color: var(--text-secondary); margin-bottom: 15px;">Это не твои подчинённые, но ты должен понять, как они работают.</p>
+                <h4 style="margin-bottom: 10px;">Что узнать:</h4>
+                <ul style="color: var(--text-secondary); margin-left: 20px;">
+                    <li><strong>Их процесс:</strong> Как они находят клиентов? Как закрывают?</li>
+                    <li><strong>Что им нужно:</strong> Какие лиды хорошие? Что мешает работать?</li>
+                    <li><strong>Ожидания:</strong> Чего они ждут от нового РОПа?</li>
+                    <li><strong>Чего НЕ делать:</strong> Что их бесит? Что точно не надо?</li>
+                </ul>
+                <div style="margin-top: 15px; padding: 12px; background: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+                    <strong style="color: var(--success);">Подход:</strong> Уважение + любопытство. Ты пришёл учиться, не командовать.
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background: rgba(6, 182, 212, 0.2);">👥</div>
+                    <div>
+                        <div class="card-title">1-на-1 с каждым из 10 менеджеров</div>
+                        <div class="card-subtitle">20-30 мин каждый • В первые 2 недели</div>
+                    </div>
+                </div>
+                <p style="color: var(--text-secondary); margin-bottom: 15px;">Ты должен понять каждого. Кто хантер, кто фармер, кто проблемный.</p>
+                <h4 style="margin-bottom: 10px;">Что спросить:</h4>
+                <ul style="color: var(--text-secondary); margin-left: 20px;">
+                    <li>Как давно работаешь? Что нравится? Что бесит?</li>
+                    <li>Как ты работаешь? Сколько звонков? Какие клиенты?</li>
+                    <li>Что мешает продавать больше?</li>
+                    <li>Какая поддержка нужна?</li>
+                    <li>Что бы ты изменил в отделе?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- First 30 Days -->
+        <div class="section">
+            <h2>📅 Первые 30 дней: пошаговый план</h2>
+
+            <div class="block danger">
+                <h4>🚨 Критический период</h4>
+                <p>Первые 30 дней определяют всё. Команда будет смотреть: <strong>«Это серьёзно или опять поиграются и забудут?»</strong></p>
+                <p>Если ты покажешь слабость или непоследовательность — потеряешь авторитет навсегда.</p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item current">
+                    <div class="timeline-day">День 1-2</div>
+                    <div class="timeline-title">Встречи с триумвиратом</div>
+                    <div class="timeline-tasks">
+                        <ul>
+                            <li>Встреча с Андреем (CRM, лидген, метрики)</li>
+                            <li>Встреча с Дмитрием (крупные сделки, экспертиза)</li>
+                            <li>Встреча с Алексеем (команда, процессы, твоя роль)</li>
+                            <li>Получение всех доступов (CRM, почта, чаты, телефония)</li>
+                            <li>Изучение документов (скрипты, КП, прайсы)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-day">День 3-5</div>
+                    <div class="timeline-title">Знакомство с командой</div>
+                    <div class="timeline-tasks">
+                        <ul>
+                            <li>Встречи со «звёздами» (30 мин каждый)</li>
+                            <li>Первые 1-на-1 с менеджерами</li>
+                            <li>Изучение CRM: воронка, сделки, история</li>
+                            <li>Прослушивание записей звонков (по 5-10 на каждого)</li>
+                            <li>Первый стендап с командой (больше слушать, чем говорить)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-day">Неделя 2</div>
+                    <div class="timeline-title">Запуск контроля</div>
+                    <div class="timeline-tasks">
+                        <ul>
+                            <li>Ежедневные стендапы (15 мин утром)</li>
+                            <li>Контроль заполнения CRM</li>
+                            <li>Первые отчёты триумвирату</li>
+                            <li>Оценка менеджеров: кто хантер, кто фармер</li>
+                            <li>Выявление узких мест в воронке</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-day">Неделя 3-4</div>
+                    <div class="timeline-title">Внедрение системы</div>
+                    <div class="timeline-tasks">
+                        <ul>
+                            <li>Объявление новых ролей (хантеры/фармеры)</li>
+                            <li>Новая система мотивации</li>
+                            <li>Жёсткое правило: нет CRM = нет %</li>
+                            <li>Еженедельные обзоры воронки</li>
+                            <li>Первые метрики и дашборды</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item danger">
+                    <div class="timeline-day">День 30</div>
+                    <div class="timeline-title">Отчёт триумвирату</div>
+                    <div class="timeline-tasks">
+                        <ul>
+                            <li>Что сделано за 30 дней</li>
+                            <li>Какие проблемы выявлены</li>
+                            <li>Какие метрики изменились</li>
+                            <li>План на следующие 30 дней</li>
+                            <li>Что нужно от триумвирата</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- What to Look At -->
+        <div class="section">
+            <h2>🔍 Что смотреть в CRM</h2>
+
+            <div class="block">
+                <h4>📊 Ключевые отчёты</h4>
+                <ul>
+                    <li><strong>Воронка по этапам:</strong> Где теряются лиды? Какой этап — узкое место?</li>
+                    <li><strong>Активность по менеджерам:</strong> Кто звонит, кто нет? Сколько контактов в день?</li>
+                    <li><strong>Конверсия:</strong> Лид → Квалифицированный → Встреча → КП → Сделка</li>
+                    <li><strong>Время в этапе:</strong> Сколько лиды висят на каждом этапе?</li>
+                    <li><strong>Источники лидов:</strong> Откуда приходят? Какой канал лучше конвертит?</li>
+                </ul>
+            </div>
+
+            <div class="block warning">
+                <h4>⚠️ Красные флаги</h4>
+                <ul>
+                    <li><strong>Пустые поля:</strong> Если менеджеры не заполняют — они не работают в системе</li>
+                    <li><strong>«Мёртвые» лиды:</strong> Лиды без активности > 7 дней — потеряны</li>
+                    <li><strong>Нет следующего шага:</strong> Если в сделке нет задачи — она брошена</li>
+                    <li><strong>Нереальные прогнозы:</strong> Если forecast не сбывается месяц за месяцем — данные врут</li>
+                    <li><strong>Все сделки «в работе»:</strong> Если ничего не закрывается и не отваливается — это фантазия</li>
+                </ul>
+            </div>
+
+            <div class="block success">
+                <h4>✅ Здоровые признаки</h4>
+                <ul>
+                    <li><strong>Ежедневная активность:</strong> Звонки, письма, встречи — каждый день</li>
+                    <li><strong>Движение по воронке:</strong> Лиды двигаются между этапами</li>
+                    <li><strong>Закрытые сделки:</strong> И выигранные, и проигранные — это нормально</li>
+                    <li><strong>Заполненные поля:</strong> Бюджет, ЛПР, следующий шаг — есть</li>
+                    <li><strong>История коммуникаций:</strong> Видно, что происходило с клиентом</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Risks -->
+        <div class="section">
+            <h2>💣 Подводные камни и риски</h2>
+
+            <p style="color: var(--text-secondary); margin-bottom: 25px;">
+                Это не теоретические риски. Это то, что <strong>уже происходило</strong> в IBMM. Будь готов.
+            </p>
+
+            <div class="risk-item">
+                <div class="risk-side problem">
+                    <div class="risk-label">Риск #1</div>
+                    <p><strong>Внезапные вбросы</strong><br>Прилетают новые вводные, срочные лоты, меняется мотивация — всё бросить, делаем по-новому</p>
+                </div>
+                <div class="risk-side solution">
+                    <div class="risk-label">Что делать</div>
+                    <p>Всё через Алексея. Любые изменения — сначала в триумвират. Команда слышит только согласованные решения. Не паникуй, не бросай текущее.</p>
+                </div>
+            </div>
+
+            <div class="risk-item">
+                <div class="risk-side problem">
+                    <div class="risk-label">Риск #2</div>
+                    <p><strong>Обход РОПа</strong><br>Менеджеры идут напрямую к Дмитрию или Андрею, минуя тебя</p>
+                </div>
+                <div class="risk-side solution">
+                    <div class="risk-label">Что делать</div>
+                    <p>Триумвират должен перенаправлять к тебе: «Поговори с РОПом». Если это не работает — разговор с Алексеем. Не молчи.</p>
+                </div>
+            </div>
+
+            <div class="risk-item">
+                <div class="risk-side problem">
+                    <div class="risk-label">Риск #3</div>
+                    <p><strong>«Звёзды» демонстративно игнорируют</strong><br>Не приходят на встречи, не отвечают, делают вид, что тебя нет</p>
+                </div>
+                <div class="risk-side solution">
+                    <div class="risk-label">Что делать</div>
+                    <p>Не вступай в конфликт. Они вне твоей системы. Сосредоточься на своём треке. Если мешают — через Алексея к триумвирату.</p>
+                </div>
+            </div>
+
+            <div class="risk-item">
+                <div class="risk-side problem">
+                    <div class="risk-label">Риск #4</div>
+                    <p><strong>Менеджеры не заполняют CRM</strong><br>«Нет времени», «Это не работает», «Раньше не надо было»</p>
+                </div>
+                <div class="risk-side solution">
+                    <div class="risk-label">Что делать</div>
+                    <p>Жёсткое правило с первого дня: нет записи в CRM = нет % от сделки. Без исключений. Проверяй ежедневно. Публичный дашборд.</p>
+                </div>
+            </div>
+
+            <div class="risk-item">
+                <div class="risk-side problem">
+                    <div class="risk-label">Риск #5</div>
+                    <p><strong>«Мы это уже пробовали»</strong><br>Команда скептична, видела много «новых систем», которые умирали</p>
+                </div>
+                <div class="risk-side solution">
+                    <div class="risk-label">Что делать</div>
+                    <p>Не спорь. Признай: «Да, пробовали. Не получилось. Давайте попробуем по-другому». Покажи результат, не слова. Первые 30 дней — без исключений.</p>
+                </div>
+            </div>
+
+            <div class="risk-item">
+                <div class="risk-side problem">
+                    <div class="risk-label">Риск #6</div>
+                    <p><strong>Противоречивые сигналы от триумвирата</strong><br>Андрей говорит одно, Дмитрий другое, Алексей третье</p>
+                </div>
+                <div class="risk-side solution">
+                    <div class="risk-label">Что делать</div>
+                    <p>Не выполняй противоречивые указания. Эскалируй Алексею: «Получил разные указания, нужно согласование». Пусть триумвират решит.</p>
+                </div>
+            </div>
+
+            <div class="risk-item">
+                <div class="risk-side problem">
+                    <div class="risk-label">Риск #7</div>
+                    <p><strong>Тебя используют как «козла отпущения»</strong><br>Когда что-то не работает — виноват РОП</p>
+                </div>
+                <div class="risk-side solution">
+                    <div class="risk-label">Что делать</div>
+                    <p>Документируй всё. Еженедельные отчёты с фактами. Если решение принято триумвиратом — зафиксируй письменно. Не бери вину за чужие решения.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Why it fails -->
+        <div class="section">
+            <h2>🔥 Почему всё может пойти в ад</h2>
+
+            <p style="color: var(--text-secondary); margin-bottom: 25px;">
+                Честный разговор. Вот сценарии, при которых трансформация провалится — и ты окажешься крайним.
+            </p>
+
+            <div class="block danger">
+                <h4>💀 Сценарий #1: «Правила не для всех»</h4>
+                <p>Ты внедряешь систему, но кто-то из триумвирата её игнорирует. Команда видит: «Можно и нам».</p>
+                <ul>
+                    <li>Дмитрий принимает решение без согласования — команда теряет доверие</li>
+                    <li>Андрей перегружен и не отвечает — процессы застревают</li>
+                    <li>Алексей получает срочную задачу и ломает план — всё начинается сначала</li>
+                </ul>
+                <p style="margin-top: 15px; color: var(--danger);"><strong>Результат:</strong> Зачем соблюдать правила, если руководство их не соблюдает?</p>
+            </div>
+
+            <div class="block danger">
+                <h4>💀 Сценарий #2: «Система не для нас»</h4>
+                <p>Через 2-3 недели энтузиазм угасает. Менеджеры возвращаются к старым привычкам.</p>
+                <ul>
+                    <li>CRM заполняется формально или не заполняется вовсе</li>
+                    <li>Стендапы становятся «для галочки»</li>
+                    <li>KPI не контролируются</li>
+                    <li>Роли размываются — все опять делают всё</li>
+                </ul>
+                <p style="margin-top: 15px; color: var(--danger);"><strong>Результат:</strong> Вернулись к хаосу. «Система не работает».</p>
+            </div>
+
+            <div class="block danger">
+                <h4>💀 Сценарий #3: «Звёзды уходят»</h4>
+                <p>Ты пытаешься загнать «звёзд» в систему. Они обижаются и уходят.</p>
+                <ul>
+                    <li>Требуешь от них CRM — они отказываются</li>
+                    <li>Ставишь им KPI — они смеются</li>
+                    <li>Критикуешь их работу — они идут к Дмитрию</li>
+                    <li>Конфликт эскалируется — тебя увольняют или они уходят</li>
+                </ul>
+                <p style="margin-top: 15px; color: var(--danger);"><strong>Результат:</strong> Потеря основной выручки. Компания в кризисе. Ты виноват.</p>
+            </div>
+
+            <div class="block danger">
+                <h4>💀 Сценарий #4: «РОП без авторитета»</h4>
+                <p>Ты новичок. Менеджеры тебя не воспринимают. Триумвират не поддерживает.</p>
+                <ul>
+                    <li>Твои указания игнорируются</li>
+                    <li>Менеджеры идут напрямую к владельцам</li>
+                    <li>Триумвират не перенаправляет к тебе</li>
+                    <li>Ты не можешь принимать решения без одобрения</li>
+                </ul>
+                <p style="margin-top: 15px; color: var(--danger);"><strong>Результат:</strong> Ты — формальная фигура без власти. Система не работает.</p>
+            </div>
+
+            <div class="block success">
+                <h4>✅ Как этого избежать</h4>
+                <ol style="margin-left: 20px; color: var(--text-secondary);">
+                    <li><strong>Публичная поддержка триумвирата:</strong> Они должны сказать команде: «РОП говорит от нашего имени»</li>
+                    <li><strong>Правило 24 часов — для всех:</strong> Включая Андрея, Дмитрия, Алексея</li>
+                    <li><strong>Жёсткость первые 30 дней:</strong> Никаких исключений. Потом можно смягчить</li>
+                    <li><strong>Два трека:</strong> Не трогай «звёзд». Сосредоточься на своём треке</li>
+                    <li><strong>Документируй всё:</strong> Отчёты, решения, договорённости — письменно</li>
+                    <li><strong>Эскалируй вовремя:</strong> Не жди, пока проблема станет кризисом</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Checklist -->
+        <div class="section">
+            <h2>✅ Чек-лист: что получить до начала работы</h2>
+
+            <div class="checklist">
+                <div class="checklist-item">
+                    <div class="checklist-box"></div>
+                    <div class="checklist-text"><strong>Доступы:</strong> CRM, почта, корпоративные чаты, телефония, дашборды</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-box"></div>
+                    <div class="checklist-text"><strong>Документы:</strong> скрипты продаж, презентации, КП, прайсы, договоры</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-box"></div>
+                    <div class="checklist-text"><strong>Контакты:</strong> список команды с ролями и телефонами</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-box"></div>
+                    <div class="checklist-text"><strong>История:</strong> отчёты за последние 3 месяца (продажи, конверсии, проблемы)</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-box"></div>
+                    <div class="checklist-text"><strong>Цели:</strong> план продаж, KPI команды, ожидания триумвирата</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-box"></div>
+                    <div class="checklist-text"><strong>База знаний:</strong> информация по продукту, майнингу, хостингу</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-box"></div>
+                    <div class="checklist-text"><strong>Записи звонков:</strong> доступ к системе записи для прослушивания</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-box"></div>
+                    <div class="checklist-text"><strong>Система мотивации:</strong> текущая и новая (хантеры/фармеры/клоузеры)</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-box"></div>
+                    <div class="checklist-text"><strong>Правила игры:</strong> как работает триумвират, правило 24 часов</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-box"></div>
+                    <div class="checklist-text"><strong>Красные линии:</strong> чего точно НЕ делать (особенно со «звёздами»)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Metrics -->
+        <div class="section">
+            <h2>📊 Метрики, которые ты должен знать</h2>
+
+            <div class="grid-2">
+                <div class="block">
+                    <h4>📈 Что отслеживать ежедневно</h4>
+                    <ul>
+                        <li>Количество звонков по каждому менеджеру</li>
+                        <li>Заполняемость CRM (%)</li>
+                        <li>Новые лиды за день</li>
+                        <li>Движение по воронке</li>
+                        <li>Выполнение задач</li>
+                    </ul>
+                </div>
+                <div class="block">
+                    <h4>📊 Что отслеживать еженедельно</h4>
+                    <ul>
+                        <li>Конверсия по этапам воронки</li>
+                        <li>Количество квалифицированных лидов</li>
+                        <li>Количество встреч</li>
+                        <li>Количество КП</li>
+                        <li>Закрытые сделки (выиграны/проиграны)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="block success" style="margin-top: 20px;">
+                <h4>🎯 Целевые метрики через 90 дней</h4>
+                <div class="grid-2" style="margin-top: 15px;">
+                    <div>
+                        <ul>
+                            <li><strong>Заполняемость CRM:</strong> 95%+</li>
+                            <li><strong>Квал. лидов / неделя:</strong> 30+</li>
+                            <li><strong>Конверсия в сделку:</strong> 25%+</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul>
+                            <li><strong>Покрытие воронки:</strong> 3x от плана</li>
+                            <li><strong>Текучка менеджеров:</strong> 0</li>
+                            <li><strong>Решения без согласования:</strong> 0</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Final Message -->
+        <div class="final-message">
+            <h2>🎯 Главное, что нужно помнить</h2>
+            <p>
+                <strong>Ты заходишь в сложную ситуацию.</strong> Два собственника с разными стилями, операционный директор между ними, «звёзды» вне системы, команда, которая видела много провалов.<br><br>
+                
+                <strong>Твоя задача — не революция, а эволюция.</strong><br>
+                • Не ломай то, что работает (особенно «звёзд»)<br>
+                • Строй свой трек (хантеры + фармеры)<br>
+                • Держи правила первые 30 дней без исключений<br>
+                • Документируй всё<br>
+                • Эскалируй проблемы вовремя<br><br>
+                
+                <strong style="color: var(--warning);">Если триумвират тебя поддержит — ты справишься.</strong><br>
+                <span style="font-size: 12px; color: var(--text-muted);">Если нет — это не твоя вина. Но попытаться стоит.</span>
+            </p>
+        </div>
+
+        <p style="text-align: center; color: var(--text-muted); margin-top: 40px; font-size: 12px;">
+            Документ подготовлен для онбординга РОПа • IBMM • 2024
+        </p>
+    </div>
+</body>
+</html>
+

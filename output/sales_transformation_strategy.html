@@ -1,0 +1,1737 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Стратегия трансформации отдела продаж</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0f172a;
+            --secondary: #1e293b;
+            --accent: #3b82f6;
+            --accent-light: #60a5fa;
+            --danger: #ef4444;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --card-bg: #1e293b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--primary);
+            color: var(--text);
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        /* Cover Page */
+        .cover {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f172a 100%);
+            position: relative;
+            overflow: hidden;
+            page-break-after: always;
+        }
+
+        .cover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+        }
+
+        .cover-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cover-badge {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid var(--accent);
+            color: var(--accent-light);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        .cover h1 {
+            font-size: 56px;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff 0%, #60a5fa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cover-subtitle {
+            font-size: 22px;
+            color: var(--text-muted);
+            margin-bottom: 50px;
+            font-weight: 300;
+        }
+
+        .cover-meta {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            margin-top: 60px;
+        }
+
+        .cover-meta-item {
+            text-align: center;
+        }
+
+        .cover-meta-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .cover-meta-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        /* Section styles */
+        .section {
+            margin-bottom: 60px;
+            page-break-inside: avoid;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 30px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .section-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--accent) 0%, #1d4ed8 100%);
+            border-radius: 12px;
+            font-size: 20px;
+            font-weight: 800;
+            color: white;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text);
+        }
+
+        h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent-light);
+            margin: 30px 0 16px 0;
+        }
+
+        h4 {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text);
+            margin: 20px 0 12px 0;
+        }
+
+        p {
+            margin-bottom: 16px;
+            color: var(--text-muted);
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .card-accent {
+            border-left: 4px solid var(--accent);
+        }
+
+        .card-danger {
+            border-left: 4px solid var(--danger);
+            background: rgba(239, 68, 68, 0.05);
+        }
+
+        .card-success {
+            border-left: 4px solid var(--success);
+            background: rgba(34, 197, 94, 0.05);
+        }
+
+        .card-warning {
+            border-left: 4px solid var(--warning);
+            background: rgba(245, 158, 11, 0.05);
+        }
+
+        /* Principle cards */
+        .principle {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .principle::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--accent) 0%, var(--accent-light) 100%);
+        }
+
+        .principle-number {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--accent-light);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+        }
+
+        .principle-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .principle-source {
+            font-size: 12px;
+            color: var(--accent-light);
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .principle-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 13px;
+        }
+
+        th {
+            background: var(--secondary);
+            color: var(--text);
+            font-weight: 600;
+            text-align: left;
+            padding: 14px 16px;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+
+        tr:hover td {
+            background: rgba(59, 130, 246, 0.05);
+        }
+
+        .table-wrapper {
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        /* Comparison tables */
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .comparison-old {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .comparison-new {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .comparison-title {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .comparison-old .comparison-title {
+            color: var(--danger);
+        }
+
+        .comparison-new .comparison-title {
+            color: var(--success);
+        }
+
+        .comparison ul {
+            list-style: none;
+        }
+
+        .comparison li {
+            padding: 8px 0;
+            font-size: 13px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .comparison li::before {
+            content: '×';
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .comparison-old li::before {
+            color: var(--danger);
+        }
+
+        .comparison-new li::before {
+            content: '✓';
+            color: var(--success);
+        }
+
+        /* Lists */
+        ul, ol {
+            margin: 16px 0;
+            padding-left: 24px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            color: var(--text-muted);
+        }
+
+        /* Code blocks */
+        .code-block {
+            background: #0d1117;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: #e6edf3;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        .code-block .comment {
+            color: #8b949e;
+        }
+
+        .code-block .number {
+            color: #79c0ff;
+        }
+
+        .code-block .highlight {
+            color: #7ee787;
+        }
+
+        /* Stats grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--accent-light);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+            margin: 30px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -33px;
+            top: 4px;
+            width: 12px;
+            height: 12px;
+            background: var(--accent);
+            border-radius: 50%;
+            border: 3px solid var(--primary);
+        }
+
+        .timeline-content {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .timeline-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .timeline-badge {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--accent-light);
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
+        /* Checklist */
+        .checklist {
+            list-style: none;
+            padding: 0;
+            margin: 16px 0;
+        }
+
+        .checklist li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .checklist li:last-child {
+            border-bottom: none;
+        }
+
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* Quote */
+        .quote {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
+            border-left: 4px solid var(--accent);
+            border-radius: 0 12px 12px 0;
+            padding: 24px 30px;
+            margin: 30px 0;
+            font-size: 18px;
+            font-style: italic;
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        /* Highlight box */
+        .highlight-box {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .highlight-box-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--warning);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* KPI Grid */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin: 20px 0;
+        }
+
+        .kpi-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .kpi-number {
+            font-size: 12px;
+            color: var(--accent-light);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .kpi-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .kpi-formula {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--text-muted);
+            background: rgba(0,0,0,0.3);
+            padding: 6px 10px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        .kpi-norm {
+            font-size: 13px;
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        /* Page break */
+        .page-break {
+            page-break-after: always;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+            font-size: 12px;
+            border-top: 1px solid var(--border);
+            margin-top: 60px;
+        }
+
+        /* Decision list */
+        .decision-list {
+            list-style: none;
+            padding: 0;
+            counter-reset: decision;
+        }
+
+        .decision-list li {
+            counter-increment: decision;
+            display: flex;
+            gap: 16px;
+            padding: 16px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+
+        .decision-list li::before {
+            content: counter(decision);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: var(--danger);
+            color: white;
+            font-weight: 700;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .decision-content {
+            flex: 1;
+        }
+
+        .decision-title {
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+
+        .decision-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* MEDDIC table */
+        .meddic-table td:first-child {
+            font-weight: 700;
+            color: var(--accent-light);
+            width: 120px;
+        }
+
+        .red-flag {
+            color: var(--danger);
+            font-style: italic;
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .cover {
+                min-height: auto;
+                padding: 40px 20px;
+            }
+            
+            .cover-title {
+                font-size: 28px;
+                line-height: 1.2;
+            }
+            
+            .cover-subtitle {
+                font-size: 14px;
+            }
+            
+            .cover-meta {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .section {
+                padding: 20px 15px;
+                margin-bottom: 20px;
+            }
+            
+            .section-number {
+                font-size: 36px;
+            }
+            
+            .section-title {
+                font-size: 20px;
+            }
+            
+            h3 {
+                font-size: 16px;
+            }
+            
+            h4 {
+                font-size: 14px;
+            }
+            
+            /* Tables responsive */
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+                font-size: 12px;
+            }
+            
+            th, td {
+                padding: 8px 10px;
+                min-width: 80px;
+            }
+            
+            /* Grid responsive */
+            .principles-grid,
+            .kpi-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .principle-card,
+            .kpi-card {
+                padding: 15px;
+            }
+            
+            .principle-number {
+                font-size: 14px;
+            }
+            
+            .principle-title {
+                font-size: 15px;
+            }
+            
+            .principle-desc {
+                font-size: 12px;
+            }
+            
+            /* Quote responsive */
+            .quote {
+                padding: 15px;
+                font-size: 14px;
+            }
+            
+            .quote-author {
+                font-size: 11px;
+            }
+            
+            /* Checklist responsive */
+            .checklist li {
+                padding: 12px;
+                font-size: 13px;
+            }
+            
+            .checkbox {
+                width: 18px;
+                height: 18px;
+            }
+            
+            /* Two columns to one */
+            .two-columns {
+                grid-template-columns: 1fr;
+            }
+            
+            /* Decision list */
+            .decision-list li {
+                padding: 12px;
+                gap: 12px;
+            }
+            
+            .decision-list li::before {
+                width: 28px;
+                height: 28px;
+                font-size: 13px;
+            }
+            
+            .decision-title {
+                font-size: 14px;
+            }
+            
+            .decision-desc {
+                font-size: 12px;
+            }
+            
+            /* MEDDIC table */
+            .meddic-table td:first-child {
+                width: auto;
+                min-width: 70px;
+            }
+            
+            /* Timeline */
+            .timeline {
+                padding: 15px;
+            }
+            
+            .timeline-phase {
+                font-size: 14px;
+            }
+            
+            /* Alert boxes */
+            .alert {
+                padding: 12px 15px;
+                font-size: 13px;
+            }
+            
+            /* Footer */
+            .footer {
+                padding: 20px;
+                font-size: 11px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .cover-title {
+                font-size: 22px;
+            }
+            
+            .section-number {
+                font-size: 28px;
+            }
+            
+            .section-title {
+                font-size: 18px;
+            }
+            
+            table {
+                font-size: 11px;
+            }
+            
+            th, td {
+                padding: 6px 8px;
+                min-width: 60px;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+                color: #1a1a1a;
+            }
+
+            .cover {
+                background: #0f172a !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .section {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Cover Page -->
+    <div class="cover">
+        <div class="cover-content">
+            <div class="cover-badge">Внутренний документ</div>
+            <h1>Стратегия<br>трансформации<br>отдела продаж</h1>
+            <p class="cover-subtitle">Практическое руководство по перестройке B2B-продаж<br>на основе лучших мировых методологий</p>
+            
+            <div class="cover-meta">
+                <div class="cover-meta-item">
+                    <div class="cover-meta-label">Методологии</div>
+                    <div class="cover-meta-value">SPIN • Challenger • MEDDIC</div>
+                </div>
+                <div class="cover-meta-item">
+                    <div class="cover-meta-label">Горизонт</div>
+                    <div class="cover-meta-value">90 дней</div>
+                </div>
+                <div class="cover-meta-item">
+                    <div class="cover-meta-label">Версия</div>
+                    <div class="cover-meta-value">1.0</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Section 1: Key Principles -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">1</div>
+                <h2 class="section-title">Ключевые принципы</h2>
+            </div>
+
+            <p>Семь фундаментальных принципов, которые должны лечь в основу новой модели продаж. Каждый из них подкреплён исследованиями и практикой лучших B2B-команд мира.</p>
+
+            <div class="principle">
+                <div class="principle-number">ПРИНЦИП 1</div>
+                <div class="principle-title">Активность создаёт возможности</div>
+                <div class="principle-source">Fanatical Prospecting — Jeb Blount</div>
+                <div class="principle-desc">Нет активности — нет воронки. Нет воронки — нет денег. Менеджер, делающий 3 звонка в день, не продавец — он зритель. Всё остальное — самообман.</div>
+            </div>
+
+            <div class="principle">
+                <div class="principle-number">ПРИНЦИП 2</div>
+                <div class="principle-title">Челленджер побеждает «друга»</div>
+                <div class="principle-source">The Challenger Sale — Dixon & Adamson</div>
+                <div class="principle-desc">Менеджер-друг проигрывает. Побеждает тот, кто учит клиента, создаёт напряжение и контролирует сделку. «Приёмщики заказов» — это смерть в конкурентном рынке.</div>
+            </div>
+
+            <div class="principle">
+                <div class="principle-number">ПРИНЦИП 3</div>
+                <div class="principle-title">Дисциплина важнее мотивации</div>
+                <div class="principle-source">Sales Acceleration Formula — Mark Roberge</div>
+                <div class="principle-desc">Мотивационные речи не работают. Работает система: чёткие правила, неизбежный контроль, неотвратимые последствия. Дисциплина создаётся структурой, не вдохновением.</div>
+            </div>
+
+            <div class="principle">
+                <div class="principle-number">ПРИНЦИП 4</div>
+                <div class="principle-title">Быстро отсеивай</div>
+                <div class="principle-source">SPIN Selling + The Qualified Sales Leader</div>
+                <div class="principle-desc">80% лидов — мусор. Задача менеджера — максимально быстро это выяснить и выкинуть. Время на «может быть» украдено у реальных сделок.</div>
+            </div>
+
+            <div class="principle">
+                <div class="principle-number">ПРИНЦИП 5</div>
+                <div class="principle-title">Боль важнее цены</div>
+                <div class="principle-source">SPIN Selling — Neil Rackham</div>
+                <div class="principle-desc">Клиент покупает не цену — он покупает решение боли. Если менеджер не нашёл боль — он будет конкурировать только ценой. И проиграет.</div>
+            </div>
+
+            <div class="principle">
+                <div class="principle-number">ПРИНЦИП 6</div>
+                <div class="principle-title">Контролируй переговоры</div>
+                <div class="principle-source">Pitch Anything — Oren Klaff</div>
+                <div class="principle-desc">Кто контролирует переговоры, тот выигрывает. Если клиент диктует условия и просит скидки — фрейм потерян. Менеджер должен быть экспертом, не просителем.</div>
+            </div>
+
+            <div class="principle">
+                <div class="principle-number">ПРИНЦИП 7</div>
+                <div class="principle-title">Воронка × 3 от плана</div>
+                <div class="principle-source">Стандарт корпоративных продаж</div>
+                <div class="principle-desc">Если план — 10 млн, в воронке должно быть 30 млн квалифицированных сделок. Меньше — гарантированный провал. Это математика, не мнение.</div>
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- Section 2: New Behavior Model -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">2</div>
+                <h2 class="section-title">Новая модель поведения</h2>
+            </div>
+
+            <h3>2.1. Трансформация мышления</h3>
+
+            <div class="comparison">
+                <div class="comparison-old">
+                    <div class="comparison-title">
+                        <span>✕</span> Старое мышление
+                    </div>
+                    <ul>
+                        <li>«Клиент сам знает, чего хочет»</li>
+                        <li>«Моя задача — отправить КП и ждать»</li>
+                        <li>«Если не купит — не его время»</li>
+                        <li>«Крупные сделки сами придут»</li>
+                        <li>«Не хочу надоедать клиенту»</li>
+                    </ul>
+                </div>
+                <div class="comparison-new">
+                    <div class="comparison-title">
+                        <span>✓</span> Новое мышление
+                    </div>
+                    <ul>
+                        <li>«Клиент не понимает проблему — я вскрою»</li>
+                        <li>«КП без выявленной боли — мусор»</li>
+                        <li>«Зависла сделка — закрываю или убиваю»</li>
+                        <li>«Крупные сделки требуют охоты»</li>
+                        <li>«Follow-up — это сервис, не навязчивость»</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>2.2. Квалификация по MEDDIC</h3>
+            <p>BANT устарел. Переходим на MEDDIC — стандарт enterprise-продаж:</p>
+
+            <div class="table-wrapper">
+                <table class="meddic-table">
+                    <thead>
+                        <tr>
+                            <th>Критерий</th>
+                            <th>Что выяснить</th>
+                            <th>Красный флаг</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Metrics</td>
+                            <td>Какие цифры клиент хочет улучшить?</td>
+                            <td class="red-flag">«Не знаю точно»</td>
+                        </tr>
+                        <tr>
+                            <td>Economic Buyer</td>
+                            <td>Кто подписывает чек?</td>
+                            <td class="red-flag">Общаемся с «интересующимся»</td>
+                        </tr>
+                        <tr>
+                            <td>Decision Criteria</td>
+                            <td>По каким критериям выбирают?</td>
+                            <td class="red-flag">«Цена» — единственный критерий</td>
+                        </tr>
+                        <tr>
+                            <td>Decision Process</td>
+                            <td>Какие шаги до подписания?</td>
+                            <td class="red-flag">«Не знаю, кто ещё участвует»</td>
+                        </tr>
+                        <tr>
+                            <td>Identify Pain</td>
+                            <td>Какая боль? Что если не решить?</td>
+                            <td class="red-flag">Боли нет — есть «интерес»</td>
+                        </tr>
+                        <tr>
+                            <td>Champion</td>
+                            <td>Кто внутри продвигает нас?</td>
+                            <td class="red-flag">Нет внутреннего союзника</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="highlight-box">
+                <div class="highlight-box-title">⚠️ Правило дисквалификации</div>
+                <p style="margin: 0;">Если 3+ критерия — красные флаги, сделка автоматически дисквалифицируется. Не тратим время на «может быть».</p>
+            </div>
+
+            <h3>2.3. Обязательные вопросы</h3>
+
+            <div class="card card-accent">
+                <h4>Первичная квалификация (первые 5 минут)</h4>
+                <ol>
+                    <li>«Что произошло, что вы начали искать решение именно сейчас?»</li>
+                    <li>«Какую задачу вы пытаетесь решить?»</li>
+                    <li>«Кто ещё участвует в принятии решения?»</li>
+                    <li>«Какой у вас бюджет на это?»</li>
+                    <li>«Когда вам нужно, чтобы это уже работало?»</li>
+                </ol>
+            </div>
+
+            <div class="card card-accent">
+                <h4>SPIN-вопросы для развития боли</h4>
+                <ul>
+                    <li><strong>S</strong>ituation: «Сколько сейчас у вас оборудования?»</li>
+                    <li><strong>P</strong>roblem: «Какие сложности с текущим поставщиком?»</li>
+                    <li><strong>I</strong>mplication: «Если не решите в ближайшие 3 месяца — что потеряете?»</li>
+                    <li><strong>N</strong>eed-payoff: «Если бы получили X — как это повлияло бы на бизнес?»</li>
+                </ul>
+            </div>
+
+            <div class="card card-warning">
+                <h4>Провокационные вопросы (метод «челленджера»)</h4>
+                <ul>
+                    <li>«Большинство компаний в вашей ситуации делают ошибку — закупают дешевле, а потом теряют на простоях. Как вы планируете это избежать?»</li>
+                    <li>«Вы рассматриваете это как расход или как инвестицию с ROI?»</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- Section 3: Activity System -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">3</div>
+                <h2 class="section-title">Система активности</h2>
+            </div>
+
+            <h3>3.1. Минимальные нормы коммуникаций</h3>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Роль</th>
+                            <th>Звонки/день</th>
+                            <th>Письма/день</th>
+                            <th>Встречи/неделя</th>
+                            <th>КП/неделя</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong style="color: var(--warning);">🎯 Хантер</strong></td>
+                            <td>80</td>
+                            <td>15</td>
+                            <td>8 (назначено)</td>
+                            <td>—</td>
+                        </tr>
+                        <tr>
+                            <td><strong style="color: var(--success);">🌱 Фармер</strong></td>
+                            <td>40 (>15 сек)</td>
+                            <td>15</td>
+                            <td>4</td>
+                            <td>6+</td>
+                        </tr>
+                        <tr>
+                            <td><strong style="color: #a855f7;">🏆 Клоузер</strong></td>
+                            <td>10</td>
+                            <td>5</td>
+                            <td>2+</td>
+                            <td>3</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card card-danger">
+                <h4>Текущая ситуация (из аудита)</h4>
+                <p style="margin: 0;">3–5 звонков за полдня. Это не работа — это имитация деятельности.</p>
+            </div>
+
+            <h3>3.2. Математика воронки</h3>
+
+            <div class="code-block">
+<span class="comment">// Стандартная конверсия B2B</span>
+<span class="number">100</span> звонков → <span class="number">20</span> разговоров → <span class="number">5</span> квалифицированных → <span class="highlight">1 сделка</span>
+
+<span class="comment">// При 5 звонках в день (текущее):</span>
+5 звонков → 1 разговор → 0.25 квал. лида → <span class="number">0.05</span> сделок/день
+За месяц (22 дня): <span style="color: #f87171;">1.1 сделка</span>
+
+<span class="comment">// При 80 звонках в день (норма хантера):</span>
+80 звонков → 30 диалогов >15с → 3 квал. лида → <span class="number">0.6</span> сделок/день
+За месяц: <span class="highlight">13+ сделок</span>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">10x</div>
+                    <div class="stat-label">Разница в результате</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">80</div>
+                    <div class="stat-label">Звонков в день (Хантер)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">3x</div>
+                    <div class="stat-label">Покрытие воронки</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">14</div>
+                    <div class="stat-label">Дней до «смерти» сделки</div>
+                </div>
+            </div>
+
+            <h3>3.3. Механизмы принудительного восстановления</h3>
+
+            <div class="card">
+                <h4>1. Мониторинг в реальном времени</h4>
+                <ul>
+                    <li>Дашборд с количеством звонков по каждому менеджеру</li>
+                    <li>Обновление каждые 30 минут</li>
+                    <li>Публичная видимость для всего отдела</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h4>2. Утренние стендапы (10 минут)</h4>
+                <ul>
+                    <li>Каждый называет: сколько звонков вчера, план на сегодня</li>
+                    <li>Руководитель фиксирует отклонения</li>
+                    <li>Нет оправданий — только цифры</li>
+                </ul>
+            </div>
+
+            <div class="card card-danger">
+                <h4>3. Правило «красной зоны»</h4>
+                <ul>
+                    <li>К 12:00 должно быть 40% дневной нормы</li>
+                    <li>К 15:00 — 70%</li>
+                    <li>Меньше — персональный разговор в тот же день</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h4>4. Еженедельный «час активности»</h4>
+                <ul>
+                    <li>Один час в день — только звонки</li>
+                    <li>Никаких CRM, почты, чатов</li>
+                    <li>Руководитель физически присутствует</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- Section 4: Qualification -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">4</div>
+                <h2 class="section-title">Квалификация и отсев</h2>
+            </div>
+
+            <h3>4.1. Признаки мусорного vs реального лида</h3>
+
+            <div class="comparison">
+                <div class="comparison-old">
+                    <div class="comparison-title">
+                        <span>🗑️</span> Мусорный лид
+                    </div>
+                    <ul>
+                        <li>«Просто узнать цену» — сравнивает, не покупает</li>
+                        <li>Не называет бюджет — нет денег или не ЛПР</li>
+                        <li>Не назначает следующий шаг — нет интереса</li>
+                        <li>«Подумаю и перезвоню» — никогда не перезвонит</li>
+                        <li>Общается только по почте — скрывает информацию</li>
+                    </ul>
+                </div>
+                <div class="comparison-new">
+                    <div class="comparison-title">
+                        <span>💰</span> Реальный лид
+                    </div>
+                    <ul>
+                        <li>Называет конкретную проблему — есть боль</li>
+                        <li>Спрашивает о сроках поставки — есть срочность</li>
+                        <li>Называет других участников — процесс идёт</li>
+                        <li>Соглашается на встречу — инвестирует время</li>
+                        <li>Обсуждает условия, не только цену — серьёзен</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>4.2. Тест на серьёзность (первые 3 минуты)</h3>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Вопрос</th>
+                            <th>Ответ-фейк</th>
+                            <th>Ответ реального клиента</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>«Когда вам нужно, чтобы это работало?»</td>
+                            <td class="red-flag">«Не знаю»</td>
+                            <td>«К марту», «В Q2»</td>
+                        </tr>
+                        <tr>
+                            <td>«Какой бюджет закладываете?»</td>
+                            <td class="red-flag">«Сначала цену скажите»</td>
+                            <td>«Примерно X млн»</td>
+                        </tr>
+                        <tr>
+                            <td>«Кто участвует в решении?»</td>
+                            <td class="red-flag">«Только я» (при крупной сделке)</td>
+                            <td>«Я + финдир + техдир»</td>
+                        </tr>
+                        <tr>
+                            <td>«Назначим звонок на завтра в 10:00?»</td>
+                            <td class="red-flag">«Я вам сам позвоню»</td>
+                            <td>«Да, давайте»</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>4.3. Когда менеджер ОБЯЗАН отказаться</h3>
+
+            <div class="card card-danger">
+                <h4>Автоматический отказ</h4>
+                <ul>
+                    <li>Бюджет < минимальной маржинальной сделки</li>
+                    <li>Клиент не раскрывает ЛПР после 2 попыток</li>
+                    <li>3+ переноса встречи/звонка</li>
+                    <li>Запрос скидки > 20% без обоснования</li>
+                    <li>Нет ответа на 5 follow-up касаний</li>
+                </ul>
+            </div>
+
+            <div class="highlight-box">
+                <div class="highlight-box-title">📋 Правило «мёртвой сделки»</div>
+                <p style="margin: 0;">Сделка без активности <strong>14 дней</strong> → автоматически в «отложенные» с датой реактивации через 60 дней. Без исключений.</p>
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- Section 5: Management -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">5</div>
+                <h2 class="section-title">Управление и контроль</h2>
+            </div>
+
+            <h3>5.1. Ключевые KPI (7 показателей)</h3>
+
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-number">KPI #1</div>
+                    <div class="kpi-title">Количество исходящих звонков</div>
+                    <div class="kpi-formula">Звонки / день</div>
+                    <div class="kpi-norm">Хантер: 80, Фармер: 40</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-number">KPI #2</div>
+                    <div class="kpi-title">Конверсия звонок → разговор</div>
+                    <div class="kpi-formula">Разговоры / Звонки</div>
+                    <div class="kpi-norm">Норма: >20%</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-number">KPI #3</div>
+                    <div class="kpi-title">Квалифицированные лиды</div>
+                    <div class="kpi-formula">Новые квал. лиды / неделя</div>
+                    <div class="kpi-norm">Хантер: 15+</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-number">KPI #4</div>
+                    <div class="kpi-title">Покрытие воронки</div>
+                    <div class="kpi-formula">Воронка / План</div>
+                    <div class="kpi-norm">Норма: >3x</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-number">KPI #5</div>
+                    <div class="kpi-title">Средний цикл сделки</div>
+                    <div class="kpi-formula">Дни: лид → закрытие</div>
+                    <div class="kpi-norm">Норма: <45 дней</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-number">KPI #6</div>
+                    <div class="kpi-title">Конверсия в сделку</div>
+                    <div class="kpi-formula">Выиграно / Все закрыто</div>
+                    <div class="kpi-norm">Норма: >25%</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-number">KPI #7</div>
+                    <div class="kpi-title">Средний чек</div>
+                    <div class="kpi-formula">Сумма / Кол-во сделок</div>
+                    <div class="kpi-norm">Норма: рост месяц к месяцу</div>
+                </div>
+            </div>
+
+            <h3>5.2. Система отчётности</h3>
+
+            <div class="card">
+                <h4>📅 Ежедневно (к 18:00)</h4>
+                <ul>
+                    <li>Количество звонков</li>
+                    <li>Количество новых лидов</li>
+                    <li>Движение по воронке (что сдвинулось)</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h4>📊 Еженедельно (пятница)</h4>
+                <ul>
+                    <li><strong>Обзор воронки:</strong> все сделки >5 млн, прогноз, риски</li>
+                    <li><strong>Отчёт по конверсиям:</strong> откуда пришли, куда ушли</li>
+                    <li><strong>Отчёт по активности:</strong> топ-3 и анти-топ-3 по активности</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h4>📈 Ежемесячно</h4>
+                <ul>
+                    <li><strong>Анализ побед/поражений:</strong> почему выиграли, почему проиграли</li>
+                    <li><strong>Точность прогнозов:</strong> прогноз vs факт</li>
+                    <li><strong>Структура воронки:</strong> распределение по этапам</li>
+                </ul>
+            </div>
+
+            <h3>5.3. Индикаторы саботажа</h3>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Индикатор</th>
+                            <th>Что проверить</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Звонки есть, разговоров нет</td>
+                            <td>Реальные ли звонки? Прослушать записи</td>
+                        </tr>
+                        <tr>
+                            <td>Много «думающих» клиентов</td>
+                            <td>Есть ли follow-up? Проверить историю касаний</td>
+                        </tr>
+                        <tr>
+                            <td>Постоянные переносы задач</td>
+                            <td>CRM-аудит: автоматический отчёт по переносам</td>
+                        </tr>
+                        <tr>
+                            <td>Высокая активность, нет сделок</td>
+                            <td>Прослушать звонки — качество коммуникации</td>
+                        </tr>
+                        <tr>
+                            <td>«Все клиенты плохие»</td>
+                            <td>Передать его лиды другому — сравнить результат</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="highlight-box">
+                <div class="highlight-box-title">⚡ Системный подход к саботажу</div>
+                <ul style="margin: 0;">
+                    <li>Не обвинять — показывать данные</li>
+                    <li>Сравнивать с бенчмарком команды</li>
+                    <li>Давать 2 недели на исправление с чёткими критериями</li>
+                    <li>Не исправил — увольнение без эмоций</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- Section 6: Anti-Selectivity -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">6</div>
+                <h2 class="section-title">Анти-селективность</h2>
+            </div>
+
+            <p>Проблема: менеджеры берут только «готовых» клиентов, игнорируют сложных. Результат — зависимость от входящего потока и потеря рынка.</p>
+
+            <h3>6.1. Механизмы слома селективности</h3>
+
+            <div class="card">
+                <h4>1. Принудительное распределение лидов</h4>
+                <ul>
+                    <li>Лиды распределяет <strong>система</strong>, не менеджер</li>
+                    <li>Round-robin без возможности отказа</li>
+                    <li>Отказ = потеря следующих 3 лидов</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h4>2. Квоты по типам сделок</h4>
+                <ul>
+                    <li>Минимум <strong>30%</strong> воронки — исходящие (самостоятельно найденные)</li>
+                    <li>Минимум <strong>20%</strong> — «сложные» (>30 млн, длинный цикл)</li>
+                    <li>Нет квоты — нет бонуса</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h4>3. Разделение на три роли: Хантер → Фармер → Клоузер</h4>
+                <ul>
+                    <li><strong>Хантеры</strong> — поиск, квалификация, назначение встреч</li>
+                    <li><strong>Фармеры</strong> — ведение клиентов, развитие, сделки до 30 млн</li>
+                    <li><strong>Клоузеры</strong> — закрытие сложных сделок 30+ млн</li>
+                </ul>
+            </div>
+
+            <h3>6.2. Неизбежные управленческие решения</h3>
+
+            <ol class="decision-list">
+                <li>
+                    <div class="decision-content">
+                        <div class="decision-title">Увольнение «старожилов»-саботажников</div>
+                        <div class="decision-desc">Первые 30 дней — 1-2 человека. Сигнал для остальных: правила изменились.</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="decision-content">
+                        <div class="decision-title">Перераспределение «жирных» клиентов</div>
+                        <div class="decision-desc">Не выполняет стандарты — крупные клиенты передаются другим.</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="decision-content">
+                        <div class="decision-title">Отмена «личных» клиентов</div>
+                        <div class="decision-desc">Все клиенты принадлежат компании, не менеджеру. Точка.</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="decision-content">
+                        <div class="decision-title">Разделение функций</div>
+                        <div class="decision-desc">Кто звонит — не закрывает. Кто закрывает — не звонит. Специализация.</div>
+                    </div>
+                </li>
+            </ol>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- Section 7: 30-60-90 Plan -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">7</div>
+                <h2 class="section-title">План перестройки: 30 / 60 / 90 дней</h2>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">
+                            <span class="timeline-badge">Дни 1–7</span>
+                            Неделя 1: Диагностика
+                        </div>
+                        <ul class="checklist">
+                            <li><div class="checkbox"></div>Полный аудит CRM: активность каждого менеджера за 90 дней</li>
+                            <li><div class="checkbox"></div>Прослушать по 10 звонков каждого менеджера</li>
+                            <li><div class="checkbox"></div>Составить «карту реальности»: кто работает, кто имитирует</li>
+                            <li><div class="checkbox"></div>Встреча с каждым 1-on-1: «Что мешает продавать?»</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">
+                            <span class="timeline-badge">Дни 8–14</span>
+                            Неделя 2: Шоковая терапия
+                        </div>
+                        <ul class="checklist">
+                            <li><div class="checkbox"></div>Объявить новые стандарты активности (публично, письменно)</li>
+                            <li><div class="checkbox"></div>Запустить ежедневный мониторинг звонков</li>
+                            <li><div class="checkbox"></div>Внедрить утренние стендапы</li>
+                            <li><div class="checkbox"></div>Первое предупреждение худшим 2-3 менеджерам</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">
+                            <span class="timeline-badge">Дни 15–21</span>
+                            Неделя 3: Новые правила
+                        </div>
+                        <ul class="checklist">
+                            <li><div class="checkbox"></div>Внедрить обязательную квалификацию (чек-лист MEDDIC)</li>
+                            <li><div class="checkbox"></div>Перераспределить «мёртвые» лиды от неактивных к активным</li>
+                            <li><div class="checkbox"></div>Запустить еженедельный обзор воронки</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">
+                            <span class="timeline-badge">Дни 22–30</span>
+                            Неделя 4: Первые решения
+                        </div>
+                        <ul class="checklist">
+                            <li><div class="checkbox"></div>Первые увольнения (1-2 человека, не выполнившие стандарты)</li>
+                            <li><div class="checkbox"></div>Публичный разбор: почему уволены (без имён, но с причинами)</li>
+                            <li><div class="checkbox"></div>Корректировка стандартов по итогам первого месяца</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-success">
+                <h4>✓ Результат первых 30 дней</h4>
+                <ul>
+                    <li>Активность вырастет в 2-3 раза (из страха)</li>
+                    <li>10-20% команды покажут себя как саботажники</li>
+                    <li>Появится понимание, кто реально может работать</li>
+                </ul>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">
+                            <span class="timeline-badge">Дни 31–45</span>
+                            Недели 5-6: Структура
+                        </div>
+                        <ul class="checklist">
+                            <li><div class="checkbox"></div>Разделить команду на 3 роли: хантеры, фармеры, клоузеры</li>
+                            <li><div class="checkbox"></div>Назначить тимлидов (из лучших менеджеров)</li>
+                            <li><div class="checkbox"></div>Внедрить новую систему распределения лидов</li>
+                            <li><div class="checkbox"></div>Запустить CRM-автоматизацию: обязательные поля, автозадачи</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">
+                            <span class="timeline-badge">Дни 46–60</span>
+                            Недели 7-8: Обучение
+                        </div>
+                        <ul class="checklist">
+                            <li><div class="checkbox"></div>Внедрить новую систему KPI и бонусов</li>
+                            <li><div class="checkbox"></div>Запустить обучение: квалификация, SPIN, работа с возражениями</li>
+                            <li><div class="checkbox"></div>Провести ролевые игры: сложные переговоры</li>
+                            <li><div class="checkbox"></div>Начать найм: 2-3 новых менеджера на замену уволенным</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-success">
+                <h4>✓ Результат вторых 30 дней</h4>
+                <ul>
+                    <li>Чёткое разделение функций</li>
+                    <li>Понятные правила игры для всех</li>
+                    <li>Начало формирования новой культуры</li>
+                </ul>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">
+                            <span class="timeline-badge">Дни 61–75</span>
+                            Недели 9-10: Оптимизация
+                        </div>
+                        <ul class="checklist">
+                            <li><div class="checkbox"></div>Анализ первых результатов: что работает, что нет</li>
+                            <li><div class="checkbox"></div>Корректировка KPI по итогам 60 дней</li>
+                            <li><div class="checkbox"></div>Внедрить систему грейдов (Junior → Middle → Senior)</li>
+                            <li><div class="checkbox"></div>Запустить регулярное обучение (1 раз в неделю, 1 час)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">
+                            <span class="timeline-badge">Дни 76–90</span>
+                            Недели 11-12: Масштабирование
+                        </div>
+                        <ul class="checklist">
+                            <li><div class="checkbox"></div>Автоматизировать отчётность (дашборды вместо ручных отчётов)</li>
+                            <li><div class="checkbox"></div>Внедрить Win/Loss Analysis как обязательную практику</li>
+                            <li><div class="checkbox"></div>Сформировать «книгу продаж»: скрипты, кейсы, возражения</li>
+                            <li><div class="checkbox"></div>Определить целевой профиль менеджера для дальнейшего найма</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-success">
+                <h4>✓ Результат третьих 30 дней</h4>
+                <ul>
+                    <li>Работающая система, не зависящая от ручного контроля</li>
+                    <li>Понятный путь развития для менеджеров</li>
+                    <li>База для масштабирования команды</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- Final Section -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">!</div>
+                <h2 class="section-title">Ключевые решения без жалости</h2>
+            </div>
+
+            <ol class="decision-list">
+                <li>
+                    <div class="decision-content">
+                        <div class="decision-title">Увольнять быстро</div>
+                        <div class="decision-desc">Один саботажник разлагает всю команду. Лучше 8 работающих, чем 13 имитирующих.</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="decision-content">
+                        <div class="decision-title">Стандарты — не просьба</div>
+                        <div class="decision-desc">Кто не выполняет — уходит. Без исключений, без «дай ещё шанс».</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="decision-content">
+                        <div class="decision-title">Данные, не мнения</div>
+                        <div class="decision-desc">Все решения — на основе CRM-данных. «Мне кажется» не принимается.</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="decision-content">
+                        <div class="decision-title">Клиенты — собственность компании</div>
+                        <div class="decision-desc">Менеджер — оператор, не владелец. Передача клиентов — норма.</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="decision-content">
+                        <div class="decision-title">Активность — не обсуждается</div>
+                        <div class="decision-desc">25 звонков в день — это минимум. Кто не может — это не его работа.</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="decision-content">
+                        <div class="decision-title">Сложные сделки — обязанность</div>
+                        <div class="decision-desc">Нет сложных в портфеле — нет бонуса. Точка.</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="decision-content">
+                        <div class="decision-title">Прозрачность убивает саботаж</div>
+                        <div class="decision-desc">Публичные дашборды, публичные результаты, публичные последствия.</div>
+                    </div>
+                </li>
+            </ol>
+
+            <div class="quote">
+                «Продажи — это не талант. Это дисциплина, умноженная на систему, умноженную на неотвратимость последствий. Всё остальное — оправдания.»
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Документ подготовлен на основе методологий: SPIN Selling, The Challenger Sale, Fanatical Prospecting, Sales Acceleration Formula, The Qualified Sales Leader, Pitch Anything, MEDDIC</p>
+            <p style="margin-top: 10px; opacity: 0.7;">© 2024 • Внутренний документ • Конфиденциально</p>
+        </div>
+    </div>
+</body>
+</html>
+

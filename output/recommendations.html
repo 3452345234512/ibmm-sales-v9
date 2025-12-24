@@ -1,0 +1,1891 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Рекомендации по структуре ОП | IBMM</title>
+    <style>
+        :root {
+            --bg-primary: #0a0f1a;
+            --bg-secondary: #111827;
+            --bg-card: #1a2235;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent: #06b6d4;
+            --accent-light: #22d3ee;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --purple: #a855f7;
+            --border: #2d3748;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 30px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(168, 85, 247, 0.1));
+            border-radius: 16px;
+            border: 1px solid var(--border);
+        }
+
+        .header-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--accent-light), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-subtitle {
+            color: var(--text-secondary);
+            font-size: 16px;
+        }
+
+        /* Situation Block */
+        .situation {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            border-left: 4px solid var(--warning);
+        }
+
+        .situation h2 {
+            color: var(--warning);
+            font-size: 18px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .team-member {
+            background: rgba(0,0,0,0.3);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .team-member .role {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        .team-member .name {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .team-member .status {
+            font-size: 12px;
+            margin-top: 8px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .status-pro { background: rgba(16, 185, 129, 0.2); color: var(--success); }
+        .status-new { background: rgba(245, 158, 11, 0.2); color: var(--warning); }
+        .status-ops { background: rgba(6, 182, 212, 0.2); color: var(--accent); }
+
+        /* Section */
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            font-size: 20px;
+            color: var(--accent-light);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section h3 {
+            font-size: 16px;
+            color: var(--text-primary);
+            margin: 25px 0 15px;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .card-subtitle {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Structure Diagram */
+        .structure {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 1px solid var(--border);
+        }
+
+        .structure-title {
+            text-align: center;
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .org-chart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .org-level {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .org-box {
+            padding: 15px 25px;
+            border-radius: 8px;
+            text-align: center;
+            min-width: 150px;
+        }
+
+        .org-box.owner {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.3), rgba(168, 85, 247, 0.1));
+            border: 2px solid var(--purple);
+        }
+
+        .org-box.rop {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.3), rgba(6, 182, 212, 0.1));
+            border: 2px solid var(--accent);
+        }
+
+        .org-box.closer {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(16, 185, 129, 0.1));
+            border: 2px solid var(--success);
+        }
+
+        .org-box.hunter {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.3), rgba(245, 158, 11, 0.1));
+            border: 2px solid var(--warning);
+        }
+
+        .org-box.farmer {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.3), rgba(34, 197, 94, 0.1));
+            border: 2px solid #22c55e;
+        }
+
+        .org-box .title {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .org-box .desc {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+
+        .org-arrow {
+            font-size: 24px;
+            color: var(--text-muted);
+        }
+
+        /* Recommendation blocks */
+        .rec-block {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .rec-block.critical {
+            border-left-color: var(--danger);
+            background: rgba(239, 68, 68, 0.05);
+        }
+
+        .rec-block.important {
+            border-left-color: var(--warning);
+        }
+
+        .rec-block.success {
+            border-left-color: var(--success);
+        }
+
+        .rec-block h4 {
+            font-size: 15px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .rec-block p {
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+
+        .rec-block ul {
+            margin-left: 20px;
+            color: var(--text-secondary);
+        }
+
+        .rec-block li {
+            margin-bottom: 8px;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: var(--bg-card);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -26px;
+            top: 25px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 2px solid var(--bg-primary);
+        }
+
+        .timeline-item.done::before { background: var(--success); }
+        .timeline-item.current::before { background: var(--warning); box-shadow: 0 0 10px var(--warning); }
+
+        .timeline-week {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .timeline-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .timeline-tasks {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* Risk table */
+        .risk-grid {
+            display: grid;
+            gap: 15px;
+        }
+
+        .risk-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            padding: 20px;
+            background: var(--bg-card);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .risk-problem {
+            border-left: 3px solid var(--danger);
+            padding-left: 15px;
+        }
+
+        .risk-solution {
+            border-left: 3px solid var(--success);
+            padding-left: 15px;
+        }
+
+        .risk-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .risk-problem .risk-label { color: var(--danger); }
+        .risk-solution .risk-label { color: var(--success); }
+
+        /* Metrics */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .metric {
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .metric-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--accent-light);
+        }
+
+        .metric-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        /* Books */
+        .book-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+        }
+
+        .book {
+            display: flex;
+            gap: 15px;
+            padding: 15px;
+            background: var(--bg-card);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .book-emoji {
+            font-size: 30px;
+        }
+
+        .book-info .title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .book-info .author {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .book-info .why {
+            font-size: 12px;
+            color: var(--accent);
+            margin-top: 8px;
+        }
+
+        /* Final */
+        .final-message {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(168, 85, 247, 0.1));
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            margin-top: 40px;
+            border: 1px solid var(--border);
+        }
+
+        .final-message h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+            border: none;
+            padding: 0;
+            justify-content: center;
+        }
+
+        .final-message p {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container { padding: 20px 15px; }
+            h1 { font-size: 24px; }
+            .team-grid { grid-template-columns: 1fr; }
+            .org-level { flex-direction: column; align-items: center; }
+            .risk-item { grid-template-columns: 1fr; }
+        }
+
+        @media print {
+            body { background: white; color: black; }
+            .container { max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-label">Персональные рекомендации</div>
+            <h1>Как построить отдел продаж IBMM</h1>
+            <div class="header-subtitle">Анализ ситуации и пошаговый план действий</div>
+        </div>
+
+        <!-- Current Situation -->
+        <div class="situation">
+            <h2>📍 Текущая ситуация</h2>
+            <p>Понимание контекста — основа для правильных решений. Вот что у вас есть:</p>
+            
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="role">Сооснователь</div>
+                    <div class="name">Андрей</div>
+                    <div class="status status-ops">Система: CRM, лидген, упаковка</div>
+                </div>
+                <div class="team-member">
+                    <div class="role">Сооснователь</div>
+                    <div class="name">Дмитрий</div>
+                    <div class="status status-pro">Эксперт: майнинг, крупные сделки</div>
+                </div>
+                <div class="team-member">
+                    <div class="role">Операционный директор</div>
+                    <div class="name">Алексей Шепеткин</div>
+                    <div class="status status-ops">ЛПР: операции, команда, процессы</div>
+                </div>
+                <div class="team-member">
+                    <div class="role">Новая позиция</div>
+                    <div class="name">РОП</div>
+                    <div class="status status-new">Новичок</div>
+                </div>
+                <div class="team-member">
+                    <div class="role">Клоузеры</div>
+                    <div class="name">3 человека</div>
+                    <div class="status status-pro">Опытные, оставить</div>
+                </div>
+                <div class="team-member">
+                    <div class="role">Менеджеры</div>
+                    <div class="name">10 человек</div>
+                    <div class="status status-new">Разбить на хантеров/фармеров</div>
+                </div>
+                <div class="team-member">
+                    <div class="role">Новая позиция</div>
+                    <div class="name">ОКК</div>
+                    <div class="status status-new">Аудит сделок, отчёты</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Problem Analysis -->
+        <div class="section">
+            <h2>🔍 Детальный профиль каждого участника</h2>
+
+            <div style="display: grid; gap: 20px;">
+                <!-- Андрей -->
+                <div class="card" style="border-left: 4px solid var(--accent);">
+                    <div class="card-header">
+                        <div class="card-icon" style="background: rgba(6, 182, 212, 0.2);">📊</div>
+                        <div>
+                            <div class="card-title">Андрей — системный архитектор + топ-эксперт</div>
+                            <div class="card-subtitle">Сооснователь</div>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div>
+                            <div style="color: var(--success); font-weight: 600; margin-bottom: 8px;">✅ Сильные стороны</div>
+                            <ul style="font-size: 13px; color: var(--text-secondary);">
+                                <li><strong>🏆 Топ-эксперт по майнингу</strong> — один из сильнейших в РФ</li>
+                                <li>Глубокая экспертиза в криптовалюте</li>
+                                <li>Генерация лидов, маркетинг</li>
+                                <li>Упаковка компании</li>
+                                <li>Построение CRM-систем</li>
+                                <li>Системное мышление</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div style="color: var(--danger); font-weight: 600; margin-bottom: 8px;">⚠️ Сложности</div>
+                            <ul style="font-size: 13px; color: var(--text-secondary);">
+                                <li>Коллеги забывают договорённости</li>
+                                <li>Коллеги не используют систему</li>
+                                <li>Трудно приоритизировать и донести</li>
+                                <li>Не любит коммуникации с клиентами</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div style="margin-top: 15px; padding: 10px; background: rgba(239, 68, 68, 0.1); border-radius: 8px;">
+                        <strong style="color: var(--danger);">🔥 Главная боль Андрея:</strong> Не может уделять время внешним коммуникациям и развитию бренда компании, потому что:
+                        <ul style="margin: 10px 0 0 15px; font-size: 12px;">
+                            <li>Работа не организована — его постоянно дёргают</li>
+                            <li>Странные вопросы: от сисадмина до инфобезопасности</li>
+                            <li>Аудит слабых мест компании</li>
+                            <li>Организационные и бытовые моменты, которым никто не уделяет время</li>
+                        </ul>
+                    </div>
+                    <div style="margin-top: 10px; padding: 10px; background: rgba(6, 182, 212, 0.1); border-radius: 8px;">
+                        <strong style="color: var(--accent);">💎 Потенциал:</strong> Андрей — один из топовых экспертов по майнингу в России. Его нужно освободить для развития бренда и внешних коммуникаций, а не тратить на бытовуху.
+                    </div>
+                </div>
+
+                <!-- Дмитрий -->
+                <div class="card" style="border-left: 4px solid var(--purple);">
+                    <div class="card-header">
+                        <div class="card-icon" style="background: rgba(168, 85, 247, 0.2);">🏆</div>
+                        <div>
+                            <div class="card-title">Дмитрий — топ-клоузер крупных сделок</div>
+                            <div class="card-subtitle">Сооснователь, эксперт</div>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div>
+                            <div style="color: var(--success); font-weight: 600; margin-bottom: 8px;">✅ Сильные стороны</div>
+                            <ul style="font-size: 13px; color: var(--text-secondary);">
+                                <li><strong>Эксперт в майнинге</strong></li>
+                                <li>Эксперт в логистике и финансах</li>
+                                <li>Работает с холдингами и крупными компаниями</li>
+                                <li>Реально закрывает клиентов и продаёт</li>
+                                <li>Показывает пример работы с крупняком</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div style="color: var(--warning); font-weight: 600; margin-bottom: 8px;">💡 Стиль работы</div>
+                            <ul style="font-size: 13px; color: var(--text-secondary);">
+                                <li>Ориентирован на результат</li>
+                                <li>Предпочитает быстрые решения</li>
+                                <li>Фокус на крупных сделках</li>
+                                <li>Работает напрямую с клиентами</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div style="margin-top: 15px; padding: 10px; background: rgba(245, 158, 11, 0.1); border-radius: 8px;">
+                        <strong style="color: var(--warning);">⚡ Особенность работы:</strong> Периодически подключается к работе отдела со срочными задачами:
+                        <ul style="margin: 10px 0 0 15px; font-size: 12px;">
+                            <li>Приносит срочные лоты и сделки</li>
+                            <li>Подключается со своими вводными данными</li>
+                            <li>Привлекает менеджеров к проектам по майнингу</li>
+                        </ul>
+                    </div>
+                    <div style="margin-top: 10px; padding: 10px; background: rgba(168, 85, 247, 0.1); border-radius: 8px;">
+                        <strong style="color: var(--purple);">💡 Важно:</strong> Дмитрий НЕ может выйти из продаж — он нужен для крупных сделок. Срочные задачи нужно систематизировать через РОПа.
+                    </div>
+                </div>
+
+                <!-- Алексей -->
+                <div class="card" style="border-left: 4px solid var(--warning);">
+                    <div class="card-header">
+                        <div class="card-icon" style="background: rgba(245, 158, 11, 0.2);">⚖️</div>
+                        <div>
+                            <div class="card-title">Алексей Шепеткин — операционный директор</div>
+                            <div class="card-subtitle">ЛПР по операциям и команде</div>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div>
+                            <div style="color: var(--success); font-weight: 600; margin-bottom: 8px;">✅ Сильные стороны</div>
+                            <ul style="font-size: 13px; color: var(--text-secondary);">
+                                <li><strong>Выстраивает процессы</strong></li>
+                                <li>Делает срезы по продажам</li>
+                                <li>Управляет операционными процессами</li>
+                                <li>Контролирует закупки</li>
+                                <li>Работает с командой напрямую</li>
+                                <li>Понимает обе стороны</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div style="color: var(--warning); font-weight: 600; margin-bottom: 8px;">💡 Зона роста</div>
+                            <ul style="font-size: 13px; color: var(--text-secondary);">
+                                <li>Освоить все инструменты CRM</li>
+                                <li>Защищать время на процессы</li>
+                                <li>Делегировать срочные задачи</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div style="margin-top: 15px; padding: 10px; background: rgba(245, 158, 11, 0.1); border-radius: 8px;">
+                        <strong style="color: var(--warning);">💎 Потенциал:</strong> Алексей видит картину с обеих сторон. Нужно дать ему полномочия ЛПР по операциям и защитить время на системную работу.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Core Problems -->
+        <div class="section">
+            <h2>🔥 Ключевые проблемы</h2>
+
+            <div class="rec-block important">
+                <h4>⚡ Ситуация: Три ЛПР с разными фокусами</h4>
+                <p><strong>Андрей, Дмитрий и Алексей — каждый принимает решения в своей области.</strong></p>
+                <ul>
+                    <li><strong>Задача:</strong> синхронизировать подходы и разделить зоны ответственности</li>
+                    <li>Три мнения = сила, если правильно организовать</li>
+                </ul>
+            </div>
+
+            <div class="rec-block success">
+                <h4>🔄 Три фокуса = полная картина</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-top: 10px;">
+                    <div style="background: rgba(6, 182, 212, 0.1); padding: 12px; border-radius: 8px;">
+                        <div style="font-weight: 600; color: var(--accent); margin-bottom: 8px;">📊 Андрей:</div>
+                        <ul style="font-size: 12px; color: var(--text-secondary); margin: 0;">
+                            <li>Системность и CRM</li>
+                            <li>Лидогенерация</li>
+                            <li>Аналитика и метрики</li>
+                            <li>Стратегия</li>
+                        </ul>
+                    </div>
+                    <div style="background: rgba(168, 85, 247, 0.1); padding: 12px; border-radius: 8px;">
+                        <div style="font-weight: 600; color: var(--purple); margin-bottom: 8px;">🏆 Дмитрий:</div>
+                        <ul style="font-size: 12px; color: var(--text-secondary); margin: 0;">
+                            <li>Крупные сделки</li>
+                            <li>Экспертные продажи</li>
+                            <li>Работа с холдингами</li>
+                            <li>Экспертиза</li>
+                        </ul>
+                    </div>
+                    <div style="background: rgba(245, 158, 11, 0.1); padding: 12px; border-radius: 8px;">
+                        <div style="font-weight: 600; color: var(--warning); margin-bottom: 8px;">⚖️ Алексей:</div>
+                        <ul style="font-size: 12px; color: var(--text-secondary); margin: 0;">
+                            <li>Операции и процессы</li>
+                            <li>Работа с командой</li>
+                            <li>Закупки</li>
+                            <li>Исполнение</li>
+                        </ul>
+                    </div>
+                </div>
+                <p style="margin-top: 15px; color: var(--success);"><strong>Сила:</strong> Три разных фокуса дополняют друг друга. Система + Экспертиза + Операции = полный цикл.</p>
+            </div>
+
+            <div class="rec-block">
+                <h4>📋 Проблема #3: Нет единого центра принятия решений</h4>
+                <ul>
+                    <li>Несколько источников задач для менеджеров</li>
+                    <li>Приоритеты не всегда согласованы</li>
+                    <li>Менеджеры не всегда понимают, что важнее</li>
+                    <li><strong>Решение:</strong> чёткое разделение зон ответственности</li>
+                </ul>
+            </div>
+
+            <div class="rec-block important">
+                <h4>⚡ Проблема #4: Внезапные вбросы в отдел продаж</h4>
+                <p>Периодически в отдел продаж прилетают кардинально новые вводные:</p>
+                <ul>
+                    <li><strong>Супер-лоты</strong> — срочные сделки с особыми условиями</li>
+                    <li><strong>Новые данные</strong> — меняются цены, условия, приоритеты</li>
+                    <li><strong>Изменения мотивации</strong> — новые правила на ходу</li>
+                    <li><strong>Срочные собрания</strong> — «всё бросить, делаем по-новому»</li>
+                </ul>
+                <p style="margin-top: 10px; color: var(--warning);"><strong>Результат:</strong> Команда не успевает адаптироваться. Процессы не доводятся до конца.</p>
+            </div>
+
+            <div class="rec-block" style="border-left-color: var(--purple);">
+                <h4>🛡️ Решение: Правило согласования</h4>
+                <p>Любые изменения в работе отдела требуют согласования триумвирата:</p>
+                <ul>
+                    <li><strong>Правило 24 часов:</strong> любое решение, затрагивающее всю команду — обсудить с коллегами до объявления</li>
+                    <li><strong>Данные первичны:</strong> перед решением — посмотреть CRM, спросить у Алексея/Андрея актуальную картину</li>
+                    <li><strong>Не ломать процессы:</strong> новые вводные интегрируются в систему, а не заменяют её</li>
+                    <li><strong>Один голос:</strong> команда слышит согласованное решение, а не «мнение одного»</li>
+                </ul>
+                <div style="margin-top: 15px; padding: 12px; background: rgba(168, 85, 247, 0.1); border-radius: 8px;">
+                    <strong style="color: var(--purple);">💡 Формат:</strong> Есть идея → пишешь в общий чат триумвирата → обсуждаете → выносите согласованное решение команде
+                </div>
+            </div>
+        </div>
+
+        <!-- My Assessment -->
+        <div class="section">
+            <h2>🔍 Моя оценка ситуации</h2>
+
+            <div class="rec-block success">
+                <h4>✅ Сильные стороны</h4>
+                <ul>
+                    <li><strong>Андрей делает всё правильно:</strong> системный подход, CRM, метрики, лидген. Это фундамент для роста.</li>
+                    <li><strong>Есть поток лидов</strong> — Андрей генерирует лиды. Проблема не в количестве, а в качестве обработки.</li>
+                    <li><strong>13 менеджеров</strong> — есть кадровая база для разделения на роли (хантеры/фармеры).</li>
+                    <li><strong>Есть бизнес</strong> — хостинг, оборудование, клиенты. Не с нуля начинаете.</li>
+                </ul>
+            </div>
+
+            <div class="rec-block critical">
+                <h4>⚠️ Критические проблемы</h4>
+                <ul>
+                    <li><strong>Нет единой системы.</strong> Каждый работает по-своему, процессы не унифицированы.</li>
+                    <li><strong>Менеджеры не разделены по ролям.</strong> Все делают всё = никто не отвечает за конкретный результат.</li>
+                    <li><strong>Лиды теряются.</strong> Андрей генерирует лиды, но без системы обработки они сливаются.</li>
+                    <li><strong>РОП — новичок.</strong> Ему нужна чёткая зона ответственности, а не «управление всем».</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Recommended Structure -->
+        <div class="section">
+            <h2>🏗️ Рекомендуемая структура</h2>
+            
+            <p style="color: var(--text-secondary); margin-bottom: 20px;">
+                Главное изменение: чёткое разделение зон ответственности между Андреем и Алексеем.
+            </p>
+
+            <div class="structure">
+                <div class="structure-title">Новая организационная структура</div>
+                <div class="org-chart">
+                    <div class="org-level">
+                        <div class="org-box owner">
+                            <div class="title">📊 Андрей</div>
+                            <div class="desc">Система + Лидген + CRM</div>
+                        </div>
+                        <div class="org-box" style="background: rgba(168, 85, 247, 0.2); border: 2px solid var(--purple);">
+                            <div class="title">🏆 Дмитрий</div>
+                            <div class="desc">Крупные сделки + Экспертиза</div>
+                        </div>
+                        <div class="org-box" style="background: rgba(245, 158, 11, 0.2); border: 2px solid var(--warning);">
+                            <div class="title">⚖️ Алексей</div>
+                            <div class="desc">Операции + Команда</div>
+                        </div>
+                    </div>
+                    
+                    <div class="org-arrow">↓</div>
+                    
+                    <div class="org-level">
+                        <div class="org-box rop">
+                            <div class="title">📋 РОП</div>
+                            <div class="desc">Ежедневный контроль</div>
+                        </div>
+                        <div class="org-box" style="background: rgba(239, 68, 68, 0.2); border: 2px solid var(--danger);">
+                            <div class="title">🔍 ОКК</div>
+                            <div class="desc">Аудит сделок + Отчёты</div>
+                        </div>
+                    </div>
+                    
+                    <div class="org-arrow">↓</div>
+                    
+                    <div class="org-level">
+                        <div class="org-box hunter">
+                            <div class="title">🎯 Хантеры</div>
+                            <div class="desc">5-6 человек</div>
+                        </div>
+                        <div class="org-box farmer">
+                            <div class="title">🌱 Фармеры</div>
+                            <div class="desc">4-5 человек</div>
+                        </div>
+                        <div class="org-box closer">
+                            <div class="title">🏆 Клоузеры</div>
+                            <div class="desc">3 человека (текущие)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rec-block" style="border-left-color: var(--purple);">
+                <h4>👥 Триумвират: 3 ЛПР с равным голосом</h4>
+                <p>Все трое — лица, принимающие решения. Каждый в своей зоне:</p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-top: 15px;">
+                    <div style="text-align: center; padding: 15px; background: rgba(6, 182, 212, 0.1); border-radius: 8px;">
+                        <div style="font-size: 24px;">📊</div>
+                        <div style="font-weight: 600; color: var(--accent);">Андрей</div>
+                        <div style="font-size: 11px; color: var(--text-muted);">ЛПР: Система, Лидген, Стратегия</div>
+                    </div>
+                    <div style="text-align: center; padding: 15px; background: rgba(168, 85, 247, 0.1); border-radius: 8px;">
+                        <div style="font-size: 24px;">🏆</div>
+                        <div style="font-weight: 600; color: var(--purple);">Дмитрий</div>
+                        <div style="font-size: 11px; color: var(--text-muted);">ЛПР: Крупные сделки, Экспертиза</div>
+                    </div>
+                    <div style="text-align: center; padding: 15px; background: rgba(245, 158, 11, 0.1); border-radius: 8px;">
+                        <div style="font-size: 24px;">⚖️</div>
+                        <div style="font-weight: 600; color: var(--warning);">Алексей</div>
+                        <div style="font-size: 11px; color: var(--text-muted);">ЛПР: Операции, Команда, Процессы</div>
+                    </div>
+                </div>
+                <p style="margin-top: 15px; text-align: center; color: var(--text-secondary);">
+                    <strong>Правило:</strong> Решения в своей зоне — финальные. Решения на стыке зон — совместные.
+                </p>
+            </div>
+
+            <div class="rec-block success">
+                <h4>✅ Разделение зон ответственности</h4>
+                <p>Каждый принимает решения в своей области:</p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-top: 15px;">
+                    <div style="background: rgba(6, 182, 212, 0.1); padding: 12px; border-radius: 8px;">
+                        <div style="font-weight: 600; color: var(--accent); margin-bottom: 8px;">📊 Андрей</div>
+                        <ul style="font-size: 12px; color: var(--text-secondary); margin: 0;">
+                            <li>Лидогенерация</li>
+                            <li>CRM и процессы</li>
+                            <li>Аналитика (приоритизированная!)</li>
+                            <li>Упаковка компании</li>
+                        </ul>
+                    </div>
+                    <div style="background: rgba(168, 85, 247, 0.1); padding: 12px; border-radius: 8px;">
+                        <div style="font-weight: 600; color: var(--purple); margin-bottom: 8px;">🏆 Дмитрий</div>
+                        <ul style="font-size: 12px; color: var(--text-secondary); margin: 0;">
+                            <li>Крупные сделки (холдинги)</li>
+                            <li>Экспертные переговоры</li>
+                            <li>Финальное закрытие</li>
+                            <li>Обучение клоузера</li>
+                        </ul>
+                    </div>
+                    <div style="background: rgba(245, 158, 11, 0.1); padding: 12px; border-radius: 8px;">
+                        <div style="font-weight: 600; color: var(--warning); margin-bottom: 8px;">⚖️ Алексей</div>
+                        <ul style="font-size: 12px; color: var(--text-secondary); margin: 0;">
+                            <li>Операции, закупки</li>
+                            <li>Управление командой</li>
+                            <li>Контроль исполнения</li>
+                            <li>Решения по процессам</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Роли и обязанности</h3>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background: rgba(6, 182, 212, 0.2);">📊</div>
+                    <div>
+                        <div class="card-title">Андрей — система и лидген</div>
+                        <div class="card-subtitle">Архитектор процессов (НЕ коммуникатор)</div>
+                    </div>
+                </div>
+                <ul style="color: var(--text-secondary); margin-left: 20px;">
+                    <li><strong>Маркетинг и лидген:</strong> генерирует поток лидов</li>
+                    <li><strong>CRM и процессы:</strong> строит систему, ставит задачи админу CRM</li>
+                    <li><strong>Обучение:</strong> обучает продукту и новинкам, заполняет базу знаний</li>
+                    <li><strong>Аналитика:</strong> делает срезы, выдаёт приоритеты</li>
+                    <li><strong>С Алексеем:</strong> на связи практически каждый день</li>
+                    <li><strong>Общается:</strong> с РОПами и хорошими менеджерами (на дураков время не тратит)</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background: rgba(168, 85, 247, 0.2);">🏆</div>
+                    <div>
+                        <div class="card-title">Дмитрий — топ-клоузер</div>
+                        <div class="card-subtitle">Эксперт для крупных сделок</div>
+                    </div>
+                </div>
+                <p style="color: var(--purple); margin-bottom: 15px;">💎 Ценный актив — использовать по назначению</p>
+                <ul style="color: var(--text-secondary); margin-left: 20px;">
+                    <li><strong>Крупные сделки:</strong> холдинги, 30+ млн, сложные переговоры</li>
+                    <li><strong>Экспертиза:</strong> майнинг, логистика, финансы</li>
+                    <li><strong>Обучение:</strong> передаёт знания клоузеру (как закрывать)</li>
+                    <li><strong>НЕ делает:</strong> операционное управление командой</li>
+                    <li><strong>НЕ делает:</strong> собрания с угрозами, личные договорённости</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background: rgba(245, 158, 11, 0.2);">⚖️</div>
+                    <div>
+                        <div class="card-title">Алексей Шепеткин — ЛПР по операциям</div>
+                        <div class="card-subtitle">Операционный директор</div>
+                    </div>
+                </div>
+                <p style="color: var(--warning); margin-bottom: 15px;">🎯 Полные полномочия в своей зоне</p>
+                <ul style="color: var(--text-secondary); margin-left: 20px;">
+                    <li><strong>Операции:</strong> закупки, логистика, исполнение — финальное решение за ним</li>
+                    <li><strong>Команда:</strong> управляет РОПом и менеджерами в операционных вопросах</li>
+                    <li><strong>Процессы:</strong> выстраивает и контролирует исполнение</li>
+                    <li><strong>Голос в триумвирате:</strong> участвует в стратегических решениях наравне</li>
+                    <li><strong>Зона развития:</strong> освоить все инструменты CRM для аналитики</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background: rgba(168, 85, 247, 0.2);">📋</div>
+                    <div>
+                        <div class="card-title">РОП (новый)</div>
+                        <div class="card-subtitle">Операционный контроль продаж</div>
+                    </div>
+                </div>
+                <p style="color: var(--warning); margin-bottom: 15px;">Подчиняется Алексею (операционный директор). Получает задачи от триумвирата.</p>
+                <ul style="color: var(--text-secondary); margin-left: 20px;">
+                    <li><strong>CRM:</strong> контроль заполнения, воронка, отчёты</li>
+                    <li><strong>Распределение лидов:</strong> лиды → хантерам/фармерам/клоузерам</li>
+                    <li><strong>Ежедневные стендапы:</strong> 15 мин утром с командой</li>
+                    <li><strong>Прослушка звонков:</strong> контроль качества</li>
+                    <li><strong>Эскалация:</strong> проблемы → Алексею</li>
+                </ul>
+            </div>
+
+            <div class="card" style="border-left: 4px solid var(--danger);">
+                <div class="card-header">
+                    <div class="card-icon" style="background: rgba(239, 68, 68, 0.2);">🔍</div>
+                    <div>
+                        <div class="card-title">ОКК (новый) — отдел контроля качества</div>
+                        <div class="card-subtitle">Аудит сделок и аналитика</div>
+                    </div>
+                </div>
+                <p style="color: var(--danger); margin-bottom: 15px;">Независимый контроль. Отчитывается Андрею напрямую.</p>
+                <ul style="color: var(--text-secondary); margin-left: 20px;">
+                    <li><strong>Аудит сделок:</strong> проверка качества ведения сделок в CRM</li>
+                    <li><strong>Прослушка звонков:</strong> выборочный контроль качества коммуникаций</li>
+                    <li><strong>Отчёты:</strong> еженедельные отчёты по качеству работы менеджеров</li>
+                    <li><strong>Выявление проблем:</strong> находит слабые места в процессах</li>
+                    <li><strong>Обратная связь:</strong> даёт рекомендации РОПу и менеджерам</li>
+                </ul>
+                <div style="margin-top: 15px; padding: 10px; background: rgba(239, 68, 68, 0.1); border-radius: 8px;">
+                    <strong>Зачем нужен:</strong> Объективный взгляд со стороны. РОП занят операционкой, ОКК — контролем качества. Разделение функций = лучший результат.
+                </div>
+            </div>
+
+            <h3>Как разделить 13 менеджеров на роли</h3>
+
+            <div class="rec-block" style="border-left-color: var(--purple);">
+                <h4>📊 Текущая команда: 13 человек</h4>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px;">
+                    <div style="background: rgba(16, 185, 129, 0.1); padding: 15px; border-radius: 8px; text-align: center;">
+                        <div style="font-size: 32px; font-weight: 700; color: var(--success);">3</div>
+                        <div style="font-size: 12px; color: var(--text-muted);">🏆 Клоузеры</div>
+                        <div style="font-size: 11px; color: var(--success);">Оставить как есть</div>
+                    </div>
+                    <div style="background: rgba(245, 158, 11, 0.1); padding: 15px; border-radius: 8px; text-align: center;">
+                        <div style="font-size: 32px; font-weight: 700; color: var(--warning);">5-6</div>
+                        <div style="font-size: 12px; color: var(--text-muted);">🎯 Хантеры</div>
+                        <div style="font-size: 11px; color: var(--warning);">Из 10 менеджеров</div>
+                    </div>
+                    <div style="background: rgba(34, 197, 94, 0.1); padding: 15px; border-radius: 8px; text-align: center;">
+                        <div style="font-size: 32px; font-weight: 700; color: #22c55e;">4-5</div>
+                        <div style="font-size: 12px; color: var(--text-muted);">🌱 Фармеры</div>
+                        <div style="font-size: 11px; color: #22c55e;">Из 10 менеджеров</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background: rgba(245, 158, 11, 0.2);">🎯</div>
+                    <div>
+                        <div class="card-title">Хантеры (5-6 человек)</div>
+                        <div class="card-subtitle">Кого выбрать: активные, любят звонить, не боятся отказов</div>
+                    </div>
+                </div>
+                <ul style="color: var(--text-secondary); margin-left: 20px;">
+                    <li>Обработка входящих лидов от Андрея</li>
+                    <li>Холодный поиск: выставки, конкуренты, базы</li>
+                    <li>80 звонков/день, квалификация по MEDDIC</li>
+                    <li>Передают горячие лиды → Фармерам или Клоузерам</li>
+                    <li><strong>Мотивация:</strong> 60к оклад + 50к KPI + 3% от маржи</li>
+                </ul>
+                <div style="margin-top: 15px; padding: 10px; background: rgba(245, 158, 11, 0.1); border-radius: 8px;">
+                    <strong>Критерии отбора:</strong> Посмотреть статистику звонков за последние 3 месяца. Кто больше звонит и не жалуется = хантер.
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background: rgba(34, 197, 94, 0.2);">🌱</div>
+                    <div>
+                        <div class="card-title">Фармеры (4-5 человек)</div>
+                        <div class="card-subtitle">Кого выбрать: терпеливые, хороши в отношениях, сервисные</div>
+                    </div>
+                </div>
+                <ul style="color: var(--text-secondary); margin-left: 20px;">
+                    <li>Ведение текущих клиентов</li>
+                    <li>Повторные продажи, допродажи хостинга</li>
+                    <li>Сделки до 10 млн</li>
+                    <li>Развитие отношений, сервис</li>
+                    <li><strong>Мотивация:</strong> 65к оклад + 50к KPI + 7% от маржи</li>
+                </ul>
+                <div style="margin-top: 15px; padding: 10px; background: rgba(34, 197, 94, 0.1); border-radius: 8px;">
+                    <strong>Критерии отбора:</strong> Кого клиенты хвалят? Кто лучше удерживает? Кто терпеливо ведёт долгие сделки?
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background: rgba(16, 185, 129, 0.2);">🏆</div>
+                    <div>
+                        <div class="card-title">Клоузеры (3 человека — текущие)</div>
+                        <div class="card-subtitle">Не трогать, дать им поток лидов</div>
+                    </div>
+                </div>
+                <ul style="color: var(--text-secondary); margin-left: 20px;">
+                    <li>Сделки от 10 млн</li>
+                    <li>Переговоры с ЛПР, сложные клиенты</li>
+                    <li>Получают квалифицированные лиды от Хантеров</li>
+                    <li>Закрытие крупных сделок</li>
+                    <li><strong>Мотивация:</strong> 80к оклад + 30к KPI + 2-7% от маржи</li>
+                </ul>
+                <div style="margin-top: 15px; padding: 10px; background: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+                    <strong>Важно:</strong> Клоузеры уже есть и работают. Их задача — закрывать то, что приносят хантеры. Не нагружать мелочью!
+                </div>
+            </div>
+
+            <h3>Процесс разделения (пошагово)</h3>
+
+            <div class="timeline">
+                <div class="timeline-item current">
+                    <div class="timeline-week">Шаг 1</div>
+                    <div class="timeline-title">Оценка 10 менеджеров</div>
+                    <div class="timeline-tasks">
+                        <ul>
+                            <li>Выгрузить статистику из CRM: звонки, сделки, средний чек</li>
+                            <li>Посмотреть кто активнее звонит → потенциальные хантеры</li>
+                            <li>Посмотреть у кого лучше удержание → потенциальные фармеры</li>
+                            <li>Провести короткие 1-на-1: «Что тебе больше нравится?»</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-week">Шаг 2</div>
+                    <div class="timeline-title">Распределение по ролям</div>
+                    <div class="timeline-tasks">
+                        <ul>
+                            <li>5-6 человек → Хантеры (активные, любят звонить)</li>
+                            <li>4-5 человек → Фармеры (терпеливые, сервисные)</li>
+                            <li>Объявить команде: новые роли, новая мотивация</li>
+                            <li>Дать 2 недели на адаптацию</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-week">Шаг 3</div>
+                    <div class="timeline-title">Перераспределение клиентов</div>
+                    <div class="timeline-tasks">
+                        <ul>
+                            <li>Текущие клиенты → Фармерам (по географии или отрасли)</li>
+                            <li>Новые лиды → Хантерам на квалификацию</li>
+                            <li>Крупные сделки (10+ млн) → Клоузерам</li>
+                            <li>Настроить автоматическое распределение в CRM</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Recommendations -->
+        <div class="section">
+            <h2>🎯 Ключевые рекомендации</h2>
+
+            <div class="rec-block important">
+                <h4>📋 #1: Чёткие каналы коммуникации</h4>
+                <p>Каждый ЛПР работает в своей зоне:</p>
+                <ul>
+                    <li><strong>Алексей:</strong> ежедневная работа с командой и РОПом — его зона</li>
+                    <li><strong>Андрей:</strong> система, аналитика, обучение продукту — его зона</li>
+                    <li><strong>Дмитрий:</strong> крупные сделки, обучение клоузеров — его зона</li>
+                    <li><strong>Триумвират:</strong> еженедельная синхронизация всех троих</li>
+                </ul>
+            </div>
+
+            <div class="rec-block success">
+                <h4>🤝 #2: Синхронизация между собственниками</h4>
+                <p>Важно зафиксировать зоны ответственности:</p>
+                <ul>
+                    <li><strong>Разделить зоны:</strong> Андрей = система и лидген, Дмитрий = крупные сделки и экспертиза</li>
+                    <li><strong>Синергия:</strong> система Андрея + экспертиза Дмитрия = сильная команда</li>
+                    <li><strong>Документировать:</strong> записать договорённости, чтобы не возвращаться к ним</li>
+                    <li><strong>Регулярность:</strong> короткие синхронизации раз в неделю</li>
+                </ul>
+                <p style="margin-top: 10px; color: var(--accent);"><strong>Результат:</strong> чёткие зоны ответственности = меньше пересечений = эффективнее работа.</p>
+            </div>
+
+            <div class="rec-block important">
+                <h4>⚡ #3: Единая система для всех</h4>
+                <p>Чтобы видеть полную картину, все сделки должны быть в CRM:</p>
+                <ul>
+                    <li><strong>Крупные сделки:</strong> тоже ведутся в CRM для прозрачности</li>
+                    <li><strong>Пример сверху:</strong> когда руководство работает в системе — команда следует</li>
+                    <li><strong>Аналитика:</strong> без данных в CRM невозможно принимать решения</li>
+                    <li><strong>Единые правила:</strong> одна система для всех уровней</li>
+                </ul>
+            </div>
+
+            <div class="rec-block success">
+                <h4>🤝 #4: Алексей — ЛПР по операциям</h4>
+                <p>Алексей принимает финальные решения в своей зоне:</p>
+                <ul>
+                    <li><strong>Операции:</strong> закупки, логистика, исполнение — его зона ответственности</li>
+                    <li><strong>Команда:</strong> управление РОПом и менеджерами в ежедневной работе</li>
+                    <li><strong>Триумвират:</strong> участвует в стратегических решениях наравне с Андреем и Дмитрием</li>
+                    <li><strong>Его голос:</strong> учитывается при любых изменениях в процессах</li>
+                </ul>
+            </div>
+
+            <div class="rec-block" style="border-left-color: var(--danger);">
+                <h4>🛡️ #5: Правило согласования решений</h4>
+                <p><strong>Любое решение, затрагивающее всю команду = согласовать с триумвиратом до объявления</strong></p>
+                <ul>
+                    <li><strong>Правило 24 часов:</strong> хочешь изменить процесс → написать в чат триумвирата → подождать фидбек</li>
+                    <li><strong>Данные первичны:</strong> перед любым решением — посмотреть актуальные цифры в CRM</li>
+                    <li><strong>Без внезапных собраний:</strong> «всё плохо, делаем по-новому» — только после согласования</li>
+                    <li><strong>Один голос:</strong> команда слышит согласованное решение триумвирата</li>
+                </ul>
+                <div style="margin-top: 15px; padding: 12px; background: rgba(239, 68, 68, 0.1); border-radius: 8px;">
+                    <strong style="color: var(--danger);">⚠️ Почему важно:</strong> Односторонние решения без данных и согласования — главный источник хаоса. Команда теряет доверие, когда правила меняются без объяснений.
+                </div>
+            </div>
+
+            <div class="rec-block important">
+                <h4>⚡ #6: Разделить менеджеров на роли</h4>
+                <p>Сейчас все делают всё. Это неэффективно. Нужна специализация:</p>
+                <ul>
+                    <li><strong>Проведите оценку:</strong> кто лучше звонит, кто лучше ведёт, кто лучше закрывает</li>
+                    <li><strong>Назначьте роли:</strong> 1 хантер + 1 фармер + 1 клоузер</li>
+                    <li><strong>Объясните логику:</strong> «Теперь у каждого своя зона = понятная ответственность и мотивация»</li>
+                    <li><strong>Новая мотивация:</strong> у каждой роли свои KPI и % от маржи</li>
+                </ul>
+            </div>
+
+            <div class="rec-block">
+                <h4>📈 #3: Лиды Андрея → в систему</h4>
+                <p>Андрей генерирует лиды, но они теряются. Нужен процесс:</p>
+                <ul>
+                    <li><strong>Все лиды → в CRM</strong> (автоматически или вручную)</li>
+                    <li><strong>Автоматическое распределение:</strong> новые → Хантеру на квалификацию</li>
+                    <li><strong>SLA:</strong> лид должен быть обработан в течение 2 часов</li>
+                    <li><strong>Еженедельный отчёт:</strong> сколько лидов обработано, сколько потеряно, почему</li>
+                </ul>
+            </div>
+
+            <div class="rec-block success">
+                <h4>💰 #4: Прозрачная мотивация</h4>
+                <p>Никаких личных договорённостей. Всё по формуле:</p>
+                <ul>
+                    <li><strong>Оклад:</strong> фиксированный по роли (60/65/80к)</li>
+                    <li><strong>KPI:</strong> выполнил норму = получил бонус</li>
+                    <li><strong>% от маржи:</strong> закрыл сделку = получил %</li>
+                    <li><strong>Хостинг:</strong> 300₽ за устройство — для всех ролей</li>
+                    <li><strong>Публичный дашборд:</strong> все видят результаты всех</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Implementation Timeline -->
+        <div class="section">
+            <h2>📅 План внедрения</h2>
+
+            <div class="timeline">
+                <div class="timeline-item current">
+                    <div class="timeline-week">Неделя 1-2</div>
+                    <div class="timeline-title">Подготовка и согласование</div>
+                    <div class="timeline-tasks">
+                        <ul>
+                            <li>Индивидуальные встречи с каждым клоузером</li>
+                            <li>Понять их боли, ожидания, красные линии</li>
+                            <li>Согласовать новую структуру (они должны быть «за»)</li>
+                            <li>Определить профиль идеального хантера</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-week">Неделя 3-4</div>
+                    <div class="timeline-title">Найм хантеров</div>
+                    <div class="timeline-tasks">
+                        <ul>
+                            <li>Разместить вакансии (hh, telegram-каналы)</li>
+                            <li>Провести собеседования (минимум 10 кандидатов)</li>
+                            <li>Нанять 2 хантера с опытом холодных продаж</li>
+                            <li>Подготовить скрипты и базы для обзвона</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-week">Неделя 5-6</div>
+                    <div class="timeline-title">Запуск и адаптация</div>
+                    <div class="timeline-tasks">
+                        <ul>
+                            <li>Хантеры начинают звонить (под контролем РОПа)</li>
+                            <li>Ежедневные 15-минутные стендапы</li>
+                            <li>Первые лиды → клоузерам</li>
+                            <li>Корректировка скриптов на основе обратной связи</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-week">Неделя 7-8</div>
+                    <div class="timeline-title">Оптимизация</div>
+                    <div class="timeline-tasks">
+                        <ul>
+                            <li>Анализ воронки: где теряем лиды?</li>
+                            <li>Найм фармера для ведения мелких клиентов</li>
+                            <li>Внедрение еженедельного обзора воронки</li>
+                            <li>Фиксация первых результатов</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-week">Месяц 3+</div>
+                    <div class="timeline-title">Масштабирование</div>
+                    <div class="timeline-tasks">
+                        <ul>
+                            <li>Оценка результатов, корректировка системы</li>
+                            <li>При необходимости — ещё 1 хантер</li>
+                            <li>РОП берёт больше ответственности</li>
+                            <li>Клоузеры фокусируются только на крупных сделках</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Onboarding -->
+        <div class="section">
+            <h2>📋 Онбординг нового РОПа</h2>
+
+            <div class="rec-block success">
+                <h4>👥 С кем встретиться перед началом работы</h4>
+                <div style="display: grid; gap: 15px; margin-top: 15px;">
+                    <div style="background: rgba(6, 182, 212, 0.1); padding: 15px; border-radius: 8px;">
+                        <div style="font-weight: 600; color: var(--accent);">📊 Встреча с Андреем (1-2 часа)</div>
+                        <ul style="font-size: 13px; color: var(--text-secondary); margin-top: 10px;">
+                            <li>Как устроена CRM, какие отчёты смотреть</li>
+                            <li>Откуда приходят лиды, как работает лидген</li>
+                            <li>Какие метрики важны, как их читать</li>
+                            <li>База знаний: где искать информацию по продукту</li>
+                            <li>История: что пробовали, что не сработало</li>
+                        </ul>
+                    </div>
+                    <div style="background: rgba(168, 85, 247, 0.1); padding: 15px; border-radius: 8px;">
+                        <div style="font-weight: 600; color: var(--purple);">🏆 Встреча с Дмитрием (1 час)</div>
+                        <ul style="font-size: 13px; color: var(--text-secondary); margin-top: 10px;">
+                            <li>Как работают крупные сделки</li>
+                            <li>Кто ключевые клиенты, как с ними общаться</li>
+                            <li>Экспертиза: майнинг, логистика, финансы — основы</li>
+                            <li>Когда подключать Дмитрия к сделке</li>
+                        </ul>
+                    </div>
+                    <div style="background: rgba(245, 158, 11, 0.1); padding: 15px; border-radius: 8px;">
+                        <div style="font-weight: 600; color: var(--warning);">⚖️ Встреча с Алексеем (2 часа)</div>
+                        <ul style="font-size: 13px; color: var(--text-secondary); margin-top: 10px;">
+                            <li>Как устроена команда: кто есть кто, сильные/слабые стороны</li>
+                            <li>Текущие процессы: что работает, что нет</li>
+                            <li>Операции: закупки, логистика, как это влияет на продажи</li>
+                            <li>Проблемы: с чем сталкивается команда каждый день</li>
+                            <li>Твоя роль: что от тебя ждут, как будем работать вместе</li>
+                        </ul>
+                    </div>
+                    <div style="background: rgba(16, 185, 129, 0.1); padding: 15px; border-radius: 8px;">
+                        <div style="font-weight: 600; color: var(--success);">🏆 Встреча с клоузерами (по 30 мин каждый)</div>
+                        <ul style="font-size: 13px; color: var(--text-secondary); margin-top: 10px;">
+                            <li>Как они работают, что им нужно от РОПа</li>
+                            <li>Какие лиды хорошие, какие плохие</li>
+                            <li>Что мешает закрывать больше сделок</li>
+                            <li>Их ожидания от нового РОПа</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rec-block">
+                <h4>📑 Какую информацию получить</h4>
+                <ul>
+                    <li><strong>Доступы:</strong> CRM, почта, чаты, телефония, дашборды</li>
+                    <li><strong>Документы:</strong> скрипты продаж, презентации, КП, прайсы</li>
+                    <li><strong>Контакты:</strong> список команды, кто за что отвечает</li>
+                    <li><strong>История:</strong> последние 3 месяца — сделки, проблемы, победы</li>
+                    <li><strong>Цели:</strong> план продаж, KPI команды, ожидания триумвирата</li>
+                </ul>
+            </div>
+
+            <div class="rec-block" style="border-left-color: var(--danger);">
+                <h4>⚠️ Что важно понять сразу</h4>
+                <ul>
+                    <li><strong>Кто реально продаёт</strong> — на ком держатся результаты</li>
+                    <li><strong>Кто проблемный</strong> — с кем будут сложности</li>
+                    <li><strong>Где теряются лиды</strong> — узкие места воронки</li>
+                    <li><strong>Какие конфликты есть</strong> — между людьми, отделами</li>
+                    <li><strong>Что пробовали и не сработало</strong> — чтобы не повторять</li>
+                    <li><strong>Правило 24 часов</strong> — как работает триумвират</li>
+                </ul>
+            </div>
+
+            <div class="rec-block success">
+                <h4>✅ Первая неделя РОПа</h4>
+                <ul>
+                    <li><strong>День 1-2:</strong> Встречи с триумвиратом, получение доступов</li>
+                    <li><strong>День 3-4:</strong> Изучение CRM, звонки с каждым менеджером 1-на-1</li>
+                    <li><strong>День 5:</strong> Первый стендап с командой (слушать, не командовать)</li>
+                    <li><strong>Неделя 2:</strong> Начать контроль CRM, первые отчёты триумвирату</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Stars Management -->
+        <div class="section">
+            <h2>⚠️ Работа со «звёздами»: Меркулов, Полубатонов, Цыпляев</h2>
+            
+            <div class="rec-block" style="border-left-color: var(--danger);">
+                <h4>🎯 Реальность, которую надо принять</h4>
+                <ul>
+                    <li><strong>Эти люди = выручка.</strong> 15 новых менеджеров не заменят их экспертизу и клиентскую базу</li>
+                    <li><strong>Они работают вне системы.</strong> На особых условиях, на «кайфах», делают минимум формальных задач</li>
+                    <li><strong>Их нельзя ломать.</strong> Конфликт = потеря выручки и клиентов</li>
+                    <li><strong>Но и игнорировать нельзя.</strong> Иначе новые менеджеры увидят: «система не для всех»</li>
+                </ul>
+            </div>
+
+            <div class="rec-block success">
+                <h4>✅ Стратегия: «Два трека»</h4>
+                <p style="color: var(--text-secondary); margin-bottom: 15px;">Не пытаться загнать звёзд в общую систему. Создать параллельные правила.</p>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div style="background: rgba(168, 85, 247, 0.1); padding: 15px; border-radius: 8px;">
+                        <div style="font-weight: 600; color: var(--purple); margin-bottom: 10px;">🏆 Трек «Звёзды»</div>
+                        <ul style="font-size: 13px;">
+                            <li>Сохраняют текущие условия</li>
+                            <li>Минимум административной нагрузки</li>
+                            <li>Не участвуют в стендапах, если не хотят</li>
+                            <li>Работают только с крупными сделками</li>
+                            <li>Подчиняются напрямую триумвирату</li>
+                        </ul>
+                    </div>
+                    <div style="background: rgba(6, 182, 212, 0.1); padding: 15px; border-radius: 8px;">
+                        <div style="font-weight: 600; color: var(--accent); margin-bottom: 10px;">📊 Трек «Система»</div>
+                        <ul style="font-size: 13px;">
+                            <li>Новые менеджеры по новым правилам</li>
+                            <li>CRM обязательно, KPI строго</li>
+                            <li>Стендапы, отчёты, контроль</li>
+                            <li>РОП полностью управляет этим треком</li>
+                            <li>Хантеры → Фармеры → новые Клоузеры</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rec-block">
+                <h4>🤝 Как РОПу работать со «звёздами»</h4>
+                <ul>
+                    <li><strong>Не командовать.</strong> Они не подчиняются РОПу — это партнёры, не подчинённые</li>
+                    <li><strong>Не требовать CRM.</strong> Если они не хотят — пусть их сделки вносит ассистент</li>
+                    <li><strong>Учиться у них.</strong> Попросить 1-2 раза в месяц делиться опытом с командой</li>
+                    <li><strong>Не сравнивать.</strong> Никогда не говорить новым: «А вот Меркулов делает так»</li>
+                    <li><strong>Защищать от рутины.</strong> Не грузить их отчётами и встречами</li>
+                </ul>
+            </div>
+
+            <div class="rec-block" style="border-left-color: var(--warning);">
+                <h4>⚡ Что сказать «звёздам» при встрече</h4>
+                <div style="background: rgba(245, 158, 11, 0.1); padding: 15px; border-radius: 8px; margin-top: 10px;">
+                    <p style="font-style: italic; color: var(--text-secondary);">
+                        «Я прихожу не менять вас. Вы приносите деньги, вы эксперты — я это понимаю. 
+                        Моя задача — выстроить систему для новых людей, чтобы снять с вас рутину. 
+                        Мне нужна ваша экспертиза, но не ваше время на отчёты. 
+                        Как вам комфортнее работать — так и будем.»
+                    </p>
+                </div>
+            </div>
+
+            <div class="rec-block success">
+                <h4>📈 Долгосрочная цель: снизить зависимость</h4>
+                <ul>
+                    <li><strong>Через 6-12 месяцев</strong> — новые клоузеры из системы должны начать закрывать сопоставимые сделки</li>
+                    <li><strong>Передача знаний</strong> — постепенно фиксировать экспертизу «звёзд» в базу знаний</li>
+                    <li><strong>Клиентская база</strong> — все новые клиенты заводятся в CRM, старые — по возможности</li>
+                    <li><strong>Дублирование</strong> — у каждой «звезды» должен появиться «теневой» напарник из системы</li>
+                </ul>
+                <p style="color: var(--text-secondary); font-size: 13px; margin-top: 10px;">
+                    Цель не уволить «звёзд», а сделать так, чтобы их уход не был катастрофой.
+                </p>
+            </div>
+
+            <div class="rec-block" style="border-left-color: var(--danger);">
+                <h4>🚫 Чего НЕ делать</h4>
+                <ul>
+                    <li>❌ Пытаться «прижать» звёзд к общим правилам</li>
+                    <li>❌ Публично обсуждать их особые условия</li>
+                    <li>❌ Ставить новым менеджерам их проценты как пример</li>
+                    <li>❌ Конкурировать с ними за крупных клиентов</li>
+                    <li>❌ Ждать от них системной работы — её не будет</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Risks -->
+        <div class="section">
+            <h2>⚠️ Риски и как их избежать</h2>
+
+            <div class="risk-grid">
+                <div class="risk-item">
+                    <div class="risk-problem">
+                        <div class="risk-label">Риск</div>
+                        <p><strong>Андрей не может приоритизировать</strong><br>Слишком много данных, команда тонет</p>
+                    </div>
+                    <div class="risk-solution">
+                        <div class="risk-label">Решение</div>
+                        <p>Жёсткое правило: максимум 3 приоритета в неделю. Алексей помогает выбрать главное. Остальное — в бэклог.</p>
+                    </div>
+                </div>
+
+                <div class="risk-item">
+                    <div class="risk-problem">
+                        <div class="risk-label">Риск</div>
+                        <p><strong>Срочные задачи в обход системы</strong><br>Путаница в приоритетах</p>
+                    </div>
+                    <div class="risk-solution">
+                        <div class="risk-label">Решение</div>
+                        <p>Все срочные задачи передаются через РОПа, который распределяет их с учётом текущей нагрузки. Алексей координирует и даёт обратную связь.</p>
+                    </div>
+                </div>
+
+                <div class="risk-item">
+                    <div class="risk-problem">
+                        <div class="risk-label">Риск</div>
+                        <p><strong>Менеджеры не примут новые роли</strong><br>«Я всегда делал всё, почему теперь только это?»</p>
+                    </div>
+                    <div class="risk-solution">
+                        <div class="risk-label">Решение</div>
+                        <p>Объяснить выгоду: специализация = выше эффективность = выше заработок. Показать расчёты мотивации для каждой роли.</p>
+                    </div>
+                </div>
+
+                <div class="risk-item">
+                    <div class="risk-problem">
+                        <div class="risk-label">Риск</div>
+                        <p><strong>Лиды продолжат теряться</strong><br>CRM не заполняется, процесс не работает</p>
+                    </div>
+                    <div class="risk-solution">
+                        <div class="risk-label">Решение</div>
+                        <p>Жёсткое правило: нет записи в CRM = нет % от сделки. РОП проверяет ежедневно. Триумвират смотрит еженедельный отчёт.</p>
+                    </div>
+                </div>
+
+                <div class="risk-item">
+                    <div class="risk-problem">
+                        <div class="risk-label">Риск</div>
+                        <p><strong>РОП не справляется</strong><br>Нет авторитета, менеджеры игнорируют</p>
+                    </div>
+                    <div class="risk-solution">
+                        <div class="risk-label">Решение</div>
+                        <p>РОП подчиняется Алексею. Триумвират публично поддерживает РОПа. Любые попытки обхода = разговор с Алексеем. РОП управляет процессами.</p>
+                    </div>
+                </div>
+
+                <div class="risk-item">
+                    <div class="risk-problem">
+                        <div class="risk-label">Риск</div>
+                        <p><strong>Внезапные решения без согласования</strong><br>«Всё плохо, делаем по-новому» без данных и обсуждения</p>
+                    </div>
+                    <div class="risk-solution">
+                        <div class="risk-label">Решение</div>
+                        <p>Правило 24 часов: любое решение по команде — сначала в чат триумвирата. Данные из CRM первичны. Команда слышит только согласованные решения.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Metrics to Watch -->
+        <div class="section">
+            <h2>📊 Метрики для контроля</h2>
+
+            <p style="color: var(--text-secondary); margin-bottom: 20px;">Через 2-3 месяца вы должны видеть эти цифры:</p>
+
+            <div class="metrics-grid">
+                <div class="metric">
+                    <div class="metric-value">30+</div>
+                    <div class="metric-label">Квал. лидов / неделя</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">3x</div>
+                    <div class="metric-label">Покрытие воронки</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">>25%</div>
+                    <div class="metric-label">Конверсия в сделку</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">+50%</div>
+                    <div class="metric-label">Рост продаж</div>
+                </div>
+            </div>
+
+            <div class="rec-block">
+                <h4>📈 Еженедельный дашборд (для РОПа)</h4>
+                <ul>
+                    <li>Звонки хантеров (план vs факт)</li>
+                    <li>Количество новых лидов</li>
+                    <li>Конверсия: лид → квалифицированный → сделка</li>
+                    <li>Сделки в работе у каждого клоузера</li>
+                    <li>Устройства на хостинге (новые за неделю)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- What to Watch -->
+        <div class="section">
+            <h2>📚 Что посмотреть / почитать</h2>
+
+            <div class="book-list">
+                <div class="book">
+                    <div class="book-emoji">📕</div>
+                    <div class="book-info">
+                        <div class="title">The Challenger Sale</div>
+                        <div class="author">Dixon & Adamson</div>
+                        <div class="why">→ Почему «друзья» проигрывают в B2B</div>
+                    </div>
+                </div>
+                <div class="book">
+                    <div class="book-emoji">📗</div>
+                    <div class="book-info">
+                        <div class="title">Fanatical Prospecting</div>
+                        <div class="author">Jeb Blount</div>
+                        <div class="why">→ Как строить поток лидов</div>
+                    </div>
+                </div>
+                <div class="book">
+                    <div class="book-emoji">📘</div>
+                    <div class="book-info">
+                        <div class="title">Sales Acceleration Formula</div>
+                        <div class="author">Mark Roberge</div>
+                        <div class="why">→ Как масштабировать отдел продаж</div>
+                    </div>
+                </div>
+                <div class="book">
+                    <div class="book-emoji">📙</div>
+                    <div class="book-info">
+                        <div class="title">The Qualified Sales Leader</div>
+                        <div class="author">John McMahon</div>
+                        <div class="why">→ Как управлять продажниками</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Critical Agreements -->
+        <div class="section">
+            <h2>🔥 Критические договорённости между собственниками</h2>
+
+            <div class="rec-block critical">
+                <h4>⚠️ Главный риск: "Правила не для всех"</h4>
+                <p>Если кто-то из триумвирата не следует правилам — команда видит: <strong>"Можно и нам"</strong>.</p>
+                <ul>
+                    <li>Не в CRM → менеджеры тоже перестают заполнять</li>
+                    <li>Отменяет решения "одним словом" → команда теряет доверие</li>
+                    <li>Управляет "на словах" → система не работает</li>
+                </ul>
+                <p style="margin-top: 10px; color: var(--danger);"><strong>Результат:</strong> Зачем строить систему, если её можно игнорировать?</p>
+            </div>
+
+            <div class="card" style="border-left: 4px solid var(--purple);">
+                <div class="card-header">
+                    <div class="card-icon" style="background: rgba(168, 85, 247, 0.2);">🤝</div>
+                    <div>
+                        <div class="card-title">Разговор между партнёрами</div>
+                        <div class="card-subtitle">Не начальник-подчинённый, а равные</div>
+                    </div>
+                </div>
+                <p style="color: var(--text-secondary); margin-bottom: 15px;">Андрей и Алексей говорят Дмитрию:</p>
+                <div style="background: rgba(168, 85, 247, 0.1); padding: 15px; border-radius: 8px; font-style: italic; color: var(--text-secondary);">
+                    "Мы партнёры. Мы уважаем твою экспертизу в крупных сделках. Но когда решения отменяются без обсуждения — это не уважение к нашей работе. Давай договоримся: <strong>правило 24 часов для всех, включая нас троих</strong>."
+                </div>
+                <p style="margin-top: 15px; color: var(--warning);"><strong>Важно:</strong> Не обвинять, а показать последствия для бизнеса.</p>
+            </div>
+
+            <h3>Варианты решения проблемы с CRM</h3>
+
+            <div class="rec-block" style="border-left-color: var(--success);">
+                <h4>✅ Вариант 1: Ассистент для CRM</h4>
+                <p>Если CRM — "не тот уровень":</p>
+                <ul>
+                    <li>Назначить человека (ОКК или ассистент), который заносит данные</li>
+                    <li>После каждой встречи/звонка — ассистент фиксирует в CRM</li>
+                    <li>Диктуешь → ассистент записывает</li>
+                </ul>
+                <p style="margin-top: 10px; color: var(--success);"><strong>Результат:</strong> Данные в системе, время не тратится на "писанину".</p>
+            </div>
+
+            <div class="rec-block" style="border-left-color: var(--warning);">
+                <h4>⚖️ Вариант 2: Чёткие границы</h4>
+                <p>Если не хочешь в систему — ОК, но тогда:</p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px;">
+                    <div style="background: rgba(16, 185, 129, 0.1); padding: 12px; border-radius: 8px;">
+                        <div style="font-weight: 600; color: var(--success); margin-bottom: 8px;">✅ В CRM:</div>
+                        <ul style="font-size: 12px; color: var(--text-secondary); margin: 0;">
+                            <li>Голос в триумвирате по операциям</li>
+                            <li>Может влиять на процессы</li>
+                            <li>Видит всю картину</li>
+                            <li>Участвует в решениях по команде</li>
+                        </ul>
+                    </div>
+                    <div style="background: rgba(239, 68, 68, 0.1); padding: 12px; border-radius: 8px;">
+                        <div style="font-weight: 600; color: var(--danger); margin-bottom: 8px;">❌ Не в CRM:</div>
+                        <ul style="font-size: 12px; color: var(--text-secondary); margin: 0;">
+                            <li>Только крупные сделки — своя зона</li>
+                            <li>Не участвует в решениях по команде</li>
+                            <li>Не может отменять решения триумвирата</li>
+                            <li>Не видит полной картины</li>
+                        </ul>
+                    </div>
+                </div>
+                <p style="margin-top: 15px; color: var(--warning);"><strong>Логика:</strong> Хочешь влиять — будь в системе. Не хочешь — занимайся только своей зоной.</p>
+            </div>
+
+            <div class="rec-block" style="border-left-color: var(--danger);">
+                <h4>💥 Цена "одного слова"</h4>
+                <p>Когда решение отменяется без обсуждения:</p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px;">
+                    <div style="background: rgba(168, 85, 247, 0.1); padding: 12px; border-radius: 8px;">
+                        <div style="font-weight: 600; color: var(--purple); margin-bottom: 8px;">Что видит автор решения:</div>
+                        <p style="font-size: 12px; color: var(--text-secondary); margin: 0;">"Я принял решение, всё просто, делаем так"</p>
+                    </div>
+                    <div style="background: rgba(239, 68, 68, 0.1); padding: 12px; border-radius: 8px;">
+                        <div style="font-weight: 600; color: var(--danger); margin-bottom: 8px;">Что происходит на самом деле:</div>
+                        <ul style="font-size: 12px; color: var(--text-secondary); margin: 0;">
+                            <li>Команда бросает текущие задачи</li>
+                            <li>Алексей перестраивает процессы</li>
+                            <li>Андрей переделывает систему</li>
+                            <li>Менеджеры теряют доверие</li>
+                            <li>Через неделю: "Почему ничего не работает?"</li>
+                        </ul>
+                    </div>
+                </div>
+                <p style="margin-top: 15px; color: var(--danger);"><strong>Совет:</strong> Показать это на конкретных примерах из прошлого. Не абстрактно.</p>
+            </div>
+
+            <h3>Механизм разрешения конфликтов: 2 против 1</h3>
+
+            <div class="rec-block">
+                <h4>🗳️ Что делать, когда двое за, один против?</h4>
+                <p>Договоритесь заранее, пока нет конфликта:</p>
+                <ul>
+                    <li><strong>Вариант А:</strong> Большинство побеждает (2 из 3)</li>
+                    <li><strong>Вариант Б:</strong> Вето по своей зоне (Андрей может заблокировать решение по CRM)</li>
+                    <li><strong>Вариант В:</strong> Дедлайн на обсуждение (24 часа), потом — большинство</li>
+                </ul>
+                <p style="margin-top: 10px; color: var(--accent);"><strong>Главное:</strong> Решить это ДО первого конфликта.</p>
+            </div>
+        </div>
+
+        <!-- First 30 Days -->
+        <div class="section">
+            <h2>⚡ Первые 30 дней — критический период</h2>
+
+            <div class="rec-block critical">
+                <h4>🎯 Трансформация либо взлетит, либо провалится в первый месяц</h4>
+                <p>Команда будет проверять: <strong>"Это серьёзно или опять поиграются и забудут?"</strong></p>
+                <ul>
+                    <li><strong>Жёстко держать правила</strong> — без исключений первые 30 дней</li>
+                    <li><strong>Первый нарушитель</strong> (даже из триумвирата) — публичное признание ошибки</li>
+                    <li><strong>Еженедельные встречи триумвирата</strong> — корректировка на ходу</li>
+                    <li><strong>Видимые результаты</strong> — показать команде, что система работает</li>
+                </ul>
+            </div>
+
+            <div class="rec-block" style="border-left-color: var(--danger);">
+                <h4>🔒 CRM-дисциплина — без неё ничего не работает</h4>
+                <p>Вся система держится на данных. Жёсткое правило на 30 дней:</p>
+                <ul>
+                    <li><strong>Нет записи = нет % от сделки</strong> (без исключений)</li>
+                    <li><strong>РОП проверяет ежедневно</strong></li>
+                    <li><strong>Публичный дашборд:</strong> кто заполняет, кто нет</li>
+                    <li><strong>Триумвират тоже в CRM</strong> — пример сверху</li>
+                </ul>
+            </div>
+
+            <div class="rec-block" style="border-left-color: var(--accent);">
+                <h4>📝 Фиксируйте ВСЁ письменно</h4>
+                <p>Главная боль: "Коллеги забывают договорённости". Решение:</p>
+                <ul>
+                    <li><strong>Общий канал</strong> с решениями триумвирата</li>
+                    <li><strong>После каждой встречи</strong> — краткий итог в чат</li>
+                    <li><strong>Правило:</strong> "Если не записано — не договорились"</li>
+                </ul>
+            </div>
+
+            <div class="rec-block success">
+                <h4>🎯 РОП-новичок vs опытная команда</h4>
+                <p>Новый РОП будет управлять людьми, которые опытнее его. Как помочь:</p>
+                <ul>
+                    <li><strong>Первые 2-4 недели:</strong> Алексей рядом, поддерживает авторитет</li>
+                    <li><strong>Начать с процессов:</strong> CRM, отчёты — не с "управления людьми"</li>
+                    <li><strong>Публичная поддержка:</strong> "РОП говорит от имени триумвирата"</li>
+                    <li><strong>Защита:</strong> любые попытки обхода РОПа = разговор с Алексеем</li>
+                </ul>
+            </div>
+
+            <div class="rec-block" style="border-left-color: var(--purple);">
+                <h4>🏆 Направить энергию в нужное русло</h4>
+                <p>Энергия и экспертиза — это сила. Важно направить её конструктивно:</p>
+                <ul>
+                    <li><strong>Дать "сцену":</strong> обучение клоузеров, передача опыта</li>
+                    <li><strong>Крупные сделки:</strong> это территория эксперта, там он король</li>
+                    <li><strong>Признание:</strong> публично отмечать успехи в крупных сделках</li>
+                    <li><strong>Канализировать:</strong> желание "сделать по-своему" — в свою зону ответственности</li>
+                </ul>
+            </div>
+
+            <div class="rec-block success">
+                <h4>💎 Андрей — освободить для стратегии</h4>
+                <p>Топ-эксперт по майнингу в РФ занимается бытовухой. Это дорого стоит компании:</p>
+                <ul>
+                    <li><strong>Нанять:</strong> личного ассистента / офис-менеджера для бытовых вопросов</li>
+                    <li><strong>Чёткий список:</strong> "К Андрею ТОЛЬКО по этим вопросам"</li>
+                    <li><strong>Освободить время:</strong> бренд, внешние коммуникации — там ROI выше</li>
+                    <li><strong>База знаний:</strong> Андрей заполняет, остальные используют</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Success Metrics -->
+        <div class="section">
+            <h2>📊 Как понять, что трансформация работает</h2>
+
+            <p style="color: var(--text-secondary); margin-bottom: 20px;">Через 90 дней вы должны видеть изменения:</p>
+
+            <div class="rec-block">
+                <h4>📈 Метрики успеха</h4>
+                <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid var(--border);">
+                            <th style="text-align: left; padding: 10px; color: var(--text-muted);">Метрика</th>
+                            <th style="text-align: center; padding: 10px; color: var(--text-muted);">Сейчас</th>
+                            <th style="text-align: center; padding: 10px; color: var(--text-muted);">30 дней</th>
+                            <th style="text-align: center; padding: 10px; color: var(--text-muted);">90 дней</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid var(--border);">
+                            <td style="padding: 10px;">Заполняемость CRM</td>
+                            <td style="text-align: center; padding: 10px; color: var(--danger);">?%</td>
+                            <td style="text-align: center; padding: 10px; color: var(--warning);">80%</td>
+                            <td style="text-align: center; padding: 10px; color: var(--success);">95%+</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border);">
+                            <td style="padding: 10px;">Квал. лидов / неделя</td>
+                            <td style="text-align: center; padding: 10px; color: var(--danger);">?</td>
+                            <td style="text-align: center; padding: 10px; color: var(--warning);">15+</td>
+                            <td style="text-align: center; padding: 10px; color: var(--success);">30+</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border);">
+                            <td style="padding: 10px;">Конверсия в сделку</td>
+                            <td style="text-align: center; padding: 10px; color: var(--danger);">?%</td>
+                            <td style="text-align: center; padding: 10px; color: var(--warning);">15%</td>
+                            <td style="text-align: center; padding: 10px; color: var(--success);">25%+</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border);">
+                            <td style="padding: 10px;">Текучка менеджеров</td>
+                            <td style="text-align: center; padding: 10px; color: var(--danger);">?</td>
+                            <td style="text-align: center; padding: 10px; color: var(--warning);">≤1</td>
+                            <td style="text-align: center; padding: 10px; color: var(--success);">0</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px;">Решения без согласования</td>
+                            <td style="text-align: center; padding: 10px; color: var(--danger);">часто</td>
+                            <td style="text-align: center; padding: 10px; color: var(--warning);">редко</td>
+                            <td style="text-align: center; padding: 10px; color: var(--success);">0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Final Message -->
+        <div class="final-message">
+            <h2>💡 Главная мысль</h2>
+            <p>
+                <strong>Триумвират: 3 ЛПР с равным голосом</strong><br>
+                • 📊 <strong>Андрей</strong> — система, лидген, стратегия<br>
+                • 🏆 <strong>Дмитрий</strong> — крупные сделки, экспертиза<br>
+                • ⚖️ <strong>Алексей</strong> — операции, команда, процессы<br><br>
+                
+                <strong>Ключевые правила:</strong><br>
+                1️⃣ <strong>Правило 24 часов</strong> — для всех, включая триумвират<br>
+                2️⃣ <strong>Все в CRM</strong> — или ассистент заносит за тебя<br>
+                3️⃣ <strong>Если не записано — не договорились</strong><br>
+                4️⃣ <strong>Первые 30 дней</strong> — жёстко держать правила<br><br>
+                
+                <strong style="color: var(--warning);">Документы готовы. Теперь вопрос исполнения.</strong><br>
+                <span style="font-size: 12px; color: var(--text-muted);">Самое сложное — первые 30 дней. Если триумвират сам соблюдает правила — команда последует.</span>
+            </p>
+        </div>
+
+        <p style="text-align: center; color: var(--text-muted); margin-top: 40px; font-size: 12px;">
+            Документ подготовлен на основе анализа ситуации • IBMM • 2024
+        </p>
+    </div>
+</body>
+</html>
+
