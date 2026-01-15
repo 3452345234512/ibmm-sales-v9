@@ -1,0 +1,1662 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBMM | Процессы и метрики отдела продаж</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-card: #1c2128;
+            --bg-hover: #262c36;
+            --accent-cyan: #00d4ff;
+            --accent-green: #00ff88;
+            --accent-yellow: #ffd000;
+            --accent-red: #ff4757;
+            --accent-purple: #a855f7;
+            --accent-orange: #ff6b35;
+            --accent-blue: #0088cc;
+            --text-primary: #f0f0f5;
+            --text-secondary: #a0a0b0;
+            --text-muted: #606070;
+            --border: #2a2a3a;
+            --hunter: #00d4ff;
+            --closer: #ff6b35;
+            --farmer: #a855f7;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 30px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            color: #000;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 6px 16px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+
+        /* Navigation */
+        .nav {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .nav a {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .nav a:hover {
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .section-icon {
+            font-size: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+
+        /* Role badges */
+        .role-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .role-hunter {
+            background: rgba(0, 212, 255, 0.2);
+            color: var(--hunter);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .role-closer {
+            background: rgba(255, 107, 53, 0.2);
+            color: var(--closer);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+        }
+
+        .role-farmer {
+            background: rgba(168, 85, 247, 0.2);
+            color: var(--farmer);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+        }
+
+        .role-rop {
+            background: rgba(0, 255, 136, 0.2);
+            color: var(--accent-green);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+        }
+
+        .role-all {
+            background: rgba(255, 208, 0, 0.2);
+            color: var(--accent-yellow);
+            border: 1px solid rgba(255, 208, 0, 0.3);
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Tables */
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .table th {
+            background: var(--bg-secondary);
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--border);
+            white-space: nowrap;
+        }
+
+        .table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        .table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .table tr:hover td {
+            background: var(--bg-hover);
+        }
+
+        /* Grids */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        @media (max-width: 1000px) {
+            .grid-3, .grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .grid-2, .grid-3, .grid-4 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Metric cards */
+        .metric-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .metric-card.hunter {
+            border-top: 3px solid var(--hunter);
+        }
+
+        .metric-card.closer {
+            border-top: 3px solid var(--closer);
+        }
+
+        .metric-card.farmer {
+            border-top: 3px solid var(--farmer);
+        }
+
+        .metric-card.rop {
+            border-top: 3px solid var(--accent-green);
+        }
+
+        .metric-name {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .metric-target {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .metric-card.hunter .metric-target { color: var(--hunter); }
+        .metric-card.closer .metric-target { color: var(--closer); }
+        .metric-card.farmer .metric-target { color: var(--farmer); }
+        .metric-card.rop .metric-target { color: var(--accent-green); }
+
+        .metric-period {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Process flow */
+        .process-flow {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .process-step {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px 15px;
+            font-size: 0.85rem;
+        }
+
+        .process-arrow {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+        }
+
+        /* Alert boxes */
+        .alert {
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-size: 0.9rem;
+        }
+
+        .alert.info {
+            background: rgba(0, 212, 255, 0.1);
+            border-left: 4px solid var(--accent-cyan);
+        }
+
+        .alert.warning {
+            background: rgba(255, 208, 0, 0.1);
+            border-left: 4px solid var(--accent-yellow);
+        }
+
+        .alert.danger {
+            background: rgba(255, 71, 87, 0.1);
+            border-left: 4px solid var(--accent-red);
+        }
+
+        .alert.success {
+            background: rgba(0, 255, 136, 0.1);
+            border-left: 4px solid var(--accent-green);
+        }
+
+        /* Robot cards */
+        .robot-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .robot-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .robot-icon {
+            font-size: 1.5rem;
+        }
+
+        .robot-name {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .robot-trigger {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--accent-cyan);
+            background: rgba(0, 212, 255, 0.1);
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+        }
+
+        .robot-actions {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .robot-actions li {
+            margin-bottom: 5px;
+        }
+
+        /* Notification matrix */
+        .notif-channel {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.8rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin: 2px;
+        }
+
+        .notif-telegram {
+            background: rgba(0, 136, 204, 0.2);
+            color: #0088cc;
+        }
+
+        .notif-push {
+            background: rgba(255, 107, 53, 0.2);
+            color: var(--accent-orange);
+        }
+
+        .notif-email {
+            background: rgba(168, 85, 247, 0.2);
+            color: var(--accent-purple);
+        }
+
+        .notif-task {
+            background: rgba(0, 255, 136, 0.2);
+            color: var(--accent-green);
+        }
+
+        .notif-chat {
+            background: rgba(0, 212, 255, 0.2);
+            color: var(--accent-cyan);
+        }
+
+        /* Dashboard preview */
+        .dashboard-preview {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .dashboard-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .dashboard-widget {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 15px;
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+        }
+
+        .widget-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .widget-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 40px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+
+        .footer a {
+            color: var(--accent-cyan);
+            text-decoration: none;
+        }
+
+        /* Funnel stages */
+        .funnel-stage {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 15px;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        .funnel-name {
+            flex: 1;
+            font-weight: 500;
+        }
+
+        .funnel-count {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .funnel-owner {
+            display: flex;
+            gap: 5px;
+        }
+
+        /* Code blocks */
+        .code-block {
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-badge">Полное руководство</div>
+            <h1>⚙️ Процессы и метрики отдела продаж</h1>
+            <p class="subtitle">Роли, KPI, дашборды, роботы Битрикс24, уведомления — всё в одном месте</p>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav">
+            <a href="#roles">👥 Роли</a>
+            <a href="#metrics">📊 Метрики</a>
+            <a href="#funnel">🔄 Воронка</a>
+            <a href="#dashboards">📈 Дашборды</a>
+            <a href="#robots">🤖 Роботы</a>
+            <a href="#notifications">🔔 Уведомления</a>
+            <a href="#audit">🔍 Аудит</a>
+        </nav>
+
+        <!-- ==================== ROLES ==================== -->
+        <section class="section" id="roles">
+            <div class="section-header">
+                <span class="section-icon">👥</span>
+                <span class="section-title">Роли в отделе продаж</span>
+            </div>
+
+            <div class="grid-3">
+                <!-- Hunter -->
+                <div class="card" style="border-top: 3px solid var(--hunter);">
+                    <div class="card-title">
+                        <span class="role-badge role-hunter">Hunter</span>
+                        Хантер
+                    </div>
+                    <p style="color: var(--text-secondary); margin-bottom: 15px;">
+                        <strong>Задача:</strong> Генерация новых лидов, холодные звонки, первичная квалификация
+                    </p>
+                    <h4 style="margin-bottom: 10px; font-size: 0.9rem;">Зона ответственности:</h4>
+                    <ul style="color: var(--text-secondary); font-size: 0.9rem; margin-left: 20px;">
+                        <li>Обработка входящих лидов</li>
+                        <li>Холодные звонки по базе</li>
+                        <li>Квалификация (BANT/MEDDIC)</li>
+                        <li>Передача в Closer при готовности</li>
+                    </ul>
+                    <div class="alert info" style="margin-top: 15px;">
+                        <strong>Этапы воронки:</strong><br>
+                        Новая заявка → Не дозвонились → Контакт состоялся → Потребность выявлена
+                    </div>
+                </div>
+
+                <!-- Closer -->
+                <div class="card" style="border-top: 3px solid var(--closer);">
+                    <div class="card-title">
+                        <span class="role-badge role-closer">Closer</span>
+                        Клоузер
+                    </div>
+                    <p style="color: var(--text-secondary); margin-bottom: 15px;">
+                        <strong>Задача:</strong> Закрытие сделок, переговоры, работа с возражениями
+                    </p>
+                    <h4 style="margin-bottom: 10px; font-size: 0.9rem;">Зона ответственности:</h4>
+                    <ul style="color: var(--text-secondary); font-size: 0.9rem; margin-left: 20px;">
+                        <li>Подготовка и отправка КП</li>
+                        <li>Проведение встреч/презентаций</li>
+                        <li>Переговоры по условиям</li>
+                        <li>Закрытие сделок</li>
+                    </ul>
+                    <div class="alert warning" style="margin-top: 15px;">
+                        <strong>Этапы воронки:</strong><br>
+                        КП отправлено → Встреча назначена → Дожим → КП согласовано → Счет → Договор
+                    </div>
+                </div>
+
+                <!-- Farmer -->
+                <div class="card" style="border-top: 3px solid var(--farmer);">
+                    <div class="card-title">
+                        <span class="role-badge role-farmer">Farmer</span>
+                        Фармер / Аккаунт
+                    </div>
+                    <p style="color: var(--text-secondary); margin-bottom: 15px;">
+                        <strong>Задача:</strong> Работа с текущими клиентами, допродажи, удержание
+                    </p>
+                    <h4 style="margin-bottom: 10px; font-size: 0.9rem;">Зона ответственности:</h4>
+                    <ul style="color: var(--text-secondary); font-size: 0.9rem; margin-left: 20px;">
+                        <li>Сопровождение клиентов</li>
+                        <li>Cross-sell / Up-sell</li>
+                        <li>Размещение на хостинге</li>
+                        <li>Решение проблем</li>
+                    </ul>
+                    <div class="alert success" style="margin-top: 15px;">
+                        <strong>Фокус:</strong><br>
+                        Текущие клиенты, повторные сделки, удержание на площадке
+                    </div>
+                </div>
+            </div>
+
+            <!-- Role matrix -->
+            <div class="card" style="margin-top: 30px;">
+                <div class="card-title">📋 Матрица передачи лидов</div>
+                <div class="table-wrapper">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Этап</th>
+                                <th>Владелец</th>
+                                <th>Условие передачи</th>
+                                <th>Кому передаёт</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Новая заявка</td>
+                                <td><span class="role-badge role-hunter">Hunter</span></td>
+                                <td>Автоматически</td>
+                                <td>—</td>
+                            </tr>
+                            <tr>
+                                <td>Потребность выявлена</td>
+                                <td><span class="role-badge role-hunter">Hunter</span></td>
+                                <td>BANT заполнен, бюджет >1М₽</td>
+                                <td><span class="role-badge role-closer">Closer</span></td>
+                            </tr>
+                            <tr>
+                                <td>КП отправлено</td>
+                                <td><span class="role-badge role-closer">Closer</span></td>
+                                <td>—</td>
+                                <td>—</td>
+                            </tr>
+                            <tr>
+                                <td>Договор подписан</td>
+                                <td><span class="role-badge role-closer">Closer</span></td>
+                                <td>Оплата получена</td>
+                                <td><span class="role-badge role-farmer">Farmer</span></td>
+                            </tr>
+                            <tr>
+                                <td>Сделка >15М₽</td>
+                                <td><span class="role-badge role-hunter">Hunter</span></td>
+                                <td>Крупная сделка</td>
+                                <td>⚖️ Алексей</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== METRICS ==================== -->
+        <section class="section" id="metrics">
+            <div class="section-header">
+                <span class="section-icon">📊</span>
+                <span class="section-title">Метрики по ролям</span>
+            </div>
+
+            <!-- Hunter metrics -->
+            <div class="card" style="border-left: 4px solid var(--hunter);">
+                <div class="card-title">
+                    <span class="role-badge role-hunter">Hunter</span>
+                    Метрики хантера
+                </div>
+                <div class="grid-4">
+                    <div class="metric-card hunter">
+                        <div class="metric-name">Звонки</div>
+                        <div class="metric-target">60-80</div>
+                        <div class="metric-period">в день</div>
+                    </div>
+                    <div class="metric-card hunter">
+                        <div class="metric-name">Касания</div>
+                        <div class="metric-target">80-100</div>
+                        <div class="metric-period">в день</div>
+                    </div>
+                    <div class="metric-card hunter">
+                        <div class="metric-name">Новые заявки</div>
+                        <div class="metric-target">5-10</div>
+                        <div class="metric-period">в день</div>
+                    </div>
+                    <div class="metric-card hunter">
+                        <div class="metric-name">Квалифицировано</div>
+                        <div class="metric-target">15-20</div>
+                        <div class="metric-period">в неделю</div>
+                    </div>
+                    <div class="metric-card hunter">
+                        <div class="metric-name">Конверсия в контакт</div>
+                        <div class="metric-target">≥30%</div>
+                        <div class="metric-period">от звонков</div>
+                    </div>
+                    <div class="metric-card hunter">
+                        <div class="metric-name">SLA реакция</div>
+                        <div class="metric-target">&lt;15 мин</div>
+                        <div class="metric-period">на новый лид</div>
+                    </div>
+                    <div class="metric-card hunter">
+                        <div class="metric-name">Передано Closer</div>
+                        <div class="metric-target">10-15</div>
+                        <div class="metric-period">в неделю</div>
+                    </div>
+                    <div class="metric-card hunter">
+                        <div class="metric-name">Pipeline создан</div>
+                        <div class="metric-target">≥30М₽</div>
+                        <div class="metric-period">в месяц</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Closer metrics -->
+            <div class="card" style="border-left: 4px solid var(--closer);">
+                <div class="card-title">
+                    <span class="role-badge role-closer">Closer</span>
+                    Метрики клоузера
+                </div>
+                <div class="grid-4">
+                    <div class="metric-card closer">
+                        <div class="metric-name">Звонки</div>
+                        <div class="metric-target">15-25</div>
+                        <div class="metric-period">в день</div>
+                    </div>
+                    <div class="metric-card closer">
+                        <div class="metric-name">КП отправлено</div>
+                        <div class="metric-target">5-8</div>
+                        <div class="metric-period">в день</div>
+                    </div>
+                    <div class="metric-card closer">
+                        <div class="metric-name">Встречи</div>
+                        <div class="metric-target">8-12</div>
+                        <div class="metric-period">в неделю</div>
+                    </div>
+                    <div class="metric-card closer">
+                        <div class="metric-name">Сделок закрыто</div>
+                        <div class="metric-target">4-8</div>
+                        <div class="metric-period">в месяц</div>
+                    </div>
+                    <div class="metric-card closer">
+                        <div class="metric-name">Конверсия КП→Сделка</div>
+                        <div class="metric-target">≥20%</div>
+                        <div class="metric-period">от КП</div>
+                    </div>
+                    <div class="metric-card closer">
+                        <div class="metric-name">Средний чек</div>
+                        <div class="metric-target">≥2М₽</div>
+                        <div class="metric-period">на сделку</div>
+                    </div>
+                    <div class="metric-card closer">
+                        <div class="metric-name">Цикл сделки</div>
+                        <div class="metric-target">&lt;30 дней</div>
+                        <div class="metric-period">среднее</div>
+                    </div>
+                    <div class="metric-card closer">
+                        <div class="metric-name">Выручка</div>
+                        <div class="metric-target">≥10М₽</div>
+                        <div class="metric-period">в месяц</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Farmer metrics -->
+            <div class="card" style="border-left: 4px solid var(--farmer);">
+                <div class="card-title">
+                    <span class="role-badge role-farmer">Farmer</span>
+                    Метрики фармера
+                </div>
+                <div class="grid-4">
+                    <div class="metric-card farmer">
+                        <div class="metric-name">Звонки</div>
+                        <div class="metric-target">20-30</div>
+                        <div class="metric-period">в день</div>
+                    </div>
+                    <div class="metric-card farmer">
+                        <div class="metric-name">Касания клиентов</div>
+                        <div class="metric-target">25-40</div>
+                        <div class="metric-period">в день</div>
+                    </div>
+                    <div class="metric-card farmer">
+                        <div class="metric-name">Допродажи</div>
+                        <div class="metric-target">3-5</div>
+                        <div class="metric-period">в неделю</div>
+                    </div>
+                    <div class="metric-card farmer">
+                        <div class="metric-name">Размещено устройств</div>
+                        <div class="metric-target">≥50</div>
+                        <div class="metric-period">в месяц</div>
+                    </div>
+                    <div class="metric-card farmer">
+                        <div class="metric-name">Retention</div>
+                        <div class="metric-target">≥90%</div>
+                        <div class="metric-period">удержание</div>
+                    </div>
+                    <div class="metric-card farmer">
+                        <div class="metric-name">NPS клиентов</div>
+                        <div class="metric-target">≥8</div>
+                        <div class="metric-period">из 10</div>
+                    </div>
+                    <div class="metric-card farmer">
+                        <div class="metric-name">Cross-sell</div>
+                        <div class="metric-target">≥3М₽</div>
+                        <div class="metric-period">в месяц</div>
+                    </div>
+                    <div class="metric-card farmer">
+                        <div class="metric-name">Время ответа в чате</div>
+                        <div class="metric-target">&lt;10 мин</div>
+                        <div class="metric-period">среднее</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ROP metrics -->
+            <div class="card" style="border-left: 4px solid var(--accent-green);">
+                <div class="card-title">
+                    <span class="role-badge role-rop">РОП</span>
+                    Метрики руководителя
+                </div>
+                <div class="grid-4">
+                    <div class="metric-card rop">
+                        <div class="metric-name">План отдела</div>
+                        <div class="metric-target">≥100%</div>
+                        <div class="metric-period">выполнение</div>
+                    </div>
+                    <div class="metric-card rop">
+                        <div class="metric-name">% выполнивших план</div>
+                        <div class="metric-target">≥80%</div>
+                        <div class="metric-period">менеджеров</div>
+                    </div>
+                    <div class="metric-card rop">
+                        <div class="metric-name">Текучка</div>
+                        <div class="metric-target">&lt;10%</div>
+                        <div class="metric-period">в квартал</div>
+                    </div>
+                    <div class="metric-card rop">
+                        <div class="metric-name">Точность forecast</div>
+                        <div class="metric-target">≥80%</div>
+                        <div class="metric-period">прогноза</div>
+                    </div>
+                    <div class="metric-card rop">
+                        <div class="metric-name">Конверсия воронки</div>
+                        <div class="metric-target">+20%</div>
+                        <div class="metric-period">к baseline</div>
+                    </div>
+                    <div class="metric-card rop">
+                        <div class="metric-name">Средний чек</div>
+                        <div class="metric-target">+15%</div>
+                        <div class="metric-period">к baseline</div>
+                    </div>
+                    <div class="metric-card rop">
+                        <div class="metric-name">Заполняемость CRM</div>
+                        <div class="metric-target">≥95%</div>
+                        <div class="metric-period">по отделу</div>
+                    </div>
+                    <div class="metric-card rop">
+                        <div class="metric-name">Адаптация новичков</div>
+                        <div class="metric-target">&lt;30 дней</div>
+                        <div class="metric-period">до нормы</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== FUNNEL ==================== -->
+        <section class="section" id="funnel">
+            <div class="section-header">
+                <span class="section-icon">🔄</span>
+                <span class="section-title">Воронка продаж IBMM</span>
+            </div>
+
+            <div class="card">
+                <div class="card-title">📊 Этапы воронки и владельцы</div>
+                
+                <div class="funnel-stage">
+                    <span style="font-size: 1.2rem;">1️⃣</span>
+                    <span class="funnel-name">Распределение трафика</span>
+                    <span class="funnel-count">Автоматически</span>
+                    <div class="funnel-owner">
+                        <span class="role-badge role-all">Система</span>
+                    </div>
+                </div>
+
+                <div class="funnel-stage">
+                    <span style="font-size: 1.2rem;">2️⃣</span>
+                    <span class="funnel-name">Новая заявка</span>
+                    <span class="funnel-count">SLA: 15 мин</span>
+                    <div class="funnel-owner">
+                        <span class="role-badge role-hunter">Hunter</span>
+                    </div>
+                </div>
+
+                <div class="funnel-stage">
+                    <span style="font-size: 1.2rem;">3️⃣</span>
+                    <span class="funnel-name">Не дозвонились</span>
+                    <span class="funnel-count">Max: 5 попыток / 3 дня</span>
+                    <div class="funnel-owner">
+                        <span class="role-badge role-hunter">Hunter</span>
+                    </div>
+                </div>
+
+                <div class="funnel-stage">
+                    <span style="font-size: 1.2rem;">4️⃣</span>
+                    <span class="funnel-name">Пропущенный звонок</span>
+                    <span class="funnel-count">SLA: 5 мин перезвон</span>
+                    <div class="funnel-owner">
+                        <span class="role-badge role-hunter">Hunter</span>
+                    </div>
+                </div>
+
+                <div class="funnel-stage">
+                    <span style="font-size: 1.2rem;">5️⃣</span>
+                    <span class="funnel-name">Контакт состоялся</span>
+                    <span class="funnel-count">Max: 7 дней</span>
+                    <div class="funnel-owner">
+                        <span class="role-badge role-hunter">Hunter</span>
+                    </div>
+                </div>
+
+                <div class="funnel-stage" style="background: rgba(0, 212, 255, 0.1);">
+                    <span style="font-size: 1.2rem;">6️⃣</span>
+                    <span class="funnel-name">Потребность выявлена</span>
+                    <span class="funnel-count">BANT обязателен</span>
+                    <div class="funnel-owner">
+                        <span class="role-badge role-hunter">Hunter</span>
+                        <span style="margin: 0 5px;">→</span>
+                        <span class="role-badge role-closer">Closer</span>
+                    </div>
+                </div>
+
+                <div class="funnel-stage">
+                    <span style="font-size: 1.2rem;">7️⃣</span>
+                    <span class="funnel-name">КП отправлено</span>
+                    <span class="funnel-count">Max: 14 дней</span>
+                    <div class="funnel-owner">
+                        <span class="role-badge role-closer">Closer</span>
+                    </div>
+                </div>
+
+                <div class="funnel-stage">
+                    <span style="font-size: 1.2rem;">8️⃣</span>
+                    <span class="funnel-name">Встреча назначена</span>
+                    <span class="funnel-count">Max: 7 дней</span>
+                    <div class="funnel-owner">
+                        <span class="role-badge role-closer">Closer</span>
+                    </div>
+                </div>
+
+                <div class="funnel-stage">
+                    <span style="font-size: 1.2rem;">9️⃣</span>
+                    <span class="funnel-name">Дожим</span>
+                    <span class="funnel-count">Max: 14 дней</span>
+                    <div class="funnel-owner">
+                        <span class="role-badge role-closer">Closer</span>
+                    </div>
+                </div>
+
+                <div class="funnel-stage">
+                    <span style="font-size: 1.2rem;">🔟</span>
+                    <span class="funnel-name">КП согласовано</span>
+                    <span class="funnel-count">Max: 7 дней</span>
+                    <div class="funnel-owner">
+                        <span class="role-badge role-closer">Closer</span>
+                    </div>
+                </div>
+
+                <div class="funnel-stage">
+                    <span style="font-size: 1.2rem;">1️⃣1️⃣</span>
+                    <span class="funnel-name">Счет отправлен</span>
+                    <span class="funnel-count">Max: 7 дней</span>
+                    <div class="funnel-owner">
+                        <span class="role-badge role-closer">Closer</span>
+                    </div>
+                </div>
+
+                <div class="funnel-stage" style="background: rgba(0, 255, 136, 0.1);">
+                    <span style="font-size: 1.2rem;">✅</span>
+                    <span class="funnel-name">Договор подписан</span>
+                    <span class="funnel-count">Передача клиента</span>
+                    <div class="funnel-owner">
+                        <span class="role-badge role-closer">Closer</span>
+                        <span style="margin: 0 5px;">→</span>
+                        <span class="role-badge role-farmer">Farmer</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLA Table -->
+            <div class="card" style="margin-top: 20px;">
+                <div class="card-title">⏱ SLA по этапам</div>
+                <div class="table-wrapper">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Этап</th>
+                                <th>SLA</th>
+                                <th>При нарушении</th>
+                                <th>Алерт кому</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Новая заявка</td>
+                                <td><strong style="color: var(--accent-red);">15 минут</strong></td>
+                                <td>Уведомление РОПу</td>
+                                <td><span class="role-badge role-rop">РОП</span></td>
+                            </tr>
+                            <tr>
+                                <td>Не дозвонились</td>
+                                <td><strong>3 дня / 5 попыток</strong></td>
+                                <td>Переназначить или архив</td>
+                                <td><span class="role-badge role-rop">РОП</span></td>
+                            </tr>
+                            <tr>
+                                <td>Контакт состоялся</td>
+                                <td><strong>7 дней</strong></td>
+                                <td>Алерт менеджеру + РОПу</td>
+                                <td><span class="role-badge role-hunter">Hunter</span></td>
+                            </tr>
+                            <tr>
+                                <td>Потребность выявлена</td>
+                                <td><strong>14 дней</strong></td>
+                                <td>Проверка актуальности</td>
+                                <td><span class="role-badge role-rop">РОП</span></td>
+                            </tr>
+                            <tr>
+                                <td>КП отправлено</td>
+                                <td><strong>14 дней</strong></td>
+                                <td>Follow-up звонок</td>
+                                <td><span class="role-badge role-closer">Closer</span></td>
+                            </tr>
+                            <tr>
+                                <td>Дожим</td>
+                                <td><strong>14 дней</strong></td>
+                                <td>Эскалация РОПу</td>
+                                <td><span class="role-badge role-rop">РОП</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== DASHBOARDS ==================== -->
+        <section class="section" id="dashboards">
+            <div class="section-header">
+                <span class="section-icon">📈</span>
+                <span class="section-title">Дашборды</span>
+            </div>
+
+            <!-- Manager Dashboard -->
+            <div class="card">
+                <div class="card-title">
+                    <span class="role-badge role-all">Менеджер</span>
+                    Личный дашборд менеджера
+                </div>
+                <div class="dashboard-preview">
+                    <div class="dashboard-row">
+                        <div class="dashboard-widget">
+                            <div class="widget-value" style="color: var(--accent-cyan);">47/70</div>
+                            <div class="widget-label">Звонков сегодня</div>
+                        </div>
+                        <div class="dashboard-widget">
+                            <div class="widget-value" style="color: var(--accent-green);">12</div>
+                            <div class="widget-label">Лидов в работе</div>
+                        </div>
+                        <div class="dashboard-widget">
+                            <div class="widget-value" style="color: var(--accent-yellow);">3</div>
+                            <div class="widget-label">Просрочено</div>
+                        </div>
+                        <div class="dashboard-widget">
+                            <div class="widget-value" style="color: var(--accent-purple);">2.3М₽</div>
+                            <div class="widget-label">Pipeline</div>
+                        </div>
+                    </div>
+                    <div class="dashboard-row">
+                        <div class="dashboard-widget">
+                            <div class="widget-value" style="color: var(--accent-green);">67%</div>
+                            <div class="widget-label">Норма звонков</div>
+                        </div>
+                        <div class="dashboard-widget">
+                            <div class="widget-value">5</div>
+                            <div class="widget-label">КП сегодня</div>
+                        </div>
+                        <div class="dashboard-widget">
+                            <div class="widget-value">2</div>
+                            <div class="widget-label">Встречи сегодня</div>
+                        </div>
+                        <div class="dashboard-widget">
+                            <div class="widget-value" style="color: var(--accent-orange);">1.8М₽</div>
+                            <div class="widget-label">Закрыто в месяц</div>
+                        </div>
+                    </div>
+                </div>
+                <p style="color: var(--text-muted); font-size: 0.85rem;">📍 Где смотреть: CRM → Мои дела / Аналитика</p>
+            </div>
+
+            <!-- ROP Dashboard -->
+            <div class="card">
+                <div class="card-title">
+                    <span class="role-badge role-rop">РОП</span>
+                    Дашборд руководителя
+                </div>
+                <div class="dashboard-preview">
+                    <div class="dashboard-row">
+                        <div class="dashboard-widget">
+                            <div class="widget-value" style="color: var(--accent-cyan);">847</div>
+                            <div class="widget-label">Звонков отдел</div>
+                        </div>
+                        <div class="dashboard-widget">
+                            <div class="widget-value" style="color: var(--accent-green);">34</div>
+                            <div class="widget-label">Новых лидов</div>
+                        </div>
+                        <div class="dashboard-widget">
+                            <div class="widget-value" style="color: var(--accent-red);">5</div>
+                            <div class="widget-label">SLA нарушено</div>
+                        </div>
+                        <div class="dashboard-widget">
+                            <div class="widget-value" style="color: var(--accent-purple);">23.4М₽</div>
+                            <div class="widget-label">Pipeline неделя</div>
+                        </div>
+                    </div>
+                    <div class="dashboard-row">
+                        <div class="dashboard-widget">
+                            <div class="widget-value" style="color: var(--accent-green);">8/10</div>
+                            <div class="widget-label">Выполняют норму</div>
+                        </div>
+                        <div class="dashboard-widget">
+                            <div class="widget-value">78%</div>
+                            <div class="widget-label">Заполнение CRM</div>
+                        </div>
+                        <div class="dashboard-widget">
+                            <div class="widget-value">12</div>
+                            <div class="widget-label">Закрыто сегодня</div>
+                        </div>
+                        <div class="dashboard-widget">
+                            <div class="widget-value" style="color: var(--accent-orange);">87%</div>
+                            <div class="widget-label">План месяца</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h4 style="margin: 20px 0 15px; font-size: 0.95rem;">Что должен видеть РОП:</h4>
+                <div class="grid-2">
+                    <div>
+                        <h5 style="color: var(--accent-cyan); margin-bottom: 10px;">Real-time (каждые 5 мин)</h5>
+                        <ul style="color: var(--text-secondary); font-size: 0.9rem; margin-left: 20px;">
+                            <li>Звонки по каждому менеджеру</li>
+                            <li>Лиды без реакции (SLA)</li>
+                            <li>Кто онлайн/офлайн</li>
+                            <li>Активные чаты без ответа</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5 style="color: var(--accent-yellow); margin-bottom: 10px;">Ежедневно</h5>
+                        <ul style="color: var(--text-secondary); font-size: 0.9rem; margin-left: 20px;">
+                            <li>% выполнения нормы</li>
+                            <li>Новые/квалифицированные лиды</li>
+                            <li>Закрытые сделки</li>
+                            <li>Проблемные сделки</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Leadership Dashboard -->
+            <div class="card">
+                <div class="card-title">
+                    👑 Дашборд для руководства (Алексей, Маркелов)
+                </div>
+                <div class="dashboard-preview">
+                    <div class="dashboard-row">
+                        <div class="dashboard-widget">
+                            <div class="widget-value" style="color: var(--accent-green);">18.7М₽</div>
+                            <div class="widget-label">Закрыто в месяц</div>
+                        </div>
+                        <div class="dashboard-widget">
+                            <div class="widget-value">94%</div>
+                            <div class="widget-label">План</div>
+                        </div>
+                        <div class="dashboard-widget">
+                            <div class="widget-value" style="color: var(--accent-purple);">145М₽</div>
+                            <div class="widget-label">Pipeline</div>
+                        </div>
+                        <div class="dashboard-widget">
+                            <div class="widget-value" style="color: var(--accent-cyan);">5.1%</div>
+                            <div class="widget-label">Конверсия</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h4 style="margin: 20px 0 15px; font-size: 0.95rem;">Еженедельный отчёт содержит:</h4>
+                <ul style="color: var(--text-secondary); font-size: 0.9rem; margin-left: 20px;">
+                    <li>Выручка: план/факт</li>
+                    <li>Pipeline: сумма и динамика</li>
+                    <li>ТОП-3 менеджера и ТОП-3 проблемных</li>
+                    <li>Крупные сделки в работе (>15М₽)</li>
+                    <li>Конверсии по этапам воронки</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ==================== ROBOTS ==================== -->
+        <section class="section" id="robots">
+            <div class="section-header">
+                <span class="section-icon">🤖</span>
+                <span class="section-title">Роботы Битрикс24</span>
+            </div>
+
+            <div class="alert info">
+                <strong>📍 Где настроить:</strong> CRM → Настройки → Роботы и триггеры → Сделки
+            </div>
+
+            <div class="grid-2">
+                <!-- Robot 1 -->
+                <div class="robot-card">
+                    <div class="robot-header">
+                        <span class="robot-icon">🚨</span>
+                        <span class="robot-name">SLA на новый лид</span>
+                    </div>
+                    <div class="robot-trigger">
+                        Триггер: Сделка на этапе "Новая заявка" > 15 минут
+                    </div>
+                    <ul class="robot-actions">
+                        <li>→ Уведомление менеджеру (Push)</li>
+                        <li>→ Через 30 мин: уведомление РОПу (Telegram)</li>
+                        <li>→ Через 1 час: переназначить другому</li>
+                    </ul>
+                </div>
+
+                <!-- Robot 2 -->
+                <div class="robot-card">
+                    <div class="robot-header">
+                        <span class="robot-icon">📞</span>
+                        <span class="robot-name">Контроль "Не дозвонились"</span>
+                    </div>
+                    <div class="robot-trigger">
+                        Триггер: Сделка на этапе "Не дозвонились" > 3 дня
+                    </div>
+                    <ul class="robot-actions">
+                        <li>→ День 3: уведомление менеджеру</li>
+                        <li>→ День 5: уведомление РОПу</li>
+                        <li>→ День 7: автоматически в архив</li>
+                    </ul>
+                </div>
+
+                <!-- Robot 3 -->
+                <div class="robot-card">
+                    <div class="robot-header">
+                        <span class="robot-icon">💰</span>
+                        <span class="robot-name">Контроль закрытия крупных</span>
+                    </div>
+                    <div class="robot-trigger">
+                        Триггер: Сделка > 500К₽ переходит в "Закрыто"
+                    </div>
+                    <ul class="robot-actions">
+                        <li>→ Уведомление РОПу (Telegram)</li>
+                        <li>→ Создать задачу "Проверить закрытие"</li>
+                        <li>→ Статус "На проверке" (не закрывать)</li>
+                    </ul>
+                </div>
+
+                <!-- Robot 4 -->
+                <div class="robot-card">
+                    <div class="robot-header">
+                        <span class="robot-icon">⏰</span>
+                        <span class="robot-name">Зависшие сделки</span>
+                    </div>
+                    <div class="robot-trigger">
+                        Триггер: Сделка без активности > 7 дней
+                    </div>
+                    <ul class="robot-actions">
+                        <li>→ Уведомление менеджеру (Чат)</li>
+                        <li>→ Задача "Актуализировать сделку"</li>
+                        <li>→ Через 3 дня: эскалация РОПу</li>
+                    </ul>
+                </div>
+
+                <!-- Robot 5 -->
+                <div class="robot-card">
+                    <div class="robot-header">
+                        <span class="robot-icon">🎯</span>
+                        <span class="robot-name">Передача Closer</span>
+                    </div>
+                    <div class="robot-trigger">
+                        Триггер: Переход в "Потребность выявлена" + бюджет > 1М₽
+                    </div>
+                    <ul class="robot-actions">
+                        <li>→ Проверить: BANT заполнен?</li>
+                        <li>→ Да: уведомление Closer</li>
+                        <li>→ Нет: вернуть + задача заполнить</li>
+                    </ul>
+                </div>
+
+                <!-- Robot 6 -->
+                <div class="robot-card">
+                    <div class="robot-header">
+                        <span class="robot-icon">⭐</span>
+                        <span class="robot-name">Крупная сделка создана</span>
+                    </div>
+                    <div class="robot-trigger">
+                        Триггер: Новая сделка с бюджетом > 15М₽
+                    </div>
+                    <ul class="robot-actions">
+                        <li>→ Уведомление Алексею (Telegram)</li>
+                        <li>→ Уведомление РОПу</li>
+                        <li>→ Добавить тег "VIP"</li>
+                    </ul>
+                </div>
+
+                <!-- Robot 7 -->
+                <div class="robot-card">
+                    <div class="robot-header">
+                        <span class="robot-icon">🎉</span>
+                        <span class="robot-name">Сделка выиграна</span>
+                    </div>
+                    <div class="robot-trigger">
+                        Триггер: Сделка перешла в "Договор подписан"
+                    </div>
+                    <ul class="robot-actions">
+                        <li>→ Уведомление в группу отдела 🎉</li>
+                        <li>→ Задача Farmer: принять клиента</li>
+                        <li>→ Уведомление руководству (если >5М)</li>
+                    </ul>
+                </div>
+
+                <!-- Robot 8 -->
+                <div class="robot-card">
+                    <div class="robot-header">
+                        <span class="robot-icon">📋</span>
+                        <span class="robot-name">Обязательные поля</span>
+                    </div>
+                    <div class="robot-trigger">
+                        Триггер: Переход на следующий этап
+                    </div>
+                    <ul class="robot-actions">
+                        <li>→ Проверить заполнение обязательных полей</li>
+                        <li>→ Нет: вернуть назад</li>
+                        <li>→ Показать сообщение "Заполните поля"</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== NOTIFICATIONS ==================== -->
+        <section class="section" id="notifications">
+            <div class="section-header">
+                <span class="section-icon">🔔</span>
+                <span class="section-title">Матрица уведомлений</span>
+            </div>
+
+            <div class="card">
+                <div class="card-title">📬 Кому, куда, что отправлять</div>
+                <div class="table-wrapper">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Событие</th>
+                                <th>Кому</th>
+                                <th>Канал</th>
+                                <th>Когда</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Новый лид назначен</td>
+                                <td><span class="role-badge role-hunter">Hunter</span></td>
+                                <td>
+                                    <span class="notif-push">📱 Push</span>
+                                    <span class="notif-task">📋 Задача</span>
+                                </td>
+                                <td>Сразу</td>
+                            </tr>
+                            <tr>
+                                <td>SLA нарушен (лид >15 мин)</td>
+                                <td><span class="role-badge role-rop">РОП</span></td>
+                                <td>
+                                    <span class="notif-telegram">💬 Telegram</span>
+                                </td>
+                                <td>Сразу</td>
+                            </tr>
+                            <tr>
+                                <td>Клиент написал в чат</td>
+                                <td><span class="role-badge role-farmer">Farmer</span></td>
+                                <td>
+                                    <span class="notif-push">📱 Push</span>
+                                </td>
+                                <td>Сразу</td>
+                            </tr>
+                            <tr>
+                                <td>Закрытие сделки >500К</td>
+                                <td><span class="role-badge role-rop">РОП</span></td>
+                                <td>
+                                    <span class="notif-telegram">💬 Telegram</span>
+                                    <span class="notif-task">📋 Задача</span>
+                                </td>
+                                <td>Сразу</td>
+                            </tr>
+                            <tr>
+                                <td>Крупная сделка создана (>15М)</td>
+                                <td>⚖️ Алексей</td>
+                                <td>
+                                    <span class="notif-telegram">💬 Telegram</span>
+                                </td>
+                                <td>Сразу</td>
+                            </tr>
+                            <tr>
+                                <td>Сделка зависла 7+ дней</td>
+                                <td><span class="role-badge role-all">Менеджер</span></td>
+                                <td>
+                                    <span class="notif-chat">💬 Чат Б24</span>
+                                    <span class="notif-task">📋 Задача</span>
+                                </td>
+                                <td>Утром</td>
+                            </tr>
+                            <tr>
+                                <td>Менеджер не выполнил норму</td>
+                                <td><span class="role-badge role-rop">РОП</span></td>
+                                <td>
+                                    <span class="notif-telegram">💬 Telegram</span>
+                                </td>
+                                <td>18:00</td>
+                            </tr>
+                            <tr>
+                                <td>Утренний срез</td>
+                                <td>👥 Группа отдела</td>
+                                <td>
+                                    <span class="notif-telegram">💬 Telegram</span>
+                                </td>
+                                <td>09:00</td>
+                            </tr>
+                            <tr>
+                                <td>Дневной срез</td>
+                                <td>👥 Группа отдела</td>
+                                <td>
+                                    <span class="notif-telegram">💬 Telegram</span>
+                                </td>
+                                <td>13:00</td>
+                            </tr>
+                            <tr>
+                                <td>Вечерний срез</td>
+                                <td>👥 Группа отдела</td>
+                                <td>
+                                    <span class="notif-telegram">💬 Telegram</span>
+                                </td>
+                                <td>18:00</td>
+                            </tr>
+                            <tr>
+                                <td>Сделка выиграна</td>
+                                <td>👥 Группа отдела</td>
+                                <td>
+                                    <span class="notif-telegram">💬 Telegram</span>
+                                </td>
+                                <td>Сразу 🎉</td>
+                            </tr>
+                            <tr>
+                                <td>Еженедельный отчёт</td>
+                                <td>👑 Руководство</td>
+                                <td>
+                                    <span class="notif-email">📧 Email</span>
+                                    <span class="notif-telegram">💬 Telegram</span>
+                                </td>
+                                <td>ПН 10:00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Telegram schedule -->
+            <div class="card" style="margin-top: 20px;">
+                <div class="card-title">📱 Расписание Telegram-уведомлений</div>
+                <div class="grid-3">
+                    <div style="background: var(--bg-secondary); padding: 20px; border-radius: 10px; text-align: center;">
+                        <div style="font-family: 'JetBrains Mono'; font-size: 1.5rem; color: var(--accent-cyan);">09:00</div>
+                        <div style="font-weight: 600; margin: 10px 0;">🌅 Утренний срез</div>
+                        <div style="font-size: 0.85rem; color: var(--text-secondary);">План на день, лиды в работе, просроченные SLA</div>
+                    </div>
+                    <div style="background: var(--bg-secondary); padding: 20px; border-radius: 10px; text-align: center;">
+                        <div style="font-family: 'JetBrains Mono'; font-size: 1.5rem; color: var(--accent-yellow);">13:00</div>
+                        <div style="font-weight: 600; margin: 10px 0;">☀️ Дневной срез</div>
+                        <div style="font-size: 0.85rem; color: var(--text-secondary);">Прогресс звонков, отстающие менеджеры</div>
+                    </div>
+                    <div style="background: var(--bg-secondary); padding: 20px; border-radius: 10px; text-align: center;">
+                        <div style="font-family: 'JetBrains Mono'; font-size: 1.5rem; color: var(--accent-orange);">18:00</div>
+                        <div style="font-weight: 600; margin: 10px 0;">🌆 Вечерний срез</div>
+                        <div style="font-size: 0.85rem; color: var(--text-secondary);">Итоги дня, закрытые сделки, проблемы</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== AUDIT ==================== -->
+        <section class="section" id="audit">
+            <div class="section-header">
+                <span class="section-icon">🔍</span>
+                <span class="section-title">Аудит и контроль</span>
+            </div>
+
+            <!-- Closed deals audit -->
+            <div class="card">
+                <div class="card-title">🔴 Аудит закрытых сделок</div>
+                <p style="color: var(--text-secondary); margin-bottom: 20px;">
+                    Еженедельная проверка: не сливают ли менеджеры лиды в «Закрыто»
+                </p>
+
+                <h4 style="margin-bottom: 15px;">Обязательные поля при закрытии:</h4>
+                <div class="table-wrapper">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Поле</th>
+                                <th>Тип</th>
+                                <th>Обязательно</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Причина закрытия</td>
+                                <td>Выбор из списка</td>
+                                <td>✅ Да</td>
+                            </tr>
+                            <tr>
+                                <td>Комментарий</td>
+                                <td>Текст (мин. 50 символов)</td>
+                                <td>✅ Да</td>
+                            </tr>
+                            <tr>
+                                <td>Дата последнего контакта</td>
+                                <td>Дата</td>
+                                <td>✅ Да</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h4 style="margin: 25px 0 15px;">Причины закрытия (список):</h4>
+                <div class="code-block">
+• Нет бюджета (подтверждено клиентом)
+• Купил у конкурента
+• Проект отменён / заморожен
+• Нецелевой лид (не наш продукт)
+• Не дозвонились 5+ раз
+• Дубль / спам
+• Другое (требует одобрения РОПа)
+                </div>
+
+                <div class="alert danger" style="margin-top: 20px;">
+                    <strong>⚠️ Правило:</strong> Сделка >500К₽ не может быть закрыта без проверки РОПа
+                </div>
+            </div>
+
+            <!-- Red flags -->
+            <div class="card" style="margin-top: 20px;">
+                <div class="card-title">🚩 Красные флаги (что искать при аудите)</div>
+                <div class="table-wrapper">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Флаг</th>
+                                <th>Что значит</th>
+                                <th>Действие</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="color: var(--accent-red);">Закрыто без звонка</td>
+                                <td>Менеджер не работал со сделкой</td>
+                                <td>Вернуть + разговор</td>
+                            </tr>
+                            <tr>
+                                <td style="color: var(--accent-red);">Закрыто после 1 касания</td>
+                                <td>Слишком быстро сдался</td>
+                                <td>Проверить запись звонка</td>
+                            </tr>
+                            <tr>
+                                <td style="color: var(--accent-yellow);">«Нет бюджета» без суммы</td>
+                                <td>Не квалифицировал</td>
+                                <td>Обучение BANT</td>
+                            </tr>
+                            <tr>
+                                <td style="color: var(--accent-yellow);">Много закрытых от одного</td>
+                                <td>Системный слив лидов</td>
+                                <td>Аудит + разговор</td>
+                            </tr>
+                            <tr>
+                                <td style="color: var(--accent-yellow);">Причина «Другое» >15%</td>
+                                <td>Избегают указывать причину</td>
+                                <td>Требовать уточнения</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Weekly checklist -->
+            <div class="card" style="margin-top: 20px;">
+                <div class="card-title">📋 Еженедельный чек-лист РОПа</div>
+                <div class="code-block">
+□ Выгрузить закрытые за неделю
+□ Отсортировать по сумме (крупные сверху)
+□ Проверить количество касаний до закрытия
+□ Прослушать последний звонок (выборочно 5-10)
+□ Сделки >500К без звонка → вернуть в работу
+□ Менеджеры с >5 закрытыми → провести разговор
+□ Обновить отчёт по конверсиям
+□ Проверить зависшие >14 дней
+□ Подготовить список для реанимации
+                </div>
+            </div>
+
+            <!-- Metrics to track -->
+            <div class="card" style="margin-top: 20px;">
+                <div class="card-title">📊 Метрики здоровья воронки</div>
+                <div class="grid-4">
+                    <div class="metric-card rop">
+                        <div class="metric-name">% закрытых/неделю</div>
+                        <div class="metric-target">5-10%</div>
+                        <div class="metric-period">норма</div>
+                    </div>
+                    <div class="metric-card rop">
+                        <div class="metric-name">Закрыто с <3 касаний</div>
+                        <div class="metric-target">&lt;10%</div>
+                        <div class="metric-period">норма</div>
+                    </div>
+                    <div class="metric-card rop">
+                        <div class="metric-name">Причина «Другое»</div>
+                        <div class="metric-target">&lt;5%</div>
+                        <div class="metric-period">норма</div>
+                    </div>
+                    <div class="metric-card rop">
+                        <div class="metric-name">Возраст закрытой</div>
+                        <div class="metric-target">14-30 дн</div>
+                        <div class="metric-period">среднее</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>IBMM Sales Processes 2026</p>
+            <p style="margin-top: 10px;">
+                <a href="index.html?v=1">← Вернуться к документам</a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
