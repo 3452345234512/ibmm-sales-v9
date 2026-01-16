@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ОКК — Отдел Контроля Качества | IBMM</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+        
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a24;
+            --accent-orange: #ff6b35;
+            --accent-yellow: #ffc107;
+            --accent-green: #00d68f;
+            --accent-red: #ff4757;
+            --accent-blue: #4dabf7;
+            --accent-purple: #9775fa;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --border-color: #2a2a3a;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Manrope', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-card) 100%);
+            border-radius: 24px;
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-orange), var(--accent-yellow), var(--accent-green));
+        }
+        
+        .badge {
+            display: inline-block;
+            background: var(--accent-orange);
+            color: #000;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--text-primary), var(--accent-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .section {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .section-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .section-icon.orange { background: rgba(255, 107, 53, 0.2); }
+        .section-icon.green { background: rgba(0, 214, 143, 0.2); }
+        .section-icon.blue { background: rgba(77, 171, 247, 0.2); }
+        .section-icon.purple { background: rgba(151, 117, 250, 0.2); }
+        .section-icon.yellow { background: rgba(255, 193, 7, 0.2); }
+        .section-icon.red { background: rgba(255, 71, 87, 0.2); }
+        
+        h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+        
+        h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent-orange);
+            margin: 25px 0 15px 0;
+        }
+        
+        p {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+        
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        ul li {
+            padding: 12px 0;
+            padding-left: 35px;
+            position: relative;
+            color: var(--text-secondary);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        ul li:last-child {
+            border-bottom: none;
+        }
+        
+        ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent-orange);
+            font-weight: bold;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        th {
+            background: var(--bg-secondary);
+            color: var(--accent-orange);
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        td {
+            color: var(--text-secondary);
+        }
+        
+        tr:hover td {
+            background: rgba(255, 107, 53, 0.05);
+        }
+        
+        .highlight-box {
+            background: rgba(255, 107, 53, 0.1);
+            border-left: 4px solid var(--accent-orange);
+            padding: 20px 25px;
+            border-radius: 0 12px 12px 0;
+            margin: 20px 0;
+        }
+        
+        .highlight-box.green {
+            background: rgba(0, 214, 143, 0.1);
+            border-left-color: var(--accent-green);
+        }
+        
+        .highlight-box.red {
+            background: rgba(255, 71, 87, 0.1);
+            border-left-color: var(--accent-red);
+        }
+        
+        .highlight-box.blue {
+            background: rgba(77, 171, 247, 0.1);
+            border-left-color: var(--accent-blue);
+        }
+        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .card {
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .metric {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-green);
+        }
+        
+        .metric-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .tag.daily { background: rgba(0, 214, 143, 0.2); color: var(--accent-green); }
+        .tag.weekly { background: rgba(77, 171, 247, 0.2); color: var(--accent-blue); }
+        .tag.monthly { background: rgba(151, 117, 250, 0.2); color: var(--accent-purple); }
+        .tag.critical { background: rgba(255, 71, 87, 0.2); color: var(--accent-red); }
+        
+        .schedule-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 20px;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+        
+        .schedule-time {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent-yellow);
+            min-width: 70px;
+        }
+        
+        .schedule-content h4 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+        
+        .schedule-content p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+        
+        .vacancy-card {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-card) 100%);
+            border: 2px solid var(--accent-orange);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .vacancy-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent-orange);
+            margin-bottom: 10px;
+        }
+        
+        .checklist {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 20px;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+        
+        .check-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(0, 214, 143, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+        
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--bg-secondary);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: var(--accent-yellow);
+        }
+        
+        .report-template {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 25px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            white-space: pre-line;
+            border: 1px solid var(--border-color);
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .section { padding: 25px; }
+            .grid-2 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <span class="badge">🎯 Вакансии открыты</span>
+            <h1>ОКК — Отдел Контроля Качества</h1>
+            <p class="subtitle">Структура, обязанности, метрики и регламенты отдела контроля качества продаж</p>
+        </header>
+
+        <!-- Вакансии -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon orange">👥</div>
+                <h2>Открытые вакансии</h2>
+            </div>
+            
+            <div class="grid-2">
+                <div class="vacancy-card">
+                    <div class="vacancy-title">🎧 Специалист ОКК</div>
+                    <p style="margin-bottom: 20px;">Мониторинг звонков, аудит CRM, контроль качества работы менеджеров</p>
+                    
+                    <h4 style="color: var(--text-primary); margin-bottom: 10px;">Ключевые задачи:</h4>
+                    <ul>
+                        <li>Прослушивание 20-30 звонков в день</li>
+                        <li>Аудит заполнения CRM-карточек</li>
+                        <li>Контроль закрытых сделок</li>
+                        <li>Подготовка отчётов</li>
+                        <li>Выявление нарушений SLA</li>
+                    </ul>
+                </div>
+                
+                <div class="vacancy-card">
+                    <div class="vacancy-title">💬 Аккаунт-менеджер (чаты)</div>
+                    <p style="margin-bottom: 20px;">Работа с входящими обращениями в чатах и мессенджерах</p>
+                    
+                    <h4 style="color: var(--text-primary); margin-bottom: 10px;">Ключевые задачи:</h4>
+                    <ul>
+                        <li>Обработка входящих в чатах</li>
+                        <li>Квалификация лидов</li>
+                        <li>Передача в отдел продаж</li>
+                        <li>Поддержка текущих клиентов</li>
+                        <li>SLA реакции: до 5 минут</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Структура ОКК -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon blue">🏗️</div>
+                <h2>Структура отдела</h2>
+            </div>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Роль</th>
+                        <th>Кол-во</th>
+                        <th>Подчинение</th>
+                        <th>Основная функция</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Специалист ОКК</strong></td>
+                        <td>2 чел.</td>
+                        <td>РОП</td>
+                        <td>Мониторинг звонков, аудит CRM, контроль закрытых сделок</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Аккаунт-менеджер (чаты)</strong></td>
+                        <td>1-2 чел.</td>
+                        <td>РОП</td>
+                        <td>Обработка входящих в чатах, первичная квалификация</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="highlight-box blue">
+                <strong>📋 Линия подчинения:</strong><br>
+                ОКК → РОП → Алексей Щепёткин + Маркелов
+            </div>
+        </div>
+
+        <!-- Обязанности специалиста ОКК -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon green">🎧</div>
+                <h2>Обязанности специалиста ОКК</h2>
+            </div>
+
+            <h3>📞 Мониторинг звонков</h3>
+            <div class="checklist">
+                <div class="checklist-item">
+                    <div class="check-icon">✓</div>
+                    <div>
+                        <strong>Прослушивание 20-30 звонков в день</strong><br>
+                        <span style="color: var(--text-secondary); font-size: 0.9rem;">По 2-3 звонка на каждого менеджера (10 менеджеров)</span>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="check-icon">✓</div>
+                    <div>
+                        <strong>Оценка по чек-листу</strong><br>
+                        <span style="color: var(--text-secondary); font-size: 0.9rem;">Приветствие, выявление потребности, презентация, работа с возражениями, закрытие</span>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="check-icon">✓</div>
+                    <div>
+                        <strong>Фиксация нарушений</strong><br>
+                        <span style="color: var(--text-secondary); font-size: 0.9rem;">Хамство, пропуск этапов скрипта, неверная информация, обещания без полномочий</span>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="check-icon">✓</div>
+                    <div>
+                        <strong>Выставление баллов</strong><br>
+                        <span style="color: var(--text-secondary); font-size: 0.9rem;">Каждый звонок = балл от 1 до 10. Средний балл менеджера = метрика качества</span>
+                    </div>
+                </div>
+            </div>
+
+            <h3>📊 Аудит CRM</h3>
+            <div class="checklist">
+                <div class="checklist-item">
+                    <div class="check-icon">✓</div>
+                    <div>
+                        <strong>Проверка заполнения карточек</strong><br>
+                        <span style="color: var(--text-secondary); font-size: 0.9rem;">Контакт, компания, сумма, источник, комментарии, задачи</span>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="check-icon">✓</div>
+                    <div>
+                        <strong>Контроль этапов воронки</strong><br>
+                        <span style="color: var(--text-secondary); font-size: 0.9rem;">Сделка на правильном этапе? Соответствует ли статус реальности?</span>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="check-icon">✓</div>
+                    <div>
+                        <strong>Проверка SLA</strong><br>
+                        <span style="color: var(--text-secondary); font-size: 0.9rem;">Реакция на новый лид < 15 минут, перезвон по пропущенному < 5 минут</span>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="check-icon">✓</div>
+                    <div>
+                        <strong>Выявление «забытых» сделок</strong><br>
+                        <span style="color: var(--text-secondary); font-size: 0.9rem;">Нет активности > 7 дней, просроченные задачи, зависшие этапы</span>
+                    </div>
+                </div>
+            </div>
+
+            <h3>🚫 Аудит закрытых сделок</h3>
+            <div class="highlight-box red">
+                <strong>⚠️ Критическая задача:</strong> 70% сделок закрывается некорректно. ОКК — последний барьер перед потерей лидов.
+            </div>
+            
+            <div class="checklist">
+                <div class="checklist-item">
+                    <div class="check-icon">✓</div>
+                    <div>
+                        <strong>Ежедневная выгрузка закрытых</strong><br>
+                        <span style="color: var(--text-secondary); font-size: 0.9rem;">Все сделки, закрытые за вчера. Особое внимание на суммы > 300К₽</span>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="check-icon">✓</div>
+                    <div>
+                        <strong>Прослушивание последних звонков</strong><br>
+                        <span style="color: var(--text-secondary); font-size: 0.9rem;">Был ли реальный отказ? Были ли попытки дожима? Сколько касаний?</span>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="check-icon">✓</div>
+                    <div>
+                        <strong>Проверка причины закрытия</strong><br>
+                        <span style="color: var(--text-secondary); font-size: 0.9rem;">Соответствует ли указанная причина реальности (по звонку)?</span>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="check-icon">✓</div>
+                    <div>
+                        <strong>Выявление «слитых» лидов</strong><br>
+                        <span style="color: var(--text-secondary); font-size: 0.9rem;">Закрыто без звонка, < 3 касаний, нет комментария, нереальная причина</span>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="check-icon">✓</div>
+                    <div>
+                        <strong>Передача на реанимацию</strong><br>
+                        <span style="color: var(--text-secondary); font-size: 0.9rem;">Сделки с потенциалом → ДРУГОМУ менеджеру на повторную отработку</span>
+                    </div>
+                </div>
+            </div>
+
+            <h3>📈 Отчётность</h3>
+            <div class="checklist">
+                <div class="checklist-item">
+                    <div class="check-icon">✓</div>
+                    <div>
+                        <strong>Ежедневный отчёт РОПу (17:00)</strong><br>
+                        <span style="color: var(--text-secondary); font-size: 0.9rem;">Количество проверенных звонков, нарушения, слитые сделки</span>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="check-icon">✓</div>
+                    <div>
+                        <strong>Еженедельный отчёт (ПН 09:00)</strong><br>
+                        <span style="color: var(--text-secondary); font-size: 0.9rem;">Рейтинг менеджеров по качеству, топ нарушителей, тренды</span>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="check-icon">✓</div>
+                    <div>
+                        <strong>Месячный отчёт руководству</strong><br>
+                        <span style="color: var(--text-secondary); font-size: 0.9rem;">Сводная аналитика, динамика, рекомендации по обучению</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Распорядок дня ОКК -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon yellow">⏰</div>
+                <h2>Распорядок дня специалиста ОКК</h2>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">09:00</div>
+                <div class="schedule-content">
+                    <h4>Выгрузка данных</h4>
+                    <p>Закрытые сделки за вчера, новые лиды с нарушением SLA, просроченные задачи</p>
+                </div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">09:30</div>
+                <div class="schedule-content">
+                    <h4>Аудит закрытых сделок</h4>
+                    <p>Прослушивание звонков по закрытым, выявление слитых лидов</p>
+                </div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">11:00</div>
+                <div class="schedule-content">
+                    <h4>Мониторинг звонков</h4>
+                    <p>Прослушивание текущих звонков менеджеров, оценка по чек-листу</p>
+                </div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">13:00</div>
+                <div class="schedule-content">
+                    <h4>Аудит CRM</h4>
+                    <p>Проверка заполнения карточек, этапов воронки, задач</p>
+                </div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">15:00</div>
+                <div class="schedule-content">
+                    <h4>Повторный мониторинг звонков</h4>
+                    <p>Дополнительная прослушка, фокус на проблемных менеджерах</p>
+                </div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">16:30</div>
+                <div class="schedule-content">
+                    <h4>Подготовка отчёта</h4>
+                    <p>Сводка по дню: нарушения, слитые, рекомендации</p>
+                </div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">17:00</div>
+                <div class="schedule-content">
+                    <h4>Отправка отчёта РОПу</h4>
+                    <p>Telegram + комментарии по критичным случаям</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Чек-лист оценки звонка -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon purple">📋</div>
+                <h2>Чек-лист оценки звонка</h2>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Критерий</th>
+                        <th>Макс. балл</th>
+                        <th>На что смотреть</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>1. Приветствие</strong></td>
+                        <td>1</td>
+                        <td>Представился, назвал компанию, дружелюбный тон</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2. Выявление потребности</strong></td>
+                        <td>2</td>
+                        <td>Задавал вопросы SPIN, выяснил бюджет, сроки, ЛПР</td>
+                    </tr>
+                    <tr>
+                        <td><strong>3. Презентация продукта</strong></td>
+                        <td>2</td>
+                        <td>Рассказал о выгодах, адаптировал под клиента</td>
+                    </tr>
+                    <tr>
+                        <td><strong>4. Работа с возражениями</strong></td>
+                        <td>2</td>
+                        <td>Не спорил, уточнил причину, предложил решение</td>
+                    </tr>
+                    <tr>
+                        <td><strong>5. Закрытие / следующий шаг</strong></td>
+                        <td>2</td>
+                        <td>Назначил встречу/звонок, взял обязательство</td>
+                    </tr>
+                    <tr>
+                        <td><strong>6. CRM после звонка</strong></td>
+                        <td>1</td>
+                        <td>Заполнил карточку, поставил задачу, обновил этап</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="highlight-box green">
+                <strong>Шкала оценки:</strong><br>
+                • <strong>9-10 баллов</strong> — отличный звонок<br>
+                • <strong>7-8 баллов</strong> — хороший звонок, есть что улучшить<br>
+                • <strong>5-6 баллов</strong> — требуется обучение<br>
+                • <strong>< 5 баллов</strong> — критично, разбор с РОПом
+            </div>
+        </div>
+
+        <!-- Чек-лист аудита CRM -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon blue">🔍</div>
+                <h2>Чек-лист аудита CRM-карточки</h2>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Поле</th>
+                        <th>Обязательно?</th>
+                        <th>Что проверять</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Имя контакта</strong></td>
+                        <td>✅ Да</td>
+                        <td>Есть, не "Тест", не пустое</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Телефон</strong></td>
+                        <td>✅ Да</td>
+                        <td>Корректный формат, не дубль</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Компания</strong></td>
+                        <td>✅ Да</td>
+                        <td>Название, если B2B</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Источник</strong></td>
+                        <td>✅ Да</td>
+                        <td>Откуда пришёл лид</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Сумма сделки</strong></td>
+                        <td>✅ Да</td>
+                        <td>Реалистичная, не 0, не 10 млрд</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Этап воронки</strong></td>
+                        <td>✅ Да</td>
+                        <td>Соответствует реальному статусу</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Комментарий</strong></td>
+                        <td>✅ Да</td>
+                        <td>Есть суть разговора, не пустой</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Задача</strong></td>
+                        <td>✅ Да</td>
+                        <td>Есть активная задача с датой</td>
+                    </tr>
+                    <tr>
+                        <td><strong>BANT/MEDDIC</strong></td>
+                        <td>Для >1М₽</td>
+                        <td>Бюджет, ЛПР, сроки, потребность</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Типичные нарушения:</h3>
+            <ul>
+                <li><strong>Пустой комментарий</strong> — непонятно, о чём говорили</li>
+                <li><strong>Нет задачи</strong> — сделка «висит» без следующего шага</li>
+                <li><strong>Неверный этап</strong> — сделка на «КП отправлено», а КП нет</li>
+                <li><strong>Нереальная сумма</strong> — 10 млрд на этапе «Новая заявка»</li>
+                <li><strong>Просроченная задача</strong> — задача в прошлом, не закрыта</li>
+                <li><strong>Дубль контакта</strong> — клиент уже есть в базе</li>
+            </ul>
+        </div>
+
+        <!-- Чек-лист закрытых сделок -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon red">🚫</div>
+                <h2>Чек-лист аудита закрытых сделок</h2>
+            </div>
+
+            <div class="highlight-box red">
+                <strong>🎯 Цель:</strong> Выявить сделки, которые закрыты некорректно («слиты»), и вернуть их в работу.
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Критерий</th>
+                        <th>Красный флаг 🚩</th>
+                        <th>Действие</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Количество касаний</strong></td>
+                        <td>< 3 звонков/касаний</td>
+                        <td>Вернуть в работу другому менеджеру</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Последний звонок</strong></td>
+                        <td>Нет записи или не прослушивается</td>
+                        <td>Запросить объяснение у менеджера</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Причина закрытия</strong></td>
+                        <td>«Другое» без комментария</td>
+                        <td>Не засчитывать закрытие</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Сумма сделки</strong></td>
+                        <td>> 300К₽ и закрыто быстро</td>
+                        <td>Обязательная прослушка</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Время в воронке</strong></td>
+                        <td>< 3 дней от создания до закрытия</td>
+                        <td>Подозрение на слив</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Реальность отказа</strong></td>
+                        <td>Клиент не сказал «нет» явно</td>
+                        <td>Вернуть в работу</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Категории закрытых:</h3>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title" style="color: var(--accent-red);">🗑️ Мусор (не реанимировать)</div>
+                    <ul>
+                        <li>Дубль / спам</li>
+                        <li>Неверный номер</li>
+                        <li>Не наш продукт (B2C, другая страна)</li>
+                        <li>Откровенный отказ с хамством</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-title" style="color: var(--accent-green);">♻️ Потенциал (реанимировать)</div>
+                    <ul>
+                        <li>«Нет бюджета сейчас» → через 3 мес</li>
+                        <li>«Купил у конкурента» → через 6 мес</li>
+                        <li>«Проект отложен» → через 2 мес</li>
+                        <li>Не дозвонились → попробовать ещё</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Метрики ОКК -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon green">📊</div>
+                <h2>Метрики работы ОКК</h2>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Метрика</th>
+                        <th>Норма</th>
+                        <th>Период</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Звонков прослушано</strong></td>
+                        <td>20-30</td>
+                        <td>День</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Закрытых проверено</strong></td>
+                        <td>100%</td>
+                        <td>День</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Слитых выявлено</strong></td>
+                        <td>Все</td>
+                        <td>День</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Реанимировано лидов</strong></td>
+                        <td>10-15%</td>
+                        <td>От закрытых</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Нарушений SLA найдено</strong></td>
+                        <td>Все</td>
+                        <td>День</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Отчёт РОПу</strong></td>
+                        <td>17:00</td>
+                        <td>Ежедневно</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Влияние ОКК на бизнес:</h3>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="metric">10-15%</div>
+                    <div class="metric-label">лидов реанимируется из «закрытых»</div>
+                </div>
+                <div class="card">
+                    <div class="metric">+20%</div>
+                    <div class="metric-label">к качеству звонков после обратной связи</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Шаблоны отчётов -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon orange">📝</div>
+                <h2>Шаблоны отчётов</h2>
+            </div>
+
+            <h3>Ежедневный отчёт (17:00)</h3>
+            <div class="report-template">
+📊 <strong>ОКК — Отчёт за [ДАТА]</strong>
+
+<strong>🎧 Звонки:</strong>
+• Прослушано: [X] звонков
+• Средний балл: [X.X] / 10
+• Критичных нарушений: [X]
+
+<strong>🚫 Закрытые сделки:</strong>
+• Проверено: [X] сделок
+• Слитых выявлено: [X] на сумму [X]₽
+• Передано на реанимацию: [X]
+
+<strong>📋 CRM:</strong>
+• Карточек проверено: [X]
+• Нарушений заполнения: [X]
+• SLA нарушено: [X] лидов
+
+<strong>⚠️ Требуют внимания:</strong>
+• [Менеджер 1] — [причина]
+• [Менеджер 2] — [причина]
+
+<strong>🎯 Рекомендации:</strong>
+• [Что улучшить]
+            </div>
+
+            <h3>Еженедельный отчёт (ПН 09:00)</h3>
+            <div class="report-template">
+📊 <strong>ОКК — Неделя [ДАТЫ]</strong>
+
+<strong>📈 Сводка:</strong>
+• Звонков прослушано: [X]
+• Сделок проверено: [X]
+• Слитых выявлено: [X] на [X]₽
+• Реанимировано: [X] на [X]₽
+
+<strong>🏆 Рейтинг качества звонков:</strong>
+1. [Менеджер] — [X.X] балл
+2. [Менеджер] — [X.X] балл
+3. [Менеджер] — [X.X] балл
+...
+10. [Менеджер] — [X.X] балл
+
+<strong>🚩 Топ нарушителей:</strong>
+• [Менеджер] — [X] нарушений
+• [Менеджер] — [X] нарушений
+
+<strong>📉 Проблемные зоны:</strong>
+• [Описание проблемы]
+
+<strong>✅ Рекомендации:</strong>
+• [Обучение / разбор / санкции]
+            </div>
+        </div>
+
+        <!-- Инструменты -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon blue">🛠️</div>
+                <h2>Инструменты ОКК</h2>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Инструмент</th>
+                        <th>Для чего</th>
+                        <th>Примечание</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Битрикс24</strong></td>
+                        <td>CRM, воронка, задачи</td>
+                        <td>Основная система</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Телефония Битрикс</strong></td>
+                        <td>Записи звонков</td>
+                        <td>Прослушивание</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Google Sheets</strong></td>
+                        <td>Чек-листы, рейтинги</td>
+                        <td>Отчётность</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Telegram</strong></td>
+                        <td>Алерты, отчёты</td>
+                        <td>Оперативная связь</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Эскалация -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon red">🚨</div>
+                <h2>Матрица эскалации</h2>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ситуация</th>
+                        <th>Кому</th>
+                        <th>Когда</th>
+                        <th>Канал</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Слитая сделка > 500К₽</td>
+                        <td>РОП</td>
+                        <td>Сразу</td>
+                        <td>Telegram</td>
+                    </tr>
+                    <tr>
+                        <td>Хамство клиенту</td>
+                        <td>РОП + Алексей</td>
+                        <td>Сразу</td>
+                        <td>Telegram + запись</td>
+                    </tr>
+                    <tr>
+                        <td>Фрод / подделка данных</td>
+                        <td>Алексей + Маркелов</td>
+                        <td>Сразу</td>
+                        <td>Лично / Telegram</td>
+                    </tr>
+                    <tr>
+                        <td>Массовые нарушения CRM</td>
+                        <td>РОП</td>
+                        <td>В отчёте</td>
+                        <td>Ежедневный отчёт</td>
+                    </tr>
+                    <tr>
+                        <td>Менеджер игнорирует замечания</td>
+                        <td>РОП</td>
+                        <td>После 2 предупреждений</td>
+                        <td>Письменно</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- FAQ -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon purple">❓</div>
+                <h2>FAQ для ОКК</h2>
+            </div>
+
+            <h3>Что делать, если менеджер не согласен с оценкой?</h3>
+            <p>Привлечь РОПа для совместного прослушивания. Решение РОПа — финальное.</p>
+
+            <h3>Как приоритизировать прослушку?</h3>
+            <p>1) Закрытые сделки > 300К₽, 2) Новые менеджеры, 3) Проблемные менеджеры, 4) Рандом.</p>
+
+            <h3>Сколько времени на один звонок?</h3>
+            <p>5-7 минут: прослушка + заполнение чек-листа. Не тратить больше 10 минут.</p>
+
+            <h3>Что если звонок не записался?</h3>
+            <p>Отметить как «Нет записи». Если систематически у одного менеджера — эскалация РОПу.</p>
+
+            <h3>Нужно ли слушать звонки «звёзд»?</h3>
+            <p>Нет. ОКК работает только с менеджерами РОПа (10 человек). Звёзды — автономны.</p>
+        </div>
+
+    </div>
+</body>
+</html>
