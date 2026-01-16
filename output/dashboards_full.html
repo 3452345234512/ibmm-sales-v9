@@ -1,0 +1,1592 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBMM | Все Дашборды</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0d0d12;
+            --bg-secondary: #13131a;
+            --bg-card: #1a1a24;
+            --bg-hover: #22222e;
+            --accent-cyan: #00d4ff;
+            --accent-green: #00ff88;
+            --accent-yellow: #ffd000;
+            --accent-red: #ff4757;
+            --accent-purple: #a855f7;
+            --accent-orange: #ff6b35;
+            --accent-blue: #4dabf7;
+            --accent-pink: #f472b6;
+            --text-primary: #f0f0f5;
+            --text-secondary: #9090a0;
+            --text-muted: #606070;
+            --border: #2a2a3a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 30px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 50px 30px;
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-card));
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple), var(--accent-pink));
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #fff, var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+
+        /* Navigation */
+        .nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 50px;
+        }
+
+        .nav-btn {
+            padding: 12px 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background: var(--accent-cyan);
+            color: #000;
+            border-color: var(--accent-cyan);
+        }
+
+        .nav-btn.whale { background: rgba(168, 85, 247, 0.2); border-color: var(--accent-purple); color: var(--accent-purple); }
+        .nav-btn.whale:hover { background: var(--accent-purple); color: #000; }
+        
+        .nav-btn.closed { background: rgba(255, 71, 87, 0.2); border-color: var(--accent-red); color: var(--accent-red); }
+        .nav-btn.closed:hover { background: var(--accent-red); color: #fff; }
+        
+        .nav-btn.fucked { background: rgba(255, 107, 53, 0.2); border-color: var(--accent-orange); color: var(--accent-orange); }
+        .nav-btn.fucked:hover { background: var(--accent-orange); color: #000; }
+        
+        .nav-btn.nurture { background: rgba(255, 208, 0, 0.2); border-color: var(--accent-yellow); color: var(--accent-yellow); }
+        .nav-btn.nurture:hover { background: var(--accent-yellow); color: #000; }
+        
+        .nav-btn.processing { background: rgba(0, 255, 136, 0.2); border-color: var(--accent-green); color: var(--accent-green); }
+        .nav-btn.processing:hover { background: var(--accent-green); color: #000; }
+
+        /* Section */
+        .section {
+            margin-bottom: 60px;
+            scroll-margin-top: 20px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .section-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+        }
+
+        .section-icon.whale { background: rgba(168, 85, 247, 0.2); }
+        .section-icon.closed { background: rgba(255, 71, 87, 0.2); }
+        .section-icon.fucked { background: rgba(255, 107, 53, 0.2); }
+        .section-icon.nurture { background: rgba(255, 208, 0, 0.2); }
+        .section-icon.processing { background: rgba(0, 255, 136, 0.2); }
+        .section-icon.stars { background: rgba(244, 114, 182, 0.2); }
+
+        h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+
+        .section-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-top: 5px;
+        }
+
+        /* Cards Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 1200px) { .metrics-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 768px) { .metrics-grid { grid-template-columns: repeat(2, 1fr); } }
+
+        .metric-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .metric-value.cyan { color: var(--accent-cyan); }
+        .metric-value.green { color: var(--accent-green); }
+        .metric-value.yellow { color: var(--accent-yellow); }
+        .metric-value.red { color: var(--accent-red); }
+        .metric-value.purple { color: var(--accent-purple); }
+        .metric-value.orange { color: var(--accent-orange); }
+
+        .metric-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* Card */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Table */
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background: var(--bg-secondary);
+            padding: 14px 16px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--border);
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+
+        tr:hover td {
+            background: var(--bg-hover);
+        }
+
+        /* Status */
+        .status {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .status.green { background: rgba(0, 255, 136, 0.2); color: var(--accent-green); }
+        .status.yellow { background: rgba(255, 208, 0, 0.2); color: var(--accent-yellow); }
+        .status.red { background: rgba(255, 71, 87, 0.2); color: var(--accent-red); }
+        .status.purple { background: rgba(168, 85, 247, 0.2); color: var(--accent-purple); }
+        .status.orange { background: rgba(255, 107, 53, 0.2); color: var(--accent-orange); }
+        .status.cyan { background: rgba(0, 212, 255, 0.2); color: var(--accent-cyan); }
+
+        /* Alert Box */
+        .alert-box {
+            padding: 18px 22px;
+            border-radius: 12px;
+            margin: 20px 0;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .alert-box.info { background: rgba(0, 212, 255, 0.1); border-left: 4px solid var(--accent-cyan); }
+        .alert-box.warning { background: rgba(255, 208, 0, 0.1); border-left: 4px solid var(--accent-yellow); }
+        .alert-box.danger { background: rgba(255, 71, 87, 0.1); border-left: 4px solid var(--accent-red); }
+        .alert-box.success { background: rgba(0, 255, 136, 0.1); border-left: 4px solid var(--accent-green); }
+
+        /* Grid */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        @media (max-width: 900px) {
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+        }
+
+        /* List */
+        ul {
+            list-style: none;
+        }
+
+        ul li {
+            padding: 10px 0;
+            padding-left: 25px;
+            position: relative;
+            color: var(--text-secondary);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent-cyan);
+        }
+
+        /* Code */
+        .code-block {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            white-space: pre-wrap;
+            line-height: 1.6;
+            overflow-x: auto;
+        }
+
+        .code-block .hl { color: var(--accent-green); font-weight: 600; }
+        .code-block .warn { color: var(--accent-yellow); }
+        .code-block .err { color: var(--accent-red); }
+        .code-block .info { color: var(--accent-cyan); }
+
+        /* Checklist */
+        .checklist {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .check-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .check-item:last-child { border-bottom: none; }
+
+        .check-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        .check-icon.required { background: rgba(255, 71, 87, 0.2); color: var(--accent-red); }
+        .check-icon.optional { background: rgba(255, 208, 0, 0.2); color: var(--accent-yellow); }
+        .check-icon.auto { background: rgba(0, 255, 136, 0.2); color: var(--accent-green); }
+
+        /* Progress Bar */
+        .progress-bar {
+            height: 8px;
+            background: var(--bg-secondary);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s;
+        }
+
+        .progress-fill.green { background: var(--accent-green); }
+        .progress-fill.yellow { background: var(--accent-yellow); }
+        .progress-fill.red { background: var(--accent-red); }
+
+        /* Tags */
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 6px;
+        }
+
+        .tag.whale { background: rgba(168, 85, 247, 0.2); color: var(--accent-purple); }
+        .tag.hot { background: rgba(255, 71, 87, 0.2); color: var(--accent-red); }
+        .tag.warm { background: rgba(255, 208, 0, 0.2); color: var(--accent-yellow); }
+        .tag.cold { background: rgba(0, 212, 255, 0.2); color: var(--accent-cyan); }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 40px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+
+        .footer a {
+            color: var(--accent-cyan);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>📊 Все Дашборды IBMM</h1>
+            <p class="subtitle">Крупные сделки • Закрытые • Проблемные • Отложенные • Обработка заявок • Звёзды</p>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav">
+            <a href="#whale" class="nav-btn whale">🐋 Крупные сделки</a>
+            <a href="#closed" class="nav-btn closed">🚫 Закрытые</a>
+            <a href="#fucked" class="nav-btn fucked">💀 Проблемные</a>
+            <a href="#nurture" class="nav-btn nurture">⏰ Отложенные</a>
+            <a href="#processing" class="nav-btn processing">📥 Обработка заявок</a>
+            <a href="#stars" class="nav-btn">⭐ Звёзды</a>
+        </nav>
+
+        <!-- ==================== КРУПНЫЕ СДЕЛКИ ==================== -->
+        <section class="section" id="whale">
+            <div class="section-header">
+                <div class="section-icon whale">🐋</div>
+                <div>
+                    <h2>Дашборд крупных сделок (>15М₽)</h2>
+                    <p class="section-desc">Pipeline, касания, MEDDIC, ответственные, риски</p>
+                </div>
+            </div>
+
+            <!-- Метрики -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value purple">187М₽</div>
+                    <div class="metric-label">Pipeline крупных</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value cyan">12</div>
+                    <div class="metric-label">Сделок в работе</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value green">15.6М₽</div>
+                    <div class="metric-label">Средний чек</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value yellow">47</div>
+                    <div class="metric-label">Средний цикл (дни)</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value red">3</div>
+                    <div class="metric-label">В зоне риска</div>
+                </div>
+            </div>
+
+            <!-- Таблица сделок -->
+            <div class="card">
+                <div class="card-title">📋 Активные крупные сделки</div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Клиент</th>
+                                <th>Сумма</th>
+                                <th>Этап</th>
+                                <th>Ответственный</th>
+                                <th>Послед. касание</th>
+                                <th>След. шаг</th>
+                                <th>MEDDIC</th>
+                                <th>Риск</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>МайнингХолдинг</strong><br><small style="color: var(--text-muted);">ИНН: 7712345678</small></td>
+                                <td><strong style="color: var(--accent-purple);">45М₽</strong></td>
+                                <td><span class="status purple">Переговоры</span></td>
+                                <td>Меркулов</td>
+                                <td><span style="color: var(--accent-green);">Вчера</span></td>
+                                <td>КП до 28.01</td>
+                                <td>
+                                    <div style="font-size: 0.8rem;">75%</div>
+                                    <div class="progress-bar"><div class="progress-fill green" style="width: 75%;"></div></div>
+                                </td>
+                                <td><span class="status yellow">🟡</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>CryptoFarm</strong><br><small style="color: var(--text-muted);">ИНН: 7798765432</small></td>
+                                <td><strong style="color: var(--accent-purple);">32М₽</strong></td>
+                                <td><span class="status cyan">Презентация</span></td>
+                                <td>Бердников</td>
+                                <td><span style="color: var(--accent-red);">5 дней назад</span></td>
+                                <td><span style="color: var(--accent-red);">НЕ УКАЗАН</span></td>
+                                <td>
+                                    <div style="font-size: 0.8rem;">40%</div>
+                                    <div class="progress-bar"><div class="progress-fill yellow" style="width: 40%;"></div></div>
+                                </td>
+                                <td><span class="status red">🔴</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>BitPro</strong><br><small style="color: var(--text-muted);">ИНН: 5012345678</small></td>
+                                <td><strong style="color: var(--accent-purple);">25М₽</strong></td>
+                                <td><span class="status green">Квалификация</span></td>
+                                <td>Цыпляев</td>
+                                <td><span style="color: var(--accent-green);">Сегодня</span></td>
+                                <td>Встреча 22.01</td>
+                                <td>
+                                    <div style="font-size: 0.8rem;">60%</div>
+                                    <div class="progress-bar"><div class="progress-fill green" style="width: 60%;"></div></div>
+                                </td>
+                                <td><span class="status green">🟢</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>DataCenter X</strong><br><small style="color: var(--text-muted);">ИНН: 7701234567</small></td>
+                                <td><strong style="color: var(--accent-purple);">28М₽</strong></td>
+                                <td><span class="status yellow">КП отправлено</span></td>
+                                <td>Полубатонов</td>
+                                <td><span style="color: var(--accent-yellow);">3 дня назад</span></td>
+                                <td>Звонок 20.01</td>
+                                <td>
+                                    <div style="font-size: 0.8rem;">55%</div>
+                                    <div class="progress-bar"><div class="progress-fill yellow" style="width: 55%;"></div></div>
+                                </td>
+                                <td><span class="status yellow">🟡</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Обязательные поля -->
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">📝 Обязательные поля для крупной сделки</div>
+                    <div class="checklist">
+                        <div class="check-item">
+                            <div class="check-icon required">!</div>
+                            <div><strong>Компания + ИНН</strong> — идентификация клиента</div>
+                        </div>
+                        <div class="check-item">
+                            <div class="check-icon required">!</div>
+                            <div><strong>ЛПР</strong> — ФИО, должность, контакт</div>
+                        </div>
+                        <div class="check-item">
+                            <div class="check-icon required">!</div>
+                            <div><strong>Чемпион</strong> — кто помогает внутри компании</div>
+                        </div>
+                        <div class="check-item">
+                            <div class="check-icon required">!</div>
+                            <div><strong>Бюджет подтверждён?</strong> — да/нет</div>
+                        </div>
+                        <div class="check-item">
+                            <div class="check-icon required">!</div>
+                            <div><strong>Срок принятия решения</strong> — дата</div>
+                        </div>
+                        <div class="check-item">
+                            <div class="check-icon required">!</div>
+                            <div><strong>Конкуренты</strong> — с кем сравнивают</div>
+                        </div>
+                        <div class="check-item">
+                            <div class="check-icon required">!</div>
+                            <div><strong>Следующий шаг + дата</strong></div>
+                        </div>
+                        <div class="check-item">
+                            <div class="check-icon optional">?</div>
+                            <div><strong>Риски/блокеры</strong> — что может пойти не так</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">📞 Норма касаний для крупных</div>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Тип касания</th>
+                                    <th>Норма</th>
+                                    <th>Как фиксировать</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Звонки</td>
+                                    <td><strong>1-2/неделю</strong></td>
+                                    <td>CRM или ручной ввод</td>
+                                </tr>
+                                <tr>
+                                    <td>WhatsApp/Telegram</td>
+                                    <td><strong>Каждое</strong></td>
+                                    <td>Скриншот или резюме</td>
+                                </tr>
+                                <tr>
+                                    <td>Встречи (онлайн)</td>
+                                    <td><strong>1-2/месяц</strong></td>
+                                    <td>Календарь → CRM</td>
+                                </tr>
+                                <tr>
+                                    <td>Встречи (офлайн)</td>
+                                    <td><strong>По необходимости</strong></td>
+                                    <td>CRM + заметки</td>
+                                </tr>
+                                <tr>
+                                    <td>КП/Презентации</td>
+                                    <td><strong>Каждое</strong></td>
+                                    <td>Файл в сделку</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="alert-box warning">
+                        <strong>⚠️ Правило:</strong> Если нет касания >5 дней — сделка в «Зоне риска»
+                    </div>
+                </div>
+            </div>
+
+            <!-- Telegram алерт -->
+            <div class="card">
+                <div class="card-title">🤖 Telegram-бот для крупных</div>
+                <div class="code-block">📊 <span class="hl">КРУПНЫЕ СДЕЛКИ</span> | Срез на 17:00
+
+🐋 Pipeline: <span class="hl">187М₽</span> (12 сделок)
+
+📈 <span class="info">ДВИЖЕНИЕ ЗА СЕГОДНЯ:</span>
+├ МайнингХолдинг → КП отправлено (+45М₽)
+├ BitPro → Квалификация начата (+25М₽)
+└ OldClient → ЗАКРЫТО ❌ (-18М₽)
+
+<span class="err">⚠️ БЕЗ КАСАНИЯ >5 ДНЕЙ:</span>
+├ CryptoFarm (32М₽) — Бердников
+└ DataCenter X (28М₽) — Полубатонов
+
+📅 <span class="info">ВСТРЕЧИ ЗАВТРА:</span>
+├ 11:00 — МайнингХолдинг (Меркулов)
+└ 15:00 — NewClient (Цыпляев)
+
+🔥 <span class="warn">CLOSE THIS WEEK:</span>
+└ BitPro (25М₽) — решение до пятницы</div>
+            </div>
+        </section>
+
+        <!-- ==================== ЗАКРЫТЫЕ СДЕЛКИ ==================== -->
+        <section class="section" id="closed">
+            <div class="section-header">
+                <div class="section-icon closed">🚫</div>
+                <div>
+                    <h2>Дашборд закрытых сделок</h2>
+                    <p class="section-desc">Аудит, причины, слитые лиды, реанимация</p>
+                </div>
+            </div>
+
+            <!-- Метрики -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value red">156</div>
+                    <div class="metric-label">Закрыто за месяц</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value yellow">42</div>
+                    <div class="metric-label">Подозрительных</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value orange">23</div>
+                    <div class="metric-label">Слитых (подтверждено)</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value green">12</div>
+                    <div class="metric-label">Реанимировано</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value cyan">8.2М₽</div>
+                    <div class="metric-label">Возвращено в работу</div>
+                </div>
+            </div>
+
+            <!-- Проблемные закрытия -->
+            <div class="card">
+                <div class="card-title">🚩 Подозрительные закрытия (требуют проверки ОКК)</div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Сделка</th>
+                                <th>Сумма</th>
+                                <th>Причина закрытия</th>
+                                <th>Менеджер</th>
+                                <th>Касаний</th>
+                                <th>Время в воронке</th>
+                                <th>Флаг</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>ООО "Крипто"</strong></td>
+                                <td><strong style="color: var(--accent-red);">850К₽</strong></td>
+                                <td>Не дозвонились</td>
+                                <td>Козлов</td>
+                                <td><span class="status red">2</span></td>
+                                <td>4 дня</td>
+                                <td><span class="status red">🚩 < 3 касаний</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>ИП Смирнов</strong></td>
+                                <td><strong style="color: var(--accent-red);">1.2М₽</strong></td>
+                                <td>Нет бюджета</td>
+                                <td>Петров</td>
+                                <td><span class="status yellow">3</span></td>
+                                <td>2 дня</td>
+                                <td><span class="status orange">🚩 Быстрое закрытие</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>АО "МайнПром"</strong></td>
+                                <td><strong style="color: var(--accent-red);">2.5М₽</strong></td>
+                                <td>Другое</td>
+                                <td>Козлов</td>
+                                <td><span class="status red">1</span></td>
+                                <td>1 день</td>
+                                <td><span class="status red">🚩 Нет комментария</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>ООО "ДатаЦентр"</strong></td>
+                                <td><strong style="color: var(--accent-red);">4.1М₽</strong></td>
+                                <td>Купил у конкурента</td>
+                                <td>Сидоров</td>
+                                <td><span class="status green">7</span></td>
+                                <td>23 дня</td>
+                                <td><span class="status yellow">⚠️ Проверить звонок</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Причины закрытия -->
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">📊 Причины закрытия (за месяц)</div>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Причина</th>
+                                    <th>Кол-во</th>
+                                    <th>%</th>
+                                    <th>Сумма</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Не дозвонились</td>
+                                    <td>47</td>
+                                    <td>30%</td>
+                                    <td>12.3М₽</td>
+                                </tr>
+                                <tr>
+                                    <td>Нет бюджета</td>
+                                    <td>38</td>
+                                    <td>24%</td>
+                                    <td>18.7М₽</td>
+                                </tr>
+                                <tr>
+                                    <td>Купил у конкурента</td>
+                                    <td>25</td>
+                                    <td>16%</td>
+                                    <td>22.1М₽</td>
+                                </tr>
+                                <tr>
+                                    <td>Проект отменён</td>
+                                    <td>19</td>
+                                    <td>12%</td>
+                                    <td>8.9М₽</td>
+                                </tr>
+                                <tr>
+                                    <td>Нецелевой</td>
+                                    <td>15</td>
+                                    <td>10%</td>
+                                    <td>3.2М₽</td>
+                                </tr>
+                                <tr>
+                                    <td>Другое</td>
+                                    <td>12</td>
+                                    <td>8%</td>
+                                    <td>5.4М₽</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">👤 Рейтинг по закрытиям (за месяц)</div>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Менеджер</th>
+                                    <th>Закрыл</th>
+                                    <th>Слитых</th>
+                                    <th>% слива</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Козлов</td>
+                                    <td>34</td>
+                                    <td><span class="status red">12</span></td>
+                                    <td><strong style="color: var(--accent-red);">35%</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Петров</td>
+                                    <td>28</td>
+                                    <td><span class="status orange">7</span></td>
+                                    <td><strong style="color: var(--accent-orange);">25%</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Сидоров</td>
+                                    <td>22</td>
+                                    <td><span class="status yellow">3</span></td>
+                                    <td><strong style="color: var(--accent-yellow);">14%</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Иванов</td>
+                                    <td>19</td>
+                                    <td><span class="status green">1</span></td>
+                                    <td><strong style="color: var(--accent-green);">5%</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="alert-box danger">
+                        <strong>🚨 Внимание:</strong> Козлов — 35% слитых. Требуется разбор с РОПом.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Красные флаги -->
+            <div class="card">
+                <div class="card-title">🚩 Красные флаги при закрытии</div>
+                <div class="grid-3">
+                    <div class="alert-box danger">
+                        <div>
+                            <strong>< 3 касаний</strong><br>
+                            <small>Менеджер не отработал лид</small>
+                        </div>
+                    </div>
+                    <div class="alert-box danger">
+                        <div>
+                            <strong>Закрыто < 3 дней</strong><br>
+                            <small>Слишком быстро для B2B</small>
+                        </div>
+                    </div>
+                    <div class="alert-box danger">
+                        <div>
+                            <strong>Нет звонка перед закрытием</strong><br>
+                            <small>Закрыл без попытки</small>
+                        </div>
+                    </div>
+                    <div class="alert-box warning">
+                        <div>
+                            <strong>Причина «Другое»</strong><br>
+                            <small>Требует проверки</small>
+                        </div>
+                    </div>
+                    <div class="alert-box warning">
+                        <div>
+                            <strong>Сумма >500К₽</strong><br>
+                            <small>Проверка РОПом обязательна</small>
+                        </div>
+                    </div>
+                    <div class="alert-box warning">
+                        <div>
+                            <strong>Комментарий < 50 символов</strong><br>
+                            <small>Нет объяснения</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== ПРОБЛЕМНЫЕ СДЕЛКИ ==================== -->
+        <section class="section" id="fucked">
+            <div class="section-header">
+                <div class="section-icon fucked">💀</div>
+                <div>
+                    <h2>Дашборд проблемных сделок</h2>
+                    <p class="section-desc">Зависшие, просроченные SLA, без активности, в риске</p>
+                </div>
+            </div>
+
+            <!-- Метрики -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value orange">28</div>
+                    <div class="metric-label">Всего проблемных</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value red">12</div>
+                    <div class="metric-label">SLA просрочен</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value yellow">9</div>
+                    <div class="metric-label">Без активности >7 дней</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value purple">4</div>
+                    <div class="metric-label">Крупные в риске</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value cyan">67М₽</div>
+                    <div class="metric-label">Сумма под угрозой</div>
+                </div>
+            </div>
+
+            <!-- SLA просрочен -->
+            <div class="card">
+                <div class="card-title" style="color: var(--accent-red);">🚨 SLA ПРОСРОЧЕН (требуется реакция СЕЙЧАС)</div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Лид</th>
+                                <th>Сумма</th>
+                                <th>Менеджер</th>
+                                <th>Без реакции</th>
+                                <th>Контакт</th>
+                                <th>Действие</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background: rgba(255, 71, 87, 0.1);">
+                                <td><strong>ООО "МайнингПро"</strong></td>
+                                <td><strong style="color: var(--accent-purple);">~15М₽</strong></td>
+                                <td>Петров</td>
+                                <td><span class="status red">4ч 23мин</span></td>
+                                <td>+7 (999) 123-45-67</td>
+                                <td><span class="status red">ЗВОНИТЬ СРОЧНО</span></td>
+                            </tr>
+                            <tr style="background: rgba(255, 71, 87, 0.1);">
+                                <td><strong>ИП Волков</strong></td>
+                                <td><strong>~2.1М₽</strong></td>
+                                <td>Козлов</td>
+                                <td><span class="status red">3ч 15мин</span></td>
+                                <td>+7 (916) 555-12-34</td>
+                                <td><span class="status red">ЗВОНИТЬ СРОЧНО</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>АО "ЦОД-Сервис"</strong></td>
+                                <td><strong>~5.8М₽</strong></td>
+                                <td>Сидоров</td>
+                                <td><span class="status orange">1ч 48мин</span></td>
+                                <td>+7 (495) 777-88-99</td>
+                                <td><span class="status orange">Приоритет</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Без активности -->
+            <div class="card">
+                <div class="card-title" style="color: var(--accent-yellow);">⏰ Без активности >7 дней (зависшие)</div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Сделка</th>
+                                <th>Сумма</th>
+                                <th>Этап</th>
+                                <th>Менеджер</th>
+                                <th>Дней без активности</th>
+                                <th>Последнее действие</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>ООО "БитФарм"</strong></td>
+                                <td><strong>8.5М₽</strong></td>
+                                <td><span class="status purple">КП отправлено</span></td>
+                                <td>Петров</td>
+                                <td><span class="status red">14 дней</span></td>
+                                <td>Отправил КП, не перезвонил</td>
+                            </tr>
+                            <tr>
+                                <td><strong>ИП Кузнецов</strong></td>
+                                <td><strong>3.2М₽</strong></td>
+                                <td><span class="status cyan">Потребность</span></td>
+                                <td>Козлов</td>
+                                <td><span class="status orange">9 дней</span></td>
+                                <td>Был звонок, нет follow-up</td>
+                            </tr>
+                            <tr>
+                                <td><strong>АО "ЭнергоМайн"</strong></td>
+                                <td><strong>12.1М₽</strong></td>
+                                <td><span class="status yellow">Дожим</span></td>
+                                <td>Сидоров</td>
+                                <td><span class="status orange">8 дней</span></td>
+                                <td>Ждёт решения клиента</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="alert-box info">
+                    <strong>💡 Правило:</strong> Сделка без активности >7 дней = задача РОПу на разбор. >14 дней = переназначить другому.
+                </div>
+            </div>
+
+            <!-- Просроченные задачи -->
+            <div class="card">
+                <div class="card-title" style="color: var(--accent-orange);">📋 Просроченные задачи</div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Задача</th>
+                                <th>Сделка</th>
+                                <th>Менеджер</th>
+                                <th>Дедлайн</th>
+                                <th>Просрочено</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Перезвонить по КП</td>
+                                <td>ООО "БитФарм" (8.5М₽)</td>
+                                <td>Петров</td>
+                                <td>10.01.2026</td>
+                                <td><span class="status red">6 дней</span></td>
+                            </tr>
+                            <tr>
+                                <td>Отправить договор</td>
+                                <td>АО "ЭнергоМайн" (12.1М₽)</td>
+                                <td>Сидоров</td>
+                                <td>12.01.2026</td>
+                                <td><span class="status orange">4 дня</span></td>
+                            </tr>
+                            <tr>
+                                <td>Назначить встречу</td>
+                                <td>ИП Кузнецов (3.2М₽)</td>
+                                <td>Козлов</td>
+                                <td>14.01.2026</td>
+                                <td><span class="status yellow">2 дня</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== ОТЛОЖЕННЫЕ (NURTURE) ==================== -->
+        <section class="section" id="nurture">
+            <div class="section-header">
+                <div class="section-icon nurture">⏰</div>
+                <div>
+                    <h2>Дашборд отложенных (Nurture)</h2>
+                    <p class="section-desc">«Не сейчас», «Перезвонить позже», отложенный интерес</p>
+                </div>
+            </div>
+
+            <!-- Метрики -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value yellow">89</div>
+                    <div class="metric-label">Всего в nurture</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value green">23</div>
+                    <div class="metric-label">Пора звонить (сегодня)</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value cyan">45</div>
+                    <div class="metric-label">На этой неделе</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value purple">21</div>
+                    <div class="metric-label">В этом месяце</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value orange">78М₽</div>
+                    <div class="metric-label">Потенциал nurture</div>
+                </div>
+            </div>
+
+            <!-- Пора звонить -->
+            <div class="card">
+                <div class="card-title" style="color: var(--accent-green);">📞 Пора звонить СЕГОДНЯ</div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Клиент</th>
+                                <th>Сумма</th>
+                                <th>Причина отложки</th>
+                                <th>Когда отложили</th>
+                                <th>Контакт</th>
+                                <th>Менеджер</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>ООО "КриптоСтарт"</strong></td>
+                                <td><strong>4.5М₽</strong></td>
+                                <td>Нет бюджета сейчас</td>
+                                <td>15.10.2025 (3 мес назад)</td>
+                                <td>+7 (999) 111-22-33</td>
+                                <td>Иванов</td>
+                            </tr>
+                            <tr>
+                                <td><strong>ИП Николаев</strong></td>
+                                <td><strong>2.1М₽</strong></td>
+                                <td>Проект отложен</td>
+                                <td>15.11.2025 (2 мес назад)</td>
+                                <td>+7 (916) 333-44-55</td>
+                                <td>Петров</td>
+                            </tr>
+                            <tr>
+                                <td><strong>АО "МайнИнвест"</strong></td>
+                                <td><strong>8.9М₽</strong></td>
+                                <td>Решение после НГ</td>
+                                <td>20.12.2025 (1 мес назад)</td>
+                                <td>+7 (495) 666-77-88</td>
+                                <td>Сидоров</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Категории nurture -->
+            <div class="grid-3">
+                <div class="card">
+                    <div class="card-title">💰 Нет бюджета сейчас</div>
+                    <div class="metric-value yellow" style="font-size: 2.5rem; margin-bottom: 15px;">34</div>
+                    <p style="color: var(--text-secondary);">Перезвонить через 3 месяца</p>
+                    <ul>
+                        <li>Потенциал: 28.5М₽</li>
+                        <li>Пора звонить: 8</li>
+                        <li>Скоро (7 дней): 12</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">🏢 Проект отложен</div>
+                    <div class="metric-value cyan" style="font-size: 2.5rem; margin-bottom: 15px;">28</div>
+                    <p style="color: var(--text-secondary);">Перезвонить через 2 месяца</p>
+                    <ul>
+                        <li>Потенциал: 31.2М₽</li>
+                        <li>Пора звонить: 9</li>
+                        <li>Скоро (7 дней): 6</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">🔄 Купил у конкурента</div>
+                    <div class="metric-value purple" style="font-size: 2.5rem; margin-bottom: 15px;">27</div>
+                    <p style="color: var(--text-secondary);">Перезвонить через 6 месяцев</p>
+                    <ul>
+                        <li>Потенциал: 18.3М₽</li>
+                        <li>Пора звонить: 6</li>
+                        <li>Скоро (7 дней): 4</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Скрипт реанимации -->
+            <div class="card">
+                <div class="card-title">📝 Скрипт реанимации</div>
+                <div class="code-block">«Добрый день, [Имя]! Это [Менеджер] из IBMM.
+
+Мы с вами общались в [месяц] по поводу [майнеров/хостинга].
+Тогда вопрос не был актуален из-за [причина из CRM].
+
+Хотел уточнить — ситуация изменилась?
+
+<span class="info">Если ДА:</span> → Квалификация, новая сделка
+<span class="warn">Если НЕТ:</span> → Когда перезвонить? → Новая дата в nurture
+<span class="err">Если ОТКАЗ:</span> → Закрыть с причиной»</div>
+            </div>
+        </section>
+
+        <!-- ==================== ОБРАБОТКА ЗАЯВОК ==================== -->
+        <section class="section" id="processing">
+            <div class="section-header">
+                <div class="section-icon processing">📥</div>
+                <div>
+                    <h2>Дашборд обработки заявок</h2>
+                    <p class="section-desc">Новые лиды, скорость реакции, распределение, конверсия</p>
+                </div>
+            </div>
+
+            <!-- Метрики -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value green">47</div>
+                    <div class="metric-label">Новых сегодня</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value cyan">34</div>
+                    <div class="metric-label">Обработано</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value yellow">8</div>
+                    <div class="metric-label">В очереди</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value red">5</div>
+                    <div class="metric-label">SLA нарушен</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value purple">7 мин</div>
+                    <div class="metric-label">Среднее время реакции</div>
+                </div>
+            </div>
+
+            <!-- Лиды в очереди -->
+            <div class="card">
+                <div class="card-title" style="color: var(--accent-yellow);">⏳ Лиды в очереди (ждут обработки)</div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Лид</th>
+                                <th>Источник</th>
+                                <th>Оценка</th>
+                                <th>Ждёт</th>
+                                <th>Назначен</th>
+                                <th>Статус</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Заявка #4532</strong><br><small>+7 (999) 888-77-66</small></td>
+                                <td>Сайт (форма)</td>
+                                <td><span class="tag hot">HOT</span></td>
+                                <td><span class="status green">3 мин</span></td>
+                                <td>Иванов</td>
+                                <td><span class="status green">В работе</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Заявка #4531</strong><br><small>+7 (916) 555-44-33</small></td>
+                                <td>Telegram</td>
+                                <td><span class="tag warm">WARM</span></td>
+                                <td><span class="status yellow">12 мин</span></td>
+                                <td>Петров</td>
+                                <td><span class="status yellow">Ожидает</span></td>
+                            </tr>
+                            <tr style="background: rgba(255, 71, 87, 0.1);">
+                                <td><strong>Заявка #4528</strong><br><small>+7 (495) 222-33-44</small></td>
+                                <td>Сайт (чат)</td>
+                                <td><span class="tag whale">WHALE</span></td>
+                                <td><span class="status red">1ч 23мин</span></td>
+                                <td>Козлов</td>
+                                <td><span class="status red">SLA!</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Скорость реакции -->
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">⚡ Скорость реакции по менеджерам</div>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Менеджер</th>
+                                    <th>Среднее время</th>
+                                    <th>SLA нарушений</th>
+                                    <th>Статус</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Иванов</td>
+                                    <td><strong style="color: var(--accent-green);">4 мин</strong></td>
+                                    <td>0</td>
+                                    <td><span class="status green">Отлично</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Сидоров</td>
+                                    <td><strong style="color: var(--accent-green);">6 мин</strong></td>
+                                    <td>1</td>
+                                    <td><span class="status green">Хорошо</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Петров</td>
+                                    <td><strong style="color: var(--accent-yellow);">14 мин</strong></td>
+                                    <td>3</td>
+                                    <td><span class="status yellow">Внимание</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Козлов</td>
+                                    <td><strong style="color: var(--accent-red);">42 мин</strong></td>
+                                    <td>8</td>
+                                    <td><span class="status red">Критично</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">📊 Конверсия первичной обработки</div>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Источник</th>
+                                    <th>Лидов</th>
+                                    <th>Квалиф.</th>
+                                    <th>Конверсия</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Сайт (форма)</td>
+                                    <td>156</td>
+                                    <td>52</td>
+                                    <td><strong style="color: var(--accent-green);">33%</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Telegram</td>
+                                    <td>89</td>
+                                    <td>31</td>
+                                    <td><strong style="color: var(--accent-green);">35%</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>WhatsApp</td>
+                                    <td>67</td>
+                                    <td>18</td>
+                                    <td><strong style="color: var(--accent-yellow);">27%</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Холодные</td>
+                                    <td>234</td>
+                                    <td>23</td>
+                                    <td><strong style="color: var(--accent-yellow);">10%</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLA -->
+            <div class="card">
+                <div class="card-title">⏱️ SLA по типам лидов</div>
+                <div class="grid-3">
+                    <div class="alert-box danger">
+                        <div>
+                            <span class="tag whale">WHALE (>10М₽)</span><br>
+                            <strong style="font-size: 1.5rem;">5 минут</strong><br>
+                            <small>Алерт Алексею + РОПу</small>
+                        </div>
+                    </div>
+                    <div class="alert-box warning">
+                        <div>
+                            <span class="tag hot">HOT</span><br>
+                            <strong style="font-size: 1.5rem;">15 минут</strong><br>
+                            <small>Алерт РОПу</small>
+                        </div>
+                    </div>
+                    <div class="alert-box info">
+                        <div>
+                            <span class="tag warm">WARM / COLD</span><br>
+                            <strong style="font-size: 1.5rem;">1 час</strong><br>
+                            <small>Стандартная обработка</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== ЗВЁЗДЫ ==================== -->
+        <section class="section" id="stars">
+            <div class="section-header">
+                <div class="section-icon stars">⭐</div>
+                <div>
+                    <h2>Дашборд звёзд</h2>
+                    <p class="section-desc">Меркулов, Полубатонов, Цыпляев, Бердников — отдельный трек</p>
+                </div>
+            </div>
+
+            <!-- Метрики -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value purple">187М₽</div>
+                    <div class="metric-label">Pipeline звёзд</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value green">45М₽</div>
+                    <div class="metric-label">Закрыто в месяц</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value cyan">4</div>
+                    <div class="metric-label">Звёзд активно</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value yellow">68%</div>
+                    <div class="metric-label">Данные актуальны</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value orange">3</div>
+                    <div class="metric-label">Сделок без касания</div>
+                </div>
+            </div>
+
+            <!-- Таблица звёзд -->
+            <div class="card">
+                <div class="card-title">👑 Статус звёзд</div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Звезда</th>
+                                <th>Pipeline</th>
+                                <th>Сделок</th>
+                                <th>Закрыто (месяц)</th>
+                                <th>Данные в CRM</th>
+                                <th>Последний отчёт</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong style="color: var(--accent-purple);">⭐ Меркулов</strong></td>
+                                <td><strong>67М₽</strong></td>
+                                <td>4</td>
+                                <td><span class="status green">18М₽</span></td>
+                                <td><span class="status green">85%</span></td>
+                                <td>Вчера</td>
+                            </tr>
+                            <tr>
+                                <td><strong style="color: var(--accent-purple);">⭐ Полубатонов</strong></td>
+                                <td><strong>52М₽</strong></td>
+                                <td>3</td>
+                                <td><span class="status green">12М₽</span></td>
+                                <td><span class="status yellow">65%</span></td>
+                                <td>3 дня назад</td>
+                            </tr>
+                            <tr>
+                                <td><strong style="color: var(--accent-purple);">⭐ Цыпляев</strong></td>
+                                <td><strong>41М₽</strong></td>
+                                <td>3</td>
+                                <td><span class="status green">9М₽</span></td>
+                                <td><span class="status green">72%</span></td>
+                                <td>Сегодня</td>
+                            </tr>
+                            <tr>
+                                <td><strong style="color: var(--accent-purple);">⭐ Бердников</strong></td>
+                                <td><strong>27М₽</strong></td>
+                                <td>2</td>
+                                <td><span class="status yellow">6М₽</span></td>
+                                <td><span class="status red">45%</span></td>
+                                <td><span style="color: var(--accent-red);">7 дней назад</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="alert-box warning">
+                    <strong>⚠️ Внимание:</strong> Бердников — данные в CRM устарели, отчёт не сдавал 7 дней. Требуется синхронизация.
+                </div>
+            </div>
+
+            <!-- Как трекать звёзд -->
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">📋 Еженедельный отчёт звезды</div>
+                    <div class="code-block">📊 <span class="hl">ОТЧЁТ [ИМЯ]</span> | Неделя 13-19.01
+
+<span class="info">Сделка 1:</span> МайнингХолдинг — 45М₽
+├ Этап: Переговоры
+├ Касаний: 3 (2 WhatsApp, 1 Zoom)
+├ С кем: CFO + CEO
+├ След. шаг: КП до 28.01
+├ Риски: конкурент -5%
+└ Вероятность: 70%
+
+<span class="info">Сделка 2:</span> BitPro — 25М₽
+├ Этап: Квалификация
+├ ...
+
+<span class="warn">ИТОГО:</span>
+├ Pipeline: 67М₽
+├ Движение: +12М₽ за неделю
+└ К закрытию в январе: ~30М₽</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">🔧 Как трекать (варианты)</div>
+                    <div class="checklist">
+                        <div class="check-item">
+                            <div class="check-icon required">1</div>
+                            <div><strong>Еженедельный отчёт</strong><br><small>5 минут, форма в Telegram/Google Form</small></div>
+                        </div>
+                        <div class="check-item">
+                            <div class="check-icon optional">2</div>
+                            <div><strong>WhatsApp Business API</strong><br><small>Автоматический импорт переписок в CRM</small></div>
+                        </div>
+                        <div class="check-item">
+                            <div class="check-icon optional">3</div>
+                            <div><strong>Голосовые заметки</strong><br><small>30 сек после каждого созвона → транскрипция</small></div>
+                        </div>
+                        <div class="check-item">
+                            <div class="check-icon auto">4</div>
+                            <div><strong>Ассистент</strong><br><small>Человек созванивается 1 раз/день, фиксирует всё</small></div>
+                        </div>
+                    </div>
+
+                    <div class="alert-box info" style="margin-top: 20px;">
+                        <strong>💡 Правило:</strong> Нет данных в CRM = сделка не считается в pipeline звезды.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pipeline review -->
+            <div class="card">
+                <div class="card-title">📅 Еженедельный Pipeline Review (СР 11:00)</div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Вопрос</th>
+                                <th>Зачем</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Что изменилось за неделю?</td>
+                                <td>Динамика сделки</td>
+                            </tr>
+                            <tr>
+                                <td>Кто ЛПР? Кто чемпион?</td>
+                                <td>MEDDIC проверка</td>
+                            </tr>
+                            <tr>
+                                <td>Когда следующий контакт?</td>
+                                <td>План действий</td>
+                            </tr>
+                            <tr>
+                                <td>Какие риски?</td>
+                                <td>Раннее предупреждение</td>
+                            </tr>
+                            <tr>
+                                <td>Вероятность (%) и дата закрытия?</td>
+                                <td>Forecast</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="alert-box success">
+                    <strong>✅ Участники:</strong> Алексей Щепёткин + все звёзды + (опционально) Дмитрий
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>IBMM All Dashboards • 2026</p>
+            <p style="margin-top: 10px;">
+                <a href="index.html?v=1">← Вернуться к документам</a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
