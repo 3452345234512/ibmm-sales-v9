@@ -150,6 +150,8 @@
         .section-icon.nurture { background: rgba(255, 208, 0, 0.2); }
         .section-icon.processing { background: rgba(0, 255, 136, 0.2); }
         .section-icon.stars { background: rgba(244, 114, 182, 0.2); }
+        .section-icon.okk { background: rgba(77, 171, 247, 0.2); }
+        .section-icon.basics { background: rgba(0, 212, 255, 0.2); }
 
         h2 {
             font-size: 1.6rem;
@@ -427,18 +429,199 @@
         <!-- Header -->
         <header class="header">
             <h1>📊 Все Дашборды IBMM</h1>
-            <p class="subtitle">Крупные сделки • Закрытые • Проблемные • Отложенные • Обработка заявок • Звёзды</p>
+            <p class="subtitle">Базовые метрики • Крупные сделки • Закрытые • Проблемные • Отложенные • Обработка заявок • Звёзды • ОКК</p>
         </header>
 
         <!-- Navigation -->
         <nav class="nav">
+            <a href="#basics" class="nav-btn">📊 Базовые метрики</a>
             <a href="#whale" class="nav-btn whale">🐋 Крупные сделки</a>
             <a href="#closed" class="nav-btn closed">🚫 Закрытые</a>
             <a href="#fucked" class="nav-btn fucked">💀 Проблемные</a>
             <a href="#nurture" class="nav-btn nurture">⏰ Отложенные</a>
             <a href="#processing" class="nav-btn processing">📥 Обработка заявок</a>
             <a href="#stars" class="nav-btn">⭐ Звёзды</a>
+            <a href="#okk" class="nav-btn" style="background: rgba(77, 171, 247, 0.2); border-color: var(--accent-blue); color: var(--accent-blue);">🎧 ОКК</a>
         </nav>
+
+        <!-- ==================== БАЗОВЫЕ МЕТРИКИ ==================== -->
+        <section class="section" id="basics">
+            <div class="section-header">
+                <div class="section-icon basics">📊</div>
+                <div>
+                    <h2>Базовые метрики и нормы</h2>
+                    <p class="section-desc">Нормы активности, дашборд РОПа, Telegram-бот</p>
+                </div>
+            </div>
+
+            <!-- Дашборд РОПа -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value cyan">847</div>
+                    <div class="metric-label">Звонков сегодня</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value green">34</div>
+                    <div class="metric-label">Новых лидов</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value yellow">5</div>
+                    <div class="metric-label">Просрочено SLA</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value green">23.4М₽</div>
+                    <div class="metric-label">Pipeline неделя</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value purple">80%</div>
+                    <div class="metric-label">Выполняют норму</div>
+                </div>
+            </div>
+
+            <!-- Нормы активности -->
+            <div class="card">
+                <div class="card-title">📞 Нормы активности менеджеров</div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Роль</th>
+                                <th>Звонки/день</th>
+                                <th>Новые заявки</th>
+                                <th>Касания</th>
+                                <th>КП/день</th>
+                                <th>Встречи/неделя</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong style="color: var(--accent-cyan);">Хантер</strong></td>
+                                <td><strong style="color: var(--accent-green);">60-80</strong></td>
+                                <td>5-10</td>
+                                <td>80-100</td>
+                                <td>2-3</td>
+                                <td>3-5</td>
+                            </tr>
+                            <tr>
+                                <td><strong style="color: var(--accent-purple);">Фармер</strong></td>
+                                <td><strong style="color: var(--accent-green);">20-30</strong></td>
+                                <td>—</td>
+                                <td>25-40</td>
+                                <td>3-5</td>
+                                <td>5-8</td>
+                            </tr>
+                            <tr>
+                                <td><strong style="color: var(--accent-yellow);">Клоузер</strong></td>
+                                <td><strong style="color: var(--accent-green);">15-25</strong></td>
+                                <td>—</td>
+                                <td>15-20</td>
+                                <td>5-8</td>
+                                <td>8-12</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Активность менеджеров -->
+            <div class="card">
+                <div class="card-title">👥 Активность менеджеров (пример)</div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Менеджер</th>
+                                <th>Роль</th>
+                                <th>Звонки</th>
+                                <th>Норма</th>
+                                <th>%</th>
+                                <th>Статус</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Иванов</td>
+                                <td>Хантер</td>
+                                <td>72</td>
+                                <td>70</td>
+                                <td><strong style="color: var(--accent-green);">103%</strong></td>
+                                <td><span class="status green">Норма</span></td>
+                            </tr>
+                            <tr>
+                                <td>Петров</td>
+                                <td>Хантер</td>
+                                <td>45</td>
+                                <td>70</td>
+                                <td><strong style="color: var(--accent-yellow);">64%</strong></td>
+                                <td><span class="status yellow">Риск</span></td>
+                            </tr>
+                            <tr>
+                                <td>Сидоров</td>
+                                <td>Фармер</td>
+                                <td>28</td>
+                                <td>25</td>
+                                <td><strong style="color: var(--accent-green);">112%</strong></td>
+                                <td><span class="status green">Норма</span></td>
+                            </tr>
+                            <tr>
+                                <td>Козлов</td>
+                                <td>Хантер</td>
+                                <td>23</td>
+                                <td>70</td>
+                                <td><strong style="color: var(--accent-red);">33%</strong></td>
+                                <td><span class="status red">Критично</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Telegram бот -->
+            <div class="card">
+                <div class="card-title">🤖 Telegram-бот для метрик</div>
+                <div class="code-block">🌅 <span class="hl">УТРЕННИЙ СРЕЗ</span> | 15.01.2026
+
+📊 <span class="hl">ПЛАН НА СЕГОДНЯ:</span>
+├ Лидов в работе: 47
+├ Просроченных: <span class="err">5 (SLA нарушен)</span>
+├ Сделок к закрытию: 3 на 8.2М₽
+└ Встреч запланировано: 12
+
+👥 <span class="hl">МЕНЕДЖЕРЫ ОНЛАЙН:</span> 8/10
+⚠️ Нет в CRM: Петров, Козлов
+
+📞 Норма звонков сегодня: 650
+🎯 Цель по КП: 25
+
+─────────────────────
+
+☀️ <span class="hl">ДНЕВНОЙ СРЕЗ</span> | 15.01.2026
+
+📞 <span class="hl">ЗВОНКИ (к 13:00):</span>
+├ Иванов: 38/70 (54%) ✅
+├ Петров: 18/70 (26%) <span class="warn">⚠️</span>
+├ Козлов: 8/70 (11%) <span class="err">🔴 КРИТИЧНО</span>
+
+📊 <span class="hl">ОБЩИЙ ПРОГРЕСС:</span> 312/650 (48%)
+⚠️ Отстаём на 6% от графика
+
+─────────────────────
+
+🌆 <span class="hl">ВЕЧЕРНИЙ СРЕЗ</span> | 15.01.2026
+
+📞 <span class="hl">ИТОГИ ЗВОНКОВ:</span>
+├ Всего: 623/650 (96%) ✅
+├ Выполнили норму: 7/10
+└ Не выполнили: Петров, Козлов, Смирнов
+
+📊 <span class="hl">РЕЗУЛЬТАТЫ ДНЯ:</span>
+├ Новых лидов: <span class="hl">34</span>
+├ КП отправлено: 23
+└ Сделок закрыто: 2 на <span class="hl">4.8М₽</span>
+
+🔴 <span class="err">ПРОСРОЧЕНО SLA:</span> 3 лида</div>
+            </div>
+        </section>
 
         <!-- ==================== КРУПНЫЕ СДЕЛКИ ==================== -->
         <section class="section" id="whale">
@@ -1577,6 +1760,294 @@
                 <div class="alert-box success">
                     <strong>✅ Участники:</strong> Алексей Щепёткин + все звёзды + (опционально) Дмитрий
                 </div>
+            </div>
+        </section>
+
+        <!-- ==================== ОКК ==================== -->
+        <section class="section" id="okk">
+            <div class="section-header">
+                <div class="section-icon okk">🎧</div>
+                <div>
+                    <h2>Дашборд ОКК (Отдел Контроля Качества)</h2>
+                    <p class="section-desc">Мониторинг звонков, аудит CRM, контроль закрытых, качество работы</p>
+                </div>
+            </div>
+
+            <!-- Метрики ОКК -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value cyan">28</div>
+                    <div class="metric-label">Звонков прослушано</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value green">156</div>
+                    <div class="metric-label">Закрытых проверено</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value yellow">23</div>
+                    <div class="metric-label">Слитых выявлено</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value green">12</div>
+                    <div class="metric-label">Реанимировано</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value purple">7.2</div>
+                    <div class="metric-label">Средний балл звонков</div>
+                </div>
+            </div>
+
+            <!-- Рейтинг качества звонков -->
+            <div class="card">
+                <div class="card-title">📊 Рейтинг качества звонков (за неделю)</div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Менеджер</th>
+                                <th>Звонков проверено</th>
+                                <th>Средний балл</th>
+                                <th>Нарушений</th>
+                                <th>Статус</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Иванов</td>
+                                <td>8</td>
+                                <td><strong style="color: var(--accent-green);">8.7</strong></td>
+                                <td>0</td>
+                                <td><span class="status green">Отлично</span></td>
+                            </tr>
+                            <tr>
+                                <td>Сидоров</td>
+                                <td>7</td>
+                                <td><strong style="color: var(--accent-green);">8.1</strong></td>
+                                <td>1</td>
+                                <td><span class="status green">Хорошо</span></td>
+                            </tr>
+                            <tr>
+                                <td>Петров</td>
+                                <td>9</td>
+                                <td><strong style="color: var(--accent-yellow);">6.3</strong></td>
+                                <td>4</td>
+                                <td><span class="status yellow">Требует обучения</span></td>
+                            </tr>
+                            <tr>
+                                <td>Козлов</td>
+                                <td>6</td>
+                                <td><strong style="color: var(--accent-red);">4.8</strong></td>
+                                <td>7</td>
+                                <td><span class="status red">Критично</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Аудит закрытых -->
+            <div class="card">
+                <div class="card-title">🚫 Аудит закрытых сделок (сегодня)</div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Сделка</th>
+                                <th>Сумма</th>
+                                <th>Менеджер</th>
+                                <th>Касаний</th>
+                                <th>Время в воронке</th>
+                                <th>Вердикт ОКК</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>ООО "Крипто"</td>
+                                <td><strong>850К₽</strong></td>
+                                <td>Козлов</td>
+                                <td><span class="status red">2</span></td>
+                                <td>4 дня</td>
+                                <td><span class="status red">🚩 СЛИТО</span></td>
+                            </tr>
+                            <tr>
+                                <td>ИП Смирнов</td>
+                                <td><strong>1.2М₽</strong></td>
+                                <td>Петров</td>
+                                <td><span class="status yellow">3</span></td>
+                                <td>2 дня</td>
+                                <td><span class="status yellow">⚠️ Подозрительно</span></td>
+                            </tr>
+                            <tr>
+                                <td>АО "МайнПром"</td>
+                                <td><strong>2.5М₽</strong></td>
+                                <td>Козлов</td>
+                                <td><span class="status red">1</span></td>
+                                <td>1 день</td>
+                                <td><span class="status red">🚩 СЛИТО</span></td>
+                            </tr>
+                            <tr>
+                                <td>ООО "ДатаЦентр"</td>
+                                <td><strong>4.1М₽</strong></td>
+                                <td>Сидоров</td>
+                                <td><span class="status green">7</span></td>
+                                <td>23 дня</td>
+                                <td><span class="status green">✅ OK</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Статистика по нарушениям -->
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">📋 Типы нарушений (за месяц)</div>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Нарушение</th>
+                                    <th>Кол-во</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Закрыто без звонка</td>
+                                    <td><strong style="color: var(--accent-red);">47</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>< 3 касаний</td>
+                                    <td><strong style="color: var(--accent-red);">38</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Нет комментария</td>
+                                    <td><strong style="color: var(--accent-yellow);">25</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Хамство клиенту</td>
+                                    <td><strong style="color: var(--accent-red);">3</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Неверная информация</td>
+                                    <td><strong style="color: var(--accent-yellow);">12</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">📈 Эффективность ОКК</div>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Метрика</th>
+                                    <th>Значение</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Реанимировано лидов</td>
+                                    <td><strong style="color: var(--accent-green);">12</strong> (10%)</td>
+                                </tr>
+                                <tr>
+                                    <td>Возвращено в работу</td>
+                                    <td><strong style="color: var(--accent-green);">8.2М₽</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Улучшение качества</td>
+                                    <td><strong style="color: var(--accent-green);">+20%</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Средний балл (отдел)</td>
+                                    <td><strong style="color: var(--accent-cyan);">7.2</strong> / 10</td>
+                                </tr>
+                                <tr>
+                                    <td>Покрытие проверкой</td>
+                                    <td><strong style="color: var(--accent-green);">100%</strong> закрытых</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Рейтинг нарушителей -->
+            <div class="card">
+                <div class="card-title">🚩 Топ нарушителей (за месяц)</div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Менеджер</th>
+                                <th>Слитых</th>
+                                <th>Нарушений CRM</th>
+                                <th>Низкое качество</th>
+                                <th>Всего нарушений</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Козлов</td>
+                                <td><span class="status red">12</span></td>
+                                <td>8</td>
+                                <td>7</td>
+                                <td><strong style="color: var(--accent-red);">27</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Петров</td>
+                                <td><span class="status orange">7</span></td>
+                                <td>5</td>
+                                <td>4</td>
+                                <td><strong style="color: var(--accent-orange);">16</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Сидоров</td>
+                                <td><span class="status yellow">3</span></td>
+                                <td>2</td>
+                                <td>1</td>
+                                <td><strong style="color: var(--accent-yellow);">6</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Иванов</td>
+                                <td><span class="status green">1</span></td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td><strong style="color: var(--accent-green);">1</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Telegram отчёт ОКК -->
+            <div class="card">
+                <div class="card-title">🤖 Telegram-отчёт ОКК (17:00)</div>
+                <div class="code-block">📊 <span class="hl">ОКК — ОТЧЁТ</span> | 15.01.2026
+
+🎧 <span class="hl">ЗВОНКИ:</span>
+├ Прослушано: <span class="hl">28</span> звонков
+├ Средний балл: <span class="hl">7.2</span> / 10
+└ Критичных нарушений: <span class="err">3</span>
+
+🚫 <span class="hl">ЗАКРЫТЫЕ СДЕЛКИ:</span>
+├ Проверено: <span class="hl">12</span> сделок
+├ Слитых выявлено: <span class="err">3</span> на <span class="err">4.5М₽</span>
+└ Передано на реанимацию: <span class="hl">2</span>
+
+📋 <span class="hl">CRM:</span>
+├ Карточек проверено: <span class="hl">45</span>
+├ Нарушений заполнения: <span class="warn">8</span>
+└ SLA нарушено: <span class="err">5</span> лидов
+
+⚠️ <span class="err">ТРЕБУЮТ ВНИМАНИЯ:</span>
+├ Козлов — 3 слитых за день
+└ Петров — низкое качество звонков (6.3)
+
+🎯 <span class="hl">РЕКОМЕНДАЦИИ:</span>
+└ Козлов — разбор с РОПом
+└ Петров — тренинг по скриптам</div>
             </div>
         </section>
 
